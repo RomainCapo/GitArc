@@ -34,6 +34,7 @@ Comme objectif suplémentaire, l'utilisateur pourra sélectionner une de ses mus
     2. Générées aléatoirement
     3. Générées selon une analyse d'une musique choisie par l'utilisateur
 * [ ] Le score
+    * [ ] Si c'est le meilleur score le sauver de manière persistante 
 * [ ] Animation (les notes qui explosent)
 * [ ] Menu pause
 
