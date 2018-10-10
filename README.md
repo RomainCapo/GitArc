@@ -21,7 +21,7 @@ Une variante de Guitar Hero avec vos musiques favorites.
 * [ ] Background qui change entre les parties
 * [ ] Bande des notes (partition)
 * [ ] Les notes
-    1. Dessinnées selon une partition connue à l'avance
+    1. Dessinées selon une partition connue à l'avance
     2. Générées aléatoirement
     3. Générées selon une analyse d'une musique choisie par l'utilisateur
 * [ ] Le score
