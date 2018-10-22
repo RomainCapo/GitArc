@@ -1,6 +1,6 @@
-# GitArc
+# GitArc :guitar:
 
-Un projet qui va énerver vos voisins !
+Un projet qui va énerver vos voisins ! :boom:
 
 Une variante de Guitar Hero avec vos musiques favorites.
 
