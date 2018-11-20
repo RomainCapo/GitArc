@@ -1,3 +1,9 @@
+/**
+* File containing constants such as fonts and dimensions regularly used
+*
+* @author	Capocasale Romain, Freiburghaus Jonas, Moulin Vincent
+*/
+
 #ifndef CONSTANTS_H
 #define CONSTANTS_H
 

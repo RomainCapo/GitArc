@@ -1,3 +1,9 @@
+/**
+* This class is a graphic view which contains all the game's grapical item.
+*
+* @author	Capocasale Romain, Freiburghaus Jonas, Moulin Vincent
+*/
+
 #ifndef GAVIEWGAME_H
 #define GAVIEWGAME_H
 

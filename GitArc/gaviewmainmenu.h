@@ -1,3 +1,9 @@
+/**
+* This class is a widget implemented as the game's menu
+*
+* @author	Capocasale Romain, Freiburghaus Jonas, Moulin Vincent
+*/
+
 #ifndef GAVIEWMAINMENU_H
 #define GAVIEWMAINMENU_H
 
