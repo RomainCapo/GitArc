@@ -36,7 +36,8 @@ HEADERS += \
     gaviewgame.h \
     ganotes.h \
     gaverticalnotes.h \
-    gahorizontalnotesbar.h
+    gahorizontalnotesbar.h \
+    constants.h
 
 RESOURCES += \
-    imagemenu.qrc
+    rsc.qrc

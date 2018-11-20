@@ -1,12 +1,12 @@
 #ifndef GAVIEWMAINMENU_H
 #define GAVIEWMAINMENU_H
 
+#include <QApplication>
 #include <QWidget>
-#include <QStackedLayout>
-#include "gaviewgame.h"
 
 class QPushButton;
 class QLabel;
+class QStackedLayout;
 
 class GAViewMainMenu : public QWidget
 {
@@ -19,14 +19,6 @@ public:
 
 public slots:
     void playGame();
-
-private :
-    QLabel *labImg;
-    QPushButton * btnPlay;
-    QPushButton * btnOption;
-    QPushButton * btnQuit;
-    QVBoxLayout * vboxLayout;
-    QLabel * labInfo;
 
 };
 

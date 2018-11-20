@@ -1,5 +1,0 @@
-<RCC>
-    <qresource prefix="/imageMenu">
-        <file>guitare.png</file>
-    </qresource>
-</RCC>
