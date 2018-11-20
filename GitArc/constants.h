@@ -1,12 +1,16 @@
 #ifndef CONSTANTS_H
 #define CONSTANTS_H
 
+// FONT
 #define FONT "SansSerif"
 #define FONT_SIZE 14
 
+// BUTTONS DIMENSION
 #define BUTTON_WIDTH 500
 #define BUTTON_HEIGHT 100
 
+// VERTICAL NOTES
 #define NUM_NOTES 5
+#define PEN_WIDTH 3
 
 #endif // CONSTANTS_H

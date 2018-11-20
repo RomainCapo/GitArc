@@ -8,14 +8,14 @@ GAVerticalNotes::GAVerticalNotes(const QRect widgetRect, QGraphicsItem *parent) 
 
 QRectF GAVerticalNotes::boundingRect() const
 {
-    return this->sceneBoundingRect;
+    return this->widgetBoundingRect;
 }
 
 void GAVerticalNotes::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
     QRectF rect = boundingRect();
     float stripWidth = rect.width() / NUM_NOTES;
-    QPen pen(Qt::black, 3);
+    QPen pen(Qt::black, PEN_WIDTH);
     painter->setPen(pen);
 
     for(int i = 0; i < NUM_NOTES; i++){
