@@ -7,4 +7,6 @@ GAViewGame::GAViewGame(QGraphicsView *parent) : QGraphicsView(parent)
     this->setScene(scene);
     btnTest = new QPushButton("test");
     scene->addWidget(btnTest);
+
+    this->show();
 }

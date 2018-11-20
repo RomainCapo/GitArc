@@ -11,7 +11,8 @@ class GAViewGame : public QGraphicsView
 public:
     GAViewGame(QGraphicsView *parent = nullptr);
     QPushButton * btnTest;
-    QGraphicsScene * scene;
+
+    QGraphicsScene *scene;
 };
 
 #endif // GAVIEWGAME_H

@@ -1,29 +1,29 @@
 #ifndef GAVIEWMAINMENU_H
 #define GAVIEWMAINMENU_H
 
-#include <QGraphicsView>
+#include <QWidget>
 #include <QStackedLayout>
 #include "gaviewgame.h"
 
 class QPushButton;
 
-class GAViewMainMenu : public QGraphicsView
+class GAViewMainMenu : public QWidget
 {
     Q_OBJECT
 
 public:
-    GAViewMainMenu(QGraphicsView *parent = 0);
+    GAViewMainMenu(QWidget *parent = 0);
 
     ~GAViewMainMenu();
 
 public slots:
-    void action();
+    void playGame();
 
 private :
     QPushButton * btnPlay;
-    QPushButton * btnQuit;
     QPushButton * btnOption;
-    QGraphicsScene *scene;
+    QPushButton * btnQuit;
+    QVBoxLayout * vboxLayout;
     QStackedLayout *stackView;
 };
 

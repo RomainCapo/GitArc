@@ -1,26 +1,29 @@
 #include "gaviewmainmenu.h"
 #include <QtWidgets>
 
-GAViewMainMenu::GAViewMainMenu(QGraphicsView *parent)
-    : QGraphicsView(parent)
+GAViewMainMenu::GAViewMainMenu(QWidget *parent): QWidget(parent)
 {
-    this->stackView = new QStackedLayout();
+    setWindowTitle("GitArc Menu");
 
-    btnPlay = new QPushButton("Fes");
+    vboxLayout = new QVBoxLayout(this);
 
-    scene = new QGraphicsScene(this);
-    scene->addWidget(btnPlay);
-    this->setScene(scene);
+    btnPlay = new QPushButton("Play GitArc", this);
+    btnOption = new QPushButton("Option", this);
+    btnQuit = new QPushButton("Quit Game", this);
 
-    //this->stackView->addWidget(this);
+    vboxLayout->addWidget(btnPlay);
+    vboxLayout->addWidget(btnOption);
+    vboxLayout->addWidget(btnQuit);
 
-    this->connect(btnPlay, &QPushButton::clicked, this, &GAViewMainMenu::action);
+    this->setLayout(vboxLayout);
+
+    this->connect(btnPlay, &QPushButton::clicked, this, &GAViewMainMenu::playGame);
+    this->connect(btnQuit, &QPushButton::clicked, this, &QApplication::quit);
 }
 
-void GAViewMainMenu::action()
+void GAViewMainMenu::playGame()
 {
-    GAViewGame * game = new GAViewGame();
-    stackView->addWidget(game);
+    GAViewGame *game = new GAViewGame();
 }
 
 GAViewMainMenu::~GAViewMainMenu()
