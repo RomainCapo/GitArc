@@ -6,6 +6,7 @@
 #include "gaviewgame.h"
 
 class QPushButton;
+class QLabel;
 
 class GAViewMainMenu : public QWidget
 {
@@ -20,11 +21,13 @@ public slots:
     void playGame();
 
 private :
+    QLabel *labImg;
     QPushButton * btnPlay;
     QPushButton * btnOption;
     QPushButton * btnQuit;
     QVBoxLayout * vboxLayout;
-    QStackedLayout *stackView;
+    QLabel * labInfo;
+
 };
 
 #endif // GAVIEWMAINMENU_H

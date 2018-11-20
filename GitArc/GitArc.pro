@@ -37,3 +37,6 @@ HEADERS += \
     ganotes.h \
     gaverticalnotes.h \
     gahorizontalnotesbar.h
+
+RESOURCES += \
+    imagemenu.qrc
