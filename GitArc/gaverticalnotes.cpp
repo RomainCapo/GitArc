@@ -2,7 +2,7 @@
 #include "constants.h"
 #include <QPainter>
 
-GAVerticalNotes::GAVerticalNotes(const QRect widgetRect, QGraphicsItem *parent) : QGraphicsItem(parent), sceneBoundingRect(widgetRect)
+GAVerticalNotes::GAVerticalNotes(const QRect widgetRect, QGraphicsItem *parent) : QGraphicsItem(parent), widgetBoundingRect(widgetRect)
 {
 }
 

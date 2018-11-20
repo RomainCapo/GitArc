@@ -16,7 +16,7 @@ public:
                    QWidget *widget);
 
 private:
-    QRectF sceneBoundingRect;
+    QRectF widgetBoundingRect;
 };
 
 #endif // GAVERTICALNOTES_H
