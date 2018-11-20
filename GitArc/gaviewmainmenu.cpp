@@ -16,19 +16,19 @@ GAViewMainMenu::GAViewMainMenu(QWidget *parent): QWidget(parent)
     lbImg->setScaledContents(true);
 
     QPushButton *btnPlay = new QPushButton(tr("&Play GitArc"), this);
-    btnPlay->setFont(QFont("SansSerif", FONT_SIZE));
+    btnPlay->setFont(QFont(FONT, FONT_SIZE));
     btnPlay->setFixedSize(BUTTON_WIDTH, BUTTON_HEIGHT);
 
     QPushButton *btnOption = new QPushButton(tr("&Option"), this);
-    btnOption->setFont(QFont("SansSerif", FONT_SIZE));
+    btnOption->setFont(QFont(FONT, FONT_SIZE));
     btnOption->setFixedSize(BUTTON_WIDTH, BUTTON_HEIGHT);
 
     QPushButton *btnQuit = new QPushButton(tr("&Quit Game"), this);
-    btnQuit->setFont(QFont("SansSerif", FONT_SIZE));
+    btnQuit->setFont(QFont(FONT, FONT_SIZE));
     btnQuit->setFixedSize(BUTTON_WIDTH, BUTTON_HEIGHT);
 
     QLabel *lbInfo = new QLabel(tr("Game designed by : Capocasale Romain, Freiburghaus Jonas and Moulin Vincent"), this);
-    lbInfo->setFont(QFont("SansSerif", FONT_SIZE));
+    lbInfo->setFont(QFont(FONT, FONT_SIZE));
 
     QVBoxLayout *vboxLayout = new QVBoxLayout(this);
     vboxLayout->addWidget(lbImg);
@@ -40,11 +40,11 @@ GAViewMainMenu::GAViewMainMenu(QWidget *parent): QWidget(parent)
     vboxLayout->setSpacing(50);
     this->setLayout(vboxLayout);
 
-    this->connect(btnPlay, &QPushButton::clicked, this, &GAViewMainMenu::playGame);
+    this->connect(btnPlay, &QPushButton::clicked, this, &GAViewMainMenu::onBtnPlayClicked);
     this->connect(btnQuit, &QPushButton::clicked, this, &QApplication::quit);
 }
 
-void GAViewMainMenu::playGame()
+void GAViewMainMenu::onBtnPlayClicked()
 {
     GAViewGame *game = new GAViewGame();
     this->hide();

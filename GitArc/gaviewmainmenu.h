@@ -18,7 +18,7 @@ public:
     ~GAViewMainMenu();
 
 public slots:
-    void playGame();
+    void onBtnPlayClicked();
 
 };
 

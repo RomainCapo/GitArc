@@ -3,10 +3,20 @@
 
 #include <QGraphicsItem>
 
+class QPainter;
+
 class GAVerticalNotes : public QGraphicsItem
 {
 public:
-    explicit GAVerticalNotes(QGraphicsItem *parent = nullptr);
+    explicit GAVerticalNotes(const QRect widgetRect, QGraphicsItem *parent = nullptr);
+
+    QRectF boundingRect() const;
+
+    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
+                   QWidget *widget);
+
+private:
+    QRectF sceneBoundingRect;
 };
 
 #endif // GAVERTICALNOTES_H

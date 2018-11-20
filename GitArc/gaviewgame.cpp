@@ -1,12 +1,15 @@
 #include "gaviewgame.h"
-#include <QtWidgets>
+#include "gaverticalnotes.h"
 
 GAViewGame::GAViewGame(QGraphicsView *parent) : QGraphicsView(parent)
 {
-    scene = new QGraphicsScene(this);
+    this->showFullScreen();
+
+    QGraphicsScene *scene = new QGraphicsScene(this);
     this->setScene(scene);
-    btnTest = new QPushButton("test");
-    scene->addWidget(btnTest);
+
+    GAVerticalNotes *verticalNotes = new GAVerticalNotes(this->rect());
+    scene->addItem(verticalNotes);
 
     this->show();
 }
