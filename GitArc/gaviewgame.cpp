@@ -1,5 +1,6 @@
 #include "gaviewgame.h"
 #include "gaverticalnotes.h"
+#include "gahorizontalnotesbar.h"
 
 GAViewGame::GAViewGame(QGraphicsView *parent) : QGraphicsView(parent)
 {
@@ -10,6 +11,9 @@ GAViewGame::GAViewGame(QGraphicsView *parent) : QGraphicsView(parent)
 
     GAVerticalNotes *verticalNotes = new GAVerticalNotes(this->rect());
     scene->addItem(verticalNotes);
+
+    GAHorizontalNotesBar *horizontalNotes = new GAHorizontalNotesBar(this->rect());
+    scene->addItem(horizontalNotes);
 
     this->show();
 }

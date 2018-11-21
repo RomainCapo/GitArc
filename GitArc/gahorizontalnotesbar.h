@@ -10,10 +10,19 @@
 
 #include <QGraphicsItem>
 
+class QPainter;
+
 class GAHorizontalNotesBar : public QGraphicsItem
 {
 public:
-    GAHorizontalNotesBar(QGraphicsItem *parent = nullptr);
+    GAHorizontalNotesBar(const QRect widgetRect, QGraphicsItem *parent = nullptr);
+
+    QRectF boundingRect() const;
+
+    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
+                   QWidget *widget);
+private:
+    QRectF widgetBoundingRect;
 };
 
 #endif // GAHORIZONTALNOTESBAR_H
