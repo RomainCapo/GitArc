@@ -9,16 +9,21 @@
 #define GAHORIZONTALNOTESBAR_H
 
 #include <QGraphicsItem>
+#include <QGraphicsLayoutItem>
 
 class QPainter;
 
-class GAHorizontalNotesBar : public QGraphicsItem
+class GAHorizontalNotesBar : public QGraphicsItem, public QGraphicsLayoutItem
 {
 public:
     GAHorizontalNotesBar(const QRect widgetRect, QGraphicsItem *parent = nullptr);
 
-    QRectF boundingRect() const;
+    // inherited from QGraphicsLayoutItem
+    void setGeometry(const QRectF &geom) override;
+    QSizeF sizeHint(Qt::SizeHint which, const QSizeF &constraint = QSizeF()) const override;
 
+    // inherited from QGraphicsItem
+    QRectF boundingRect() const;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
                    QWidget *widget);
 private:

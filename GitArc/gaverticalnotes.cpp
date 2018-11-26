@@ -9,8 +9,20 @@
 * @param const QRect widgetRect : Should be the graphic view's rect
 * @param QGraphicsItem* parent : The QGraphicsItem used as parent
 */
-GAVerticalNotes::GAVerticalNotes(const QRect widgetRect, QGraphicsItem *parent) : QGraphicsItem(parent), widgetBoundingRect(widgetRect)
+GAVerticalNotes::GAVerticalNotes(const QRect widgetRect, QGraphicsItem *parent) : QGraphicsItem(parent), QGraphicsLayoutItem(), widgetBoundingRect(widgetRect)
 {
+}
+
+void GAVerticalNotes::setGeometry(const QRectF &geom)
+{
+    prepareGeometryChange();
+    QGraphicsLayoutItem::setGeometry(geom);
+    setPos(geom.topLeft());
+}
+
+QSizeF GAVerticalNotes::sizeHint(Qt::SizeHint which, const QSizeF &constraint) const
+{
+    return constraint;
 }
 
 /**

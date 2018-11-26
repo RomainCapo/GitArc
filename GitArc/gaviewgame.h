@@ -10,6 +10,8 @@
 #include <QGraphicsView>
 
 class GAVerticalNotes;
+class QGraphicsLinearLayout;
+class QGraphicsWidget;
 
 class GAViewGame : public QGraphicsView
 {
