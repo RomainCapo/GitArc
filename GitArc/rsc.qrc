@@ -1,5 +1,6 @@
 <RCC>
     <qresource prefix="/">
         <file>res/img/guitare.png</file>
+        <file>res/img/GitArc.PNG</file>
     </qresource>
 </RCC>

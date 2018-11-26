@@ -9,10 +9,10 @@
 
 // FONT
 #define FONT "SansSerif"
-#define FONT_SIZE 14
+#define FONT_SIZE 12
 
 // BUTTONS DIMENSION
-#define BUTTON_WIDTH 500
+#define BUTTON_WIDTH 700
 #define BUTTON_HEIGHT 100
 
 // VERTICAL NOTES

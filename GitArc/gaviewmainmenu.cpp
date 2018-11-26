@@ -10,9 +10,11 @@ GAViewMainMenu::GAViewMainMenu(QWidget *parent): QWidget(parent)
 {
     this->setWindowTitle(tr("GitArc Menu"));
     this->showFullScreen();
+    this->setStyleSheet("QPushButton {background-color: transparent; border-radius: 25; border: 5 solid black}"
+                        "QPushButton:hover { background-color: white;}");
 
     QLabel *lbImg = new QLabel(this);
-    lbImg->setPixmap(QPixmap(":res/img/guitare.png"));
+    lbImg->setPixmap(QPixmap(":res/img/GitArc.PNG"));
     lbImg->setScaledContents(true);
 
     QPushButton *btnPlay = new QPushButton(tr("&Play GitArc"), this);
