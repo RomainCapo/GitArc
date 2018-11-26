@@ -1,5 +1,5 @@
 #include "gaviewmainmenu.h"
-#include "gaviewgame.h"
+#include "gagame.h"
 #include "constants.h"
 #include <QPushButton>
 #include <QLabel>
@@ -46,7 +46,7 @@ GAViewMainMenu::GAViewMainMenu(QWidget *parent): QWidget(parent)
 
 void GAViewMainMenu::onBtnPlayClicked()
 {
-    GAViewGame *game = new GAViewGame();
+    GAGame *game = new GAGame();
     this->hide();
 }
 

@@ -9,20 +9,8 @@
 * @param const QRect widgetRect : Should be the graphic view's rect
 * @param QGraphicsItem* parent : The QGraphicsItem used as parent
 */
-GAVerticalNotes::GAVerticalNotes(const QRect widgetRect, QGraphicsItem *parent) : QGraphicsItem(parent), QGraphicsLayoutItem(), widgetBoundingRect(widgetRect)
+GAVerticalNotes::GAVerticalNotes(const QRect widgetRect, QGraphicsItem *parent) : QGraphicsItem(parent), widgetBoundingRect(widgetRect)
 {
-}
-
-void GAVerticalNotes::setGeometry(const QRectF &geom)
-{
-    prepareGeometryChange();
-    QGraphicsLayoutItem::setGeometry(geom);
-    setPos(geom.topLeft());
-}
-
-QSizeF GAVerticalNotes::sizeHint(Qt::SizeHint which, const QSizeF &constraint) const
-{
-    return constraint;
 }
 
 /**
@@ -43,12 +31,12 @@ QRectF GAVerticalNotes::boundingRect() const
 */
 void GAVerticalNotes::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
-    QRectF rect = boundingRect();
-    float stripWidth = rect.width() / NUM_NOTES;
+    QRectF frame = this->boundingRect();
+    float stripWidth = frame.width() / NUM_NOTES;
     QPen pen(Qt::black, PEN_WIDTH);
     painter->setPen(pen);
 
     for(int i = 0; i < NUM_NOTES; i++){
-        painter->drawLine(QPoint(stripWidth * i, 0), QPoint(stripWidth * i, rect.height()));
+        painter->drawLine(QPoint(stripWidth * i, 0), QPoint(stripWidth * i, frame.height()));
     }
 }

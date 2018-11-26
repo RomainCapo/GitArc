@@ -6,10 +6,6 @@
 
 GAViewGame::GAViewGame(QGraphicsView *parent) : QGraphicsView(parent)
 {
-    this->showFullScreen();
-    this->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    this->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-
     QGraphicsScene *scene = new QGraphicsScene(this);
     this->setScene(scene);
 
@@ -18,19 +14,6 @@ GAViewGame::GAViewGame(QGraphicsView *parent) : QGraphicsView(parent)
 
     GAHorizontalNotesBar *horizontalNotes = new GAHorizontalNotesBar(this->rect());
     scene->addItem(horizontalNotes);
-
-    QGraphicsLinearLayout *vLayout = new QGraphicsLinearLayout(Qt::Vertical);
-    vLayout->addItem(verticalNotes);
-    vLayout->addItem(horizontalNotes);
-
-    QGraphicsLinearLayout *hLayout = new QGraphicsLinearLayout(Qt::Horizontal);
-    hLayout->addItem(vLayout);
-    hLayout->addItem(vLayout);
-    hLayout->addItem(vLayout);
-
-    QGraphicsWidget* container = new QGraphicsWidget();
-    container->setLayout(hLayout);
-    scene->addItem(container);
 
     this->show();
 }

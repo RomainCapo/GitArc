@@ -29,7 +29,8 @@ SOURCES += \
     gaviewgame.cpp \
     ganotes.cpp \
     gaverticalnotes.cpp \
-    gahorizontalnotesbar.cpp
+    gahorizontalnotesbar.cpp \
+    gagame.cpp
 
 HEADERS += \
         gaviewmainmenu.h \
@@ -37,7 +38,8 @@ HEADERS += \
     ganotes.h \
     gaverticalnotes.h \
     gahorizontalnotesbar.h \
-    constants.h
+    constants.h \
+    gagame.h
 
 RESOURCES += \
     rsc.qrc

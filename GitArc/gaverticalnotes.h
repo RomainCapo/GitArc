@@ -12,14 +12,10 @@
 
 class QPainter;
 
-class GAVerticalNotes : public QGraphicsItem, public QGraphicsLayoutItem
+class GAVerticalNotes : public QGraphicsItem
 {
 public:
     explicit GAVerticalNotes(const QRect widgetRect, QGraphicsItem *parent = nullptr);
-
-    // inherited from QGraphicsLayoutItem
-    void setGeometry(const QRectF &geom) override;
-    QSizeF sizeHint(Qt::SizeHint which, const QSizeF &constraint = QSizeF()) const override;
 
     // inherited from QGraphicsItem
     QRectF boundingRect() const;

@@ -13,19 +13,16 @@
 
 class QPainter;
 
-class GAHorizontalNotesBar : public QGraphicsItem, public QGraphicsLayoutItem
+class GAHorizontalNotesBar : public QGraphicsItem
 {
 public:
     GAHorizontalNotesBar(const QRect widgetRect, QGraphicsItem *parent = nullptr);
-
-    // inherited from QGraphicsLayoutItem
-    void setGeometry(const QRectF &geom) override;
-    QSizeF sizeHint(Qt::SizeHint which, const QSizeF &constraint = QSizeF()) const override;
 
     // inherited from QGraphicsItem
     QRectF boundingRect() const;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
                    QWidget *widget);
+
 private:
     QRectF widgetBoundingRect;
 };

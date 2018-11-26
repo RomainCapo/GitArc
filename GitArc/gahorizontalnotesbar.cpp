@@ -9,20 +9,8 @@
 * @param const QRect widgetRect : Should be the graphic view's rect
 * @param QGraphicsItem* parent : The QGraphicsItem used as parent
 */
-GAHorizontalNotesBar::GAHorizontalNotesBar(const QRect widgetRect, QGraphicsItem *parent) : QGraphicsItem(parent), QGraphicsLayoutItem(), widgetBoundingRect(widgetRect)
+GAHorizontalNotesBar::GAHorizontalNotesBar(const QRect widgetRect, QGraphicsItem *parent) : QGraphicsItem(parent), widgetBoundingRect(widgetRect)
 {
-}
-
-void GAHorizontalNotesBar::setGeometry(const QRectF &geom)
-{
-    prepareGeometryChange();
-    QGraphicsLayoutItem::setGeometry(geom);
-    setPos(geom.topLeft());
-}
-
-QSizeF GAHorizontalNotesBar::sizeHint(Qt::SizeHint which, const QSizeF &constraint) const
-{
-    return constraint;
 }
 
 /**
@@ -43,14 +31,14 @@ QRectF GAHorizontalNotesBar::boundingRect() const
 */
 void GAHorizontalNotesBar::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
-    QRectF rect = boundingRect();
-    float stripWidth = rect.width() / NUM_NOTES;
+    QRectF frame = this->boundingRect();
+    float stripWidth = frame.width() / NUM_NOTES;
     QPen pen(Qt::darkCyan, PEN_WIDTH);
     painter->setPen(pen);
     painter->setBrush(Qt::cyan);
 
     for(int i = 0; i < NUM_NOTES; i++)
     {
-        painter->drawRect(QRectF(stripWidth * i, rect.height() - HEIGHT_NOTES_STRIP, stripWidth, HEIGHT_NOTES_STRIP));
+        painter->drawRect(QRectF(stripWidth * i, frame.height() - HEIGHT_NOTES_STRIP, stripWidth, HEIGHT_NOTES_STRIP));
     }
 }
