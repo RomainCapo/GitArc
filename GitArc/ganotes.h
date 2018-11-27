@@ -8,21 +8,30 @@
 #define GANOTES_H
 
 #include <QGraphicsEllipseItem>
+#include <QGraphicsObject>
+#include <QObject>
 
 class QPainter;
+class QPropertyAnimation;
 
-class GANotes : public QGraphicsEllipseItem
+class GANotes : public QGraphicsObject
 {
-public:
-    GANotes(const QRect widgetRect, QGraphicsEllipseItem *parent = nullptr);
 
-    // inherited from QGraphicsItem
+public:
+    GANotes(const QRect sceneRect, const int idxPosition);
+
+    // inherited from QGraphicsObject
     QRectF boundingRect() const;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
                    QWidget *widget);
 
 private:
-    QRectF widgetBoundingRect;
+    QRectF sceneRect;
+    int idxPosition;
+    QPoint startPosition;
+    QPropertyAnimation *animation;
+
+    void animateDropTranslation();
 
 };
 

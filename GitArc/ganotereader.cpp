@@ -1,28 +1,45 @@
 #include "ganotereader.h"
-#include <QString>
 #include <QFile>
 #include <QList>
 #include <QDebug>
+#include <QTimer>
 
-GANoteReader::GANoteReader()
+GANoteReader::GANoteReader(QString fileName, QObject *parent) : QObject(parent)
 {
+    this->fileName = fileName;
 }
 
-void GANoteReader::readCSVNote(QString fileName)
+void GANoteReader::getNotes()
 {
-    QFile file(fileName);
+    emit nextNotesLine(this->partition[this->noteLineCount++]);
+}
+
+void GANoteReader::readPartition()
+{
+    this->noteLineCount = 0;
+
+    this->readCSVNote();
+
+    this->noteTimer = new QTimer(this);
+    // FIXME : fréquence d'échantillonage pas en magique
+    noteTimer->setInterval(1000);
+    this->connect(noteTimer, &QTimer::timeout, this, &GANoteReader::getNotes);
+    noteTimer->start();
+}
+
+void GANoteReader::readCSVNote()
+{
+    QFile file(this->fileName);
     if (!file.open(QIODevice::ReadOnly))
     {
         qDebug() << file.errorString();
     }
 
-    QList<QByteArray> partition;
+    this->partition.clear();
     while (!file.atEnd())
     {
         // FIXME : Check line is readable
         QByteArray line = file.readLine().trimmed();
-        partition.append(line.split(';').join());
+        this->partition.append(line.split(';').join());
     }
-
-    qDebug() << partition;
 }

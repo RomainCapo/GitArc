@@ -12,6 +12,7 @@
 class GAVerticalNotes;
 class QGraphicsLinearLayout;
 class QGraphicsWidget;
+class QByteArray;
 
 class GAViewGame : public QGraphicsView
 {
@@ -19,6 +20,13 @@ class GAViewGame : public QGraphicsView
 
 public:
     GAViewGame(QSize layoutSize, QGraphicsView *parent = nullptr);
+
+public slots:
+    void drawNoteLine(QByteArray notesLine);
+
+private:
+    QGraphicsScene *scene;
+    QRect mySceneRect;
 };
 
 #endif // GAVIEWGAME_H

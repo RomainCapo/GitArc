@@ -1,15 +1,35 @@
 #ifndef GANOTEREADER_H
 #define GANOTEREADER_H
 
-class QString;
+#include <QList>
+#include <QObject>
+
 class QFile;
 class QDebug;
+class QString;
+class QByteArray;
+class QTimer;
 
-class GANoteReader
+class GANoteReader : public QObject
 {
+    Q_OBJECT
 public:
-    GANoteReader();
-    void readCSVNote(QString filename);
+    explicit GANoteReader(QString filename, QObject *parent = nullptr);
+    void readPartition();
+
+public slots:
+    void getNotes();
+
+signals:
+    void nextNotesLine(QByteArray notesLine);
+
+private:
+    QList<QByteArray> partition;
+    QString fileName;
+    int noteLineCount;
+    QTimer *noteTimer;
+
+    void readCSVNote();
 };
 
 #endif // GANOTEREADER_H
