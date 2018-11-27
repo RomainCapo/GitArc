@@ -9,10 +9,21 @@
 
 #include <QGraphicsEllipseItem>
 
+class QPainter;
+
 class GANotes : public QGraphicsEllipseItem
 {
 public:
-    GANotes(QGraphicsEllipseItem *parent = nullptr);
+    GANotes(const QRect widgetRect, QGraphicsEllipseItem *parent = nullptr);
+
+    // inherited from QGraphicsItem
+    QRectF boundingRect() const;
+    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
+                   QWidget *widget);
+
+private:
+    QRectF widgetBoundingRect;
+
 };
 
 #endif // GANOTES_H

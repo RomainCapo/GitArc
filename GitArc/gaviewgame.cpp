@@ -1,9 +1,9 @@
 #include "gaviewgame.h"
 #include "gaverticalnotes.h"
 #include "gahorizontalnotesbar.h"
-#include <QGraphicsLinearLayout>
+#include "ganotes.h"
+#include "ganotereader.h"
 #include <QGraphicsWidget>
-#include <QDebug>
 
 GAViewGame::GAViewGame(QSize layoutSize, QGraphicsView *parent) : QGraphicsView(parent)
 {
@@ -21,6 +21,12 @@ GAViewGame::GAViewGame(QSize layoutSize, QGraphicsView *parent) : QGraphicsView(
 
     GAHorizontalNotesBar *horizontalNotes = new GAHorizontalNotesBar(mySceneRect);
     scene->addItem(horizontalNotes);
+
+//    GANotes *notes = new GANotes(mySceneRect);
+//    scene->addItem(notes);
+
+    GANoteReader noteReader;
+    noteReader.readCSVNote(":res/partitions/notes.csv");
 
     this->show();
 }
