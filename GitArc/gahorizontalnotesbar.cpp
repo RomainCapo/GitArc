@@ -1,6 +1,7 @@
 #include "gahorizontalnotesbar.h"
 #include "constants.h"
 #include <QPainter>
+#include <QDebug>
 
 /**
 * GAHorizontalNotesBar
@@ -32,6 +33,7 @@ QRectF GAHorizontalNotesBar::boundingRect() const
 void GAHorizontalNotesBar::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
     QRectF frame = this->boundingRect();
+            qDebug() << frame;
     float stripWidth = frame.width() / NUM_NOTES;
     QPen pen(Qt::darkCyan, PEN_WIDTH);
     painter->setPen(pen);
@@ -39,6 +41,7 @@ void GAHorizontalNotesBar::paint(QPainter *painter, const QStyleOptionGraphicsIt
 
     for(int i = 0; i < NUM_NOTES; i++)
     {
-        painter->drawRect(QRectF(stripWidth * i, frame.height() - HEIGHT_NOTES_STRIP, stripWidth, HEIGHT_NOTES_STRIP));
+        //painter->drawRect(QRectF(frame.x() + (stripWidth * i), frame.y() + (frame.height() - HEIGHT_NOTES_STRIP), stripWidth, HEIGHT_NOTES_STRIP));
+        painter->drawRect(QRectF((stripWidth * i),(frame.height() - HEIGHT_NOTES_STRIP), stripWidth, HEIGHT_NOTES_STRIP));
     }
 }

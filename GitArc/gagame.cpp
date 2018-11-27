@@ -2,17 +2,20 @@
 #include "gaviewgame.h"
 #include <QHBoxLayout>
 #include <QLabel>
+#include <QDebug>
 
 GAGame::GAGame(QWidget *parent) : QWidget(parent)
 {
     this->showFullScreen();
 
-    GAViewGame *gameView = new GAViewGame();
+    QSize viewSize(this->width() * 3 / 5, this->height());
+
+    GAViewGame *gameView = new GAViewGame(viewSize);
 
     QLabel *lbScore = new QLabel(this);
     lbScore->setText("Score : 0");
 
-    QLabel *lbTemp = new QLabel(this);
+    lbTemp = new QLabel(this);
     lbTemp->setText("Temporary");
 
     QHBoxLayout *hLayout = new QHBoxLayout(this);
@@ -22,6 +25,9 @@ GAGame::GAGame(QWidget *parent) : QWidget(parent)
     hLayout->setStretch(1, 3);
     hLayout->addWidget(lbScore);
     hLayout->setStretch(2, 1);
+
+    hLayout->setSpacing(0);
+    hLayout->setMargin(0);
     this->setLayout(hLayout);
 
     this->show();

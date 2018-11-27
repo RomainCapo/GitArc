@@ -18,7 +18,7 @@ class GAViewGame : public QGraphicsView
     Q_OBJECT
 
 public:
-    GAViewGame(QGraphicsView *parent = nullptr);
+    GAViewGame(QSize layoutSize, QGraphicsView *parent = nullptr);
 };
 
 #endif // GAVIEWGAME_H

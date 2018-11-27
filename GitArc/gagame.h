@@ -11,6 +11,7 @@ class GAGame : public QWidget
     Q_OBJECT
 public:
     explicit GAGame(QWidget *parent = nullptr);
+    QLabel * lbTemp;
 
 signals:
 
