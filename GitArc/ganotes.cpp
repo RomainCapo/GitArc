@@ -7,9 +7,9 @@
 GANotes::GANotes(const QRect sceneRect, const int idxPosition) : sceneRect(sceneRect)
 {
     this->idxPosition = idxPosition;
-    // FIXME : Repetition
-    QRectF frame = this->boundingRect();
-    float stripWidth = frame.width() / NUM_NOTES;
+    float stripWidth = this->boundingRect().width() / NUM_NOTES;
+    qDebug() << this->idxPosition * stripWidth;
+    // FIXME : 0 var magique ?
     this->startPosition = QPoint(this->idxPosition * stripWidth, 0);
     this->animateDropTranslation();
 }
@@ -24,18 +24,12 @@ void GANotes::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, Q
     QPen pen(Qt::black, PEN_WIDTH);
     painter->setPen(pen);
     painter->setBrush(Qt::red);
-    // FIXME : Pas laisser variable magique et position dynamique.
-    painter->drawEllipse(startPosition, 20, 20);
+    painter->drawEllipse(this->startPosition, NOTE_RADIUS, NOTE_RADIUS);
 }
 
 void GANotes::animateDropTranslation()
 {
-    // FIXME : Repetition
-    QRectF frame = this->boundingRect();
-    float stripWidth = frame.width() / NUM_NOTES;
-    // FIXME : Variable magique;
-    QPoint endPosition = QPoint(this->idxPosition * stripWidth, frame.height() + 20);
-
+    QPoint endPosition = QPoint(this->startPosition.x(), this->boundingRect().height() + NOTE_RADIUS);
     this->animation = new QPropertyAnimation(this, "pos");
     this->animation->setStartValue(this->startPosition);
     // FIXME : Variable magique;

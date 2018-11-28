@@ -36,7 +36,7 @@ void GAViewGame::drawNoteLine(QByteArray notesLine)
 {
     for(int i = 0; i <= NUM_NOTES; i++)
     {
-        if(notesLine[i] != 0){
+        if(notesLine[i] == '1'){
             GANotes *notes = new GANotes(this->mySceneRect, i);
             this->scene->addItem(notes);
         }
