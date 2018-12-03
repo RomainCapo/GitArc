@@ -12,6 +12,7 @@
 */
 GAHorizontalNotesBar::GAHorizontalNotesBar(const QRect widgetRect, QGraphicsItem *parent) : QGraphicsItem(parent), widgetBoundingRect(widgetRect)
 {
+    keyPressed = new QList<int>;
 }
 
 /**
@@ -32,16 +33,46 @@ QRectF GAHorizontalNotesBar::boundingRect() const
 */
 void GAHorizontalNotesBar::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
+    Q_UNUSED(option);
+    Q_UNUSED(widget);
+
     QRectF frame = this->boundingRect();
-            qDebug() << frame;
     float stripWidth = frame.width() / NUM_NOTES;
-    QPen pen(Qt::darkCyan, PEN_WIDTH);
+    QPen pen(Qt::black, PEN_WIDTH);
     painter->setPen(pen);
-    painter->setBrush(Qt::cyan);
 
     for(int i = 0; i < NUM_NOTES; i++)
     {
-        //painter->drawRect(QRectF(frame.x() + (stripWidth * i), frame.y() + (frame.height() - HEIGHT_NOTES_STRIP), stripWidth, HEIGHT_NOTES_STRIP));
-        painter->drawRect(QRectF((stripWidth * i),(frame.height() - HEIGHT_NOTES_STRIP), stripWidth, HEIGHT_NOTES_STRIP));
+        painter->setBrush(Qt::darkGray);
+
+        for(int j = 0; j < keyPressed->length(); j++)
+        {
+            if(i == keyPressed->at(j))
+            {
+                painter->setBrush(Qt::lightGray);
+            }
+        }
+        //qDebug() << stripWidth*i;
+        painter->drawRect(QRectF(stripWidth*i, frame.height() - HEIGHT_NOTES_STRIP, stripWidth, HEIGHT_NOTES_STRIP));
+    }
+}
+
+void GAHorizontalNotesBar::isPressed(int keyPressed)
+{
+    bool isAlready = false;
+
+    for(int j = 0; j < this->keyPressed->length(); j++)
+    {
+        if(keyPressed == this->keyPressed->at(j))
+        {
+            isAlready = true;
+            this->keyPressed->removeAt(j);
+        }
+    }
+
+    if(!isAlready)
+    {
+        this->keyPressed->append(keyPressed);
+        this->update();
     }
 }

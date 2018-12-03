@@ -2,5 +2,6 @@
     <qresource prefix="/">
         <file>res/img/guitare.png</file>
         <file>res/img/GitArc.PNG</file>
+        <file>res/partitions/notes.csv</file>
     </qresource>
 </RCC>

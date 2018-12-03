@@ -37,7 +37,7 @@ void GAVerticalNotes::paint(QPainter *painter, const QStyleOptionGraphicsItem *o
     painter->setPen(pen);
 
     for(int i = 0; i < NUM_NOTES; i++){
-       // painter->drawLine(QPoint(frame.x() + (stripWidth * i), frame.y() + 0), QPoint(frame.x() + (stripWidth * i), frame.y() + frame.height()));
-        painter->drawLine(QPoint((stripWidth * i), 0), QPoint((stripWidth * i),frame.height()));
+        int y = stripWidth * ( i + 1) - 0.5 * stripWidth;
+        painter->drawLine(QPoint(y, 0), QPoint(y, frame.height()));
     }
 }

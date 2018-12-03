@@ -20,11 +20,13 @@ public:
 
     // inherited from QGraphicsItem
     QRectF boundingRect() const override;
-    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
-                   QWidget *widget) override;
+    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
+
+    void isPressed(int);
 
 private:
     QRectF widgetBoundingRect;
+    QList<int> *keyPressed;
 };
 
 #endif // GAHORIZONTALNOTESBAR_H

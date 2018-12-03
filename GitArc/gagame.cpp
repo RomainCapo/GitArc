@@ -2,7 +2,6 @@
 #include "gaviewgame.h"
 #include <QHBoxLayout>
 #include <QLabel>
-#include <QDebug>
 
 GAGame::GAGame(QWidget *parent) : QWidget(parent)
 {
