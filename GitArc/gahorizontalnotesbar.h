@@ -21,8 +21,8 @@ public:
     // inherited from QGraphicsItem
     QRectF boundingRect() const override;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
-
     void isPressed(int);
+    void collision();
 
 private:
     QRectF widgetBoundingRect;

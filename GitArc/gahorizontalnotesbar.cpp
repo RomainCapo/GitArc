@@ -1,5 +1,6 @@
 #include "gahorizontalnotesbar.h"
 #include "constants.h"
+#include "ganotes.h"
 #include <QPainter>
 #include <QDebug>
 
@@ -54,6 +55,7 @@ void GAHorizontalNotesBar::paint(QPainter *painter, const QStyleOptionGraphicsIt
         }
         //qDebug() << stripWidth*i;
         painter->drawRect(QRectF(stripWidth*i, frame.height() - HEIGHT_NOTES_STRIP, stripWidth, HEIGHT_NOTES_STRIP));
+        collision();
     }
 }
 
@@ -74,5 +76,17 @@ void GAHorizontalNotesBar::isPressed(int keyPressed)
     {
         this->keyPressed->append(keyPressed);
         this->update();
+    }
+}
+
+void GAHorizontalNotesBar::collision()
+{
+    QList<QGraphicsItem*> listItemsCollision = collidingItems();
+    for(int i = 0; i < listItemsCollision.size(); i++)
+    {
+        if(typeid(*(listItemsCollision[i])) == typeid(GANotes))
+        {
+            qDebug() << listItemsCollision[i];
+        }
     }
 }
