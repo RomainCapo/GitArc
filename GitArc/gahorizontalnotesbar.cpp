@@ -52,7 +52,7 @@ void GAHorizontalNotesBar::paint(QPainter *painter, const QStyleOptionGraphicsIt
                 painter->setBrush(Qt::lightGray);
             }
         }
-        qDebug() << stripWidth*i;
+        //qDebug() << stripWidth*i;
         painter->drawRect(QRectF(stripWidth*i, frame.height() - HEIGHT_NOTES_STRIP, stripWidth, HEIGHT_NOTES_STRIP));
     }
 }

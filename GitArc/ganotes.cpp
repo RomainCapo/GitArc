@@ -4,39 +4,22 @@
 #include <QPropertyAnimation>
 #include <QDebug>
 
-GANotes::GANotes(const QRect sceneRect, const int idxPosition) : sceneRect(sceneRect)
-{
-    this->idxPosition = idxPosition;
-    float stripWidth = this->boundingRect().width() / NUM_NOTES;
-    float leftStripMargin = 0.25 * stripWidth;
-    float xPos = leftStripMargin + this->idxPosition * stripWidth / 2;
-    qDebug() << xPos;
-    // FIXME : 0 var magique ?
-    this->startPosition = QPoint(xPos, 0);
-    qDebug() << this->startPosition;
-    this->animateDropTranslation();
-}
-
-QRectF GANotes::boundingRect() const
-{
-    return this->sceneRect;
-}
-
-void GANotes::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
+GANotes::GANotes(const QPointF startPosition, const float sceneHeight) : startPosition(startPosition), sceneHeight(sceneHeight)
 {
     QPen pen(Qt::black, PEN_WIDTH);
-    painter->setPen(pen);
-    painter->setBrush(Qt::darkCyan);
-    painter->drawEllipse(this->startPosition, NOTE_RADIUS, NOTE_RADIUS);
+    QGraphicsEllipseItem* note = new QGraphicsEllipseItem(this);
+    note->setRect(startPosition.x(), startPosition.y(), NOTE_RADIUS, NOTE_RADIUS);
+    note->setPen(pen);
+    note->setBrush(Qt::darkCyan);
+    this->animateDropTranslation();
 }
 
 void GANotes::animateDropTranslation()
 {
-    QPoint endPosition = QPoint(this->startPosition.x(), this->boundingRect().height() + NOTE_RADIUS);
+    QPoint endPosition = QPoint(this->startPosition.x(), this->sceneHeight + NOTE_RADIUS);
     this->animation = new QPropertyAnimation(this, "pos");
     this->animation->setStartValue(this->startPosition);
-    // FIXME : Variable magique;
-    this->animation->setDuration(10000);
+    this->animation->setDuration(ANIMATION_DURATION);
     this->animation->setEndValue(endPosition);
-    this->animation->start(QPropertyAnimation::DeleteWhenStopped);
+    this->animation->start();
 }
