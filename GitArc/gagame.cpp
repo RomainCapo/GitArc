@@ -8,8 +8,7 @@ GAGame::GAGame(QWidget *parent) : QWidget(parent)
 {
     this->showFullScreen();
 
-    QSize viewSize(this->width() * 3 / 5, this->height());
-
+    QSize viewSize(this->width() * 3 / 5, this->height());//Part of the layout occupied by the view
     GAViewGame *gameView = new GAViewGame(viewSize);
 
     QLabel *lbScore = new QLabel(this);

@@ -18,9 +18,9 @@ public:
     explicit GAVerticalNotes(const QRect widgetRect, QGraphicsItem *parent = nullptr);
 
     // inherited from QGraphicsItem
-    QRectF boundingRect() const;
+    QRectF boundingRect() const override;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
-                   QWidget *widget);
+                   QWidget *widget) override;
 
 private:
     QRectF widgetBoundingRect;
