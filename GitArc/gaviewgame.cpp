@@ -34,10 +34,13 @@ GAViewGame::GAViewGame(QSize layoutSize, QGraphicsView *parent) : QGraphicsView(
 
 void GAViewGame::drawNoteLine(QByteArray notesLine)
 {
+    float stripWidth = this->sceneRect().width() / NUM_NOTES;
+    float leftStripMargin = LEFTMARGIN_PERCENTAGE * stripWidth;
     for(int i = 0; i <= NUM_NOTES; i++)
     {
         if(notesLine[i] == '1'){
-            GANotes *notes = new GANotes(this->mySceneRect, i);
+            float xPos = leftStripMargin + i * stripWidth / 2;
+            GANotes *notes = new GANotes(QPointF(xPos - NOTE_RADIUS / 4, 0), this->sceneRect().height());
             this->scene->addItem(notes);
         }
     }
