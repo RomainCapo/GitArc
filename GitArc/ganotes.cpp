@@ -8,9 +8,12 @@ GANotes::GANotes(const QRect sceneRect, const int idxPosition) : sceneRect(scene
 {
     this->idxPosition = idxPosition;
     float stripWidth = this->boundingRect().width() / NUM_NOTES;
-    qDebug() << this->idxPosition * stripWidth;
+    float leftStripMargin = 0.25 * stripWidth;
+    float xPos = leftStripMargin + this->idxPosition * stripWidth / 2;
+    qDebug() << xPos;
     // FIXME : 0 var magique ?
-    this->startPosition = QPoint(this->idxPosition * stripWidth, 0);
+    this->startPosition = QPoint(xPos, 0);
+    qDebug() << this->startPosition;
     this->animateDropTranslation();
 }
 
@@ -25,7 +28,6 @@ void GANotes::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, Q
     painter->setPen(pen);
     painter->setBrush(Qt::red);
     painter->drawEllipse(this->startPosition, NOTE_RADIUS, NOTE_RADIUS);
-    painter->drawRect(0,0,boundingRect().width(), boundingRect().height());
 }
 
 void GANotes::animateDropTranslation()
