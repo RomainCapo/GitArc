@@ -25,6 +25,7 @@ void GANotes::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, Q
     painter->setPen(pen);
     painter->setBrush(Qt::red);
     painter->drawEllipse(this->startPosition, NOTE_RADIUS, NOTE_RADIUS);
+    painter->drawRect(0,0,boundingRect().width(), boundingRect().height());
 }
 
 void GANotes::animateDropTranslation()
