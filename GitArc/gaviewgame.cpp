@@ -7,6 +7,7 @@
 #include <QGraphicsWidget>
 #include <QDebug>
 #include <QByteArray>
+#include <QMessageBox>
 
 GAViewGame::GAViewGame(QSize layoutSize, QGraphicsView *parent) : QGraphicsView(parent)
 {
@@ -19,10 +20,10 @@ GAViewGame::GAViewGame(QSize layoutSize, QGraphicsView *parent) : QGraphicsView(
 
     this->mySceneRect = QRect(sceneRect().x(), sceneRect().y(), sceneRect().width(), sceneRect().height());
 
-    GAVerticalNotes *verticalNotes = new GAVerticalNotes(this->mySceneRect);
+    verticalNotes = new GAVerticalNotes(this->mySceneRect);
     this->scene->addItem(verticalNotes);
 
-    GAHorizontalNotesBar *horizontalNotes = new GAHorizontalNotesBar(this->mySceneRect);
+    horizontalNotes = new GAHorizontalNotesBar(this->mySceneRect);
     this->scene->addItem(horizontalNotes);
 
     GANoteReader *noteReader = new GANoteReader(":res/partitions/notes.csv");
@@ -30,6 +31,29 @@ GAViewGame::GAViewGame(QSize layoutSize, QGraphicsView *parent) : QGraphicsView(
     noteReader->readPartition();
 
     this->show();
+}
+
+void GAViewGame::keyPressEvent(QKeyEvent *event)
+{
+    if(event->key() == Qt::Key_A)
+    {
+        horizontalNotes->isPressed(0);
+    }
+
+    if(event->key() == Qt::Key_S)
+    {
+        horizontalNotes->isPressed(1);
+    }
+
+    if(event->key() == Qt::Key_D)
+    {
+        horizontalNotes->isPressed(2);
+    }
+
+    if(event->key() == Qt::Key_F)
+    {
+        horizontalNotes->isPressed(3);
+    }
 }
 
 void GAViewGame::drawNoteLine(QByteArray notesLine)

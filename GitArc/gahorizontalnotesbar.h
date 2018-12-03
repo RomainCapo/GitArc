@@ -22,9 +22,11 @@ public:
     QRectF boundingRect() const;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
                    QWidget *widget);
+    void isPressed(int);
 
 private:
     QRectF widgetBoundingRect;
+    QList<int> *keyPressed;
 };
 
 #endif // GAHORIZONTALNOTESBAR_H

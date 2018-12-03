@@ -26,7 +26,7 @@ void GANotes::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, Q
 {
     QPen pen(Qt::black, PEN_WIDTH);
     painter->setPen(pen);
-    painter->setBrush(Qt::red);
+    painter->setBrush(Qt::darkCyan);
     painter->drawEllipse(this->startPosition, NOTE_RADIUS, NOTE_RADIUS);
 }
 
