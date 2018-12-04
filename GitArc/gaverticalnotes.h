@@ -15,15 +15,14 @@ class QPainter;
 class GAVerticalNotes : public QGraphicsItem
 {
 public:
-    explicit GAVerticalNotes(const QRect widgetRect, QGraphicsItem *parent = nullptr);
+    explicit GAVerticalNotes(const QRectF widgetRect, QGraphicsItem *parent = nullptr);
 
     // inherited from QGraphicsItem
     QRectF boundingRect() const override;
-    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
-                   QWidget *widget) override;
+    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
 
 private:
-    QRectF widgetBoundingRect;
+    QRectF itemBoundingRect;
 };
 
 #endif // GAVERTICALNOTES_H

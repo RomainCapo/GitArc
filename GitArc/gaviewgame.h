@@ -28,7 +28,6 @@ public slots:
 
 private:
     QGraphicsScene *scene;
-    QRect mySceneRect;
     GAVerticalNotes *verticalNotes;
     GAHorizontalNotesBar *horizontalNotes;
 };

@@ -19,13 +19,10 @@ GAViewGame::GAViewGame(QSize layoutSize, QGraphicsView *parent) : QGraphicsView(
     this->setHorizontalScrollBarPolicy( Qt::ScrollBarAlwaysOff );
     this->setVerticalScrollBarPolicy( Qt::ScrollBarAlwaysOff );
 
-
-    this->mySceneRect = QRect(sceneRect().x(), sceneRect().y(), sceneRect().width(), sceneRect().height());
-
-    verticalNotes = new GAVerticalNotes(this->mySceneRect);
+    verticalNotes = new GAVerticalNotes(this->sceneRect());
     this->scene->addItem(verticalNotes);
 
-    horizontalNotes = new GAHorizontalNotesBar(this->mySceneRect);
+    horizontalNotes = new GAHorizontalNotesBar(this->sceneRect());
     this->scene->addItem(horizontalNotes);
 
     GANoteReader *noteReader = new GANoteReader(":res/partitions/notes.csv");

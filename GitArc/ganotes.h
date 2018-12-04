@@ -19,13 +19,18 @@ class GANotes : public QGraphicsWidget
 
 public:
     GANotes(const QPointF sceneRect, const float sceneHeight);
+    QRectF boundingRect() const override;
+    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
 
 private:
     QPointF startPosition;
     float sceneHeight;
     QPropertyAnimation *animation;
+    QRectF * itemBoundingRect;
 
     void animateDropTranslation();
+
+public:
 
 };
 

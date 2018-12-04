@@ -3,6 +3,7 @@
 #include "ganotes.h"
 #include <QPainter>
 #include <QDebug>
+#include <QMessageBox>
 
 /**
 * GAHorizontalNotesBar
@@ -11,8 +12,9 @@
 * @param const QRect widgetRect : Should be the graphic view's rect
 * @param QGraphicsItem* parent : The QGraphicsItem used as parent
 */
-GAHorizontalNotesBar::GAHorizontalNotesBar(const QRect widgetRect, QGraphicsItem *parent) : QGraphicsItem(parent), widgetBoundingRect(widgetRect)
+GAHorizontalNotesBar::GAHorizontalNotesBar(const QRectF widgetRect, QGraphicsItem *parent) : QGraphicsItem(parent)
 {
+    viewRect = widgetRect;
     keyPressed = new QList<int>;
 }
 
@@ -24,7 +26,7 @@ GAHorizontalNotesBar::GAHorizontalNotesBar(const QRect widgetRect, QGraphicsItem
 */
 QRectF GAHorizontalNotesBar::boundingRect() const
 {
-    return this->widgetBoundingRect;
+    return this->itemBoundingRect;
 }
 
 /**
@@ -33,11 +35,11 @@ QRectF GAHorizontalNotesBar::boundingRect() const
 * This function paints the basic graphic items composing this customized graphic item.
 */
 void GAHorizontalNotesBar::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
-{
+{   
     Q_UNUSED(option);
     Q_UNUSED(widget);
 
-    QRectF frame = this->boundingRect();
+    QRectF frame = this->viewRect;
     float stripWidth = frame.width() / NUM_NOTES;
     QPen pen(Qt::black, PEN_WIDTH);
     painter->setPen(pen);
@@ -57,6 +59,7 @@ void GAHorizontalNotesBar::paint(QPainter *painter, const QStyleOptionGraphicsIt
         painter->drawRect(QRectF(stripWidth*i, frame.height() - HEIGHT_NOTES_STRIP, stripWidth, HEIGHT_NOTES_STRIP));
         collision();
     }
+    itemBoundingRect = QRectF(0, frame.height() - HEIGHT_NOTES_STRIP, stripWidth * 4, HEIGHT_NOTES_STRIP);
 }
 
 void GAHorizontalNotesBar::isPressed(int keyPressed)
@@ -81,12 +84,12 @@ void GAHorizontalNotesBar::isPressed(int keyPressed)
 
 void GAHorizontalNotesBar::collision()
 {
-    QList<QGraphicsItem*> listItemsCollision = collidingItems();
+    QList<QGraphicsItem*> listItemsCollision = collidingItems(Qt::IntersectsItemBoundingRect);
     for(int i = 0; i < listItemsCollision.size(); i++)
     {
-        if(typeid(*(listItemsCollision[i])) == typeid(GANotes))
+        if(listItemsCollision[i]->type() == 4)
         {
-            qDebug() << listItemsCollision[i];
+            qDebug() << listItemsCollision[i]->pos();
         }
     }
 }

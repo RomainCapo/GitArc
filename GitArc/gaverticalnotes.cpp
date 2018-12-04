@@ -9,8 +9,9 @@
 * @param const QRect widgetRect : Should be the graphic view's rect
 * @param QGraphicsItem* parent : The QGraphicsItem used as parent
 */
-GAVerticalNotes::GAVerticalNotes(const QRect widgetRect, QGraphicsItem *parent) : QGraphicsItem(parent), widgetBoundingRect(widgetRect)
+GAVerticalNotes::GAVerticalNotes(const QRectF widgetRect, QGraphicsItem *parent) : QGraphicsItem(parent)
 {
+    itemBoundingRect = widgetRect;
 }
 
 /**
@@ -21,7 +22,7 @@ GAVerticalNotes::GAVerticalNotes(const QRect widgetRect, QGraphicsItem *parent) 
 */
 QRectF GAVerticalNotes::boundingRect() const
 {
-    return this->widgetBoundingRect;
+    return this->itemBoundingRect;
 }
 
 /**
@@ -31,7 +32,7 @@ QRectF GAVerticalNotes::boundingRect() const
 */
 void GAVerticalNotes::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
-    QRectF frame = this->boundingRect();
+    QRectF frame = this->itemBoundingRect;
     float stripWidth = frame.width() / NUM_NOTES;
     QPen pen(Qt::black, PEN_WIDTH);
     painter->setPen(pen);

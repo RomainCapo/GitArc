@@ -11,7 +11,22 @@ GANotes::GANotes(const QPointF startPosition, const float sceneHeight) : startPo
     note->setRect(startPosition.x(), startPosition.y(), NOTE_RADIUS, NOTE_RADIUS);
     note->setPen(pen);
     note->setBrush(Qt::darkCyan);
+
+    itemBoundingRect = new QRectF();
+
     this->animateDropTranslation();
+}
+
+QRectF GANotes::boundingRect() const
+{
+    itemBoundingRect->setRect(this->x(), this->y(), NOTE_RADIUS, NOTE_RADIUS);
+    return *itemBoundingRect;
+}
+
+void GANotes::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
+{
+    //painter->setBrush(Qt::blue);
+    //painter->drawRect(boundingRect());
 }
 
 void GANotes::animateDropTranslation()
@@ -22,4 +37,6 @@ void GANotes::animateDropTranslation()
     this->animation->setDuration(ANIMATION_DURATION);
     this->animation->setEndValue(endPosition);
     this->animation->start();
+    this->connect(this->animation, SIGNAL(finished()), this, SLOT(deleteLater()));
 }
+

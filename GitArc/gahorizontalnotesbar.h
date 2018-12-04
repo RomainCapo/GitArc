@@ -16,7 +16,7 @@ class QPainter;
 class GAHorizontalNotesBar : public QGraphicsItem
 {
 public:
-    GAHorizontalNotesBar(const QRect widgetRect, QGraphicsItem *parent = nullptr);
+    GAHorizontalNotesBar(const QRectF widgetRect, QGraphicsItem *parent = nullptr);
 
     // inherited from QGraphicsItem
     QRectF boundingRect() const override;
@@ -25,7 +25,8 @@ public:
     void collision();
 
 private:
-    QRectF widgetBoundingRect;
+    QRectF itemBoundingRect;
+    QRectF viewRect;
     QList<int> *keyPressed;
 };
 
