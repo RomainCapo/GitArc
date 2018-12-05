@@ -29,7 +29,15 @@ GAViewGame::GAViewGame(QSize layoutSize, QGraphicsView *parent) : QGraphicsView(
     this->connect(noteReader, &GANoteReader::nextNotesLine, this, &GAViewGame::drawNoteLine);
     noteReader->readPartition();
 
+    //show boundingRect of all items on the scene
+    /*QList<QGraphicsItem*> list = scene->items();
 
+    for(int i = 0; i < list.size(); i++)
+    {
+        QGraphicsRectItem *rect = new QGraphicsRectItem(list[i]->boundingRect());
+        rect->setBrush(Qt::red);
+        scene->addItem(rect);
+    }*/
     this->show();
 }
 

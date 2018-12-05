@@ -16,6 +16,8 @@ GAHorizontalNotesBar::GAHorizontalNotesBar(const QRectF widgetRect, QGraphicsIte
 {
     viewRect = widgetRect;
     keyPressed = new QList<int>;
+
+    itemBoundingRect.setRect(0, widgetRect.height() - HEIGHT_NOTES_STRIP, widgetRect.width(), HEIGHT_NOTES_STRIP);
 }
 
 /**
@@ -46,20 +48,17 @@ void GAHorizontalNotesBar::paint(QPainter *painter, const QStyleOptionGraphicsIt
 
     for(int i = 0; i < NUM_NOTES; i++)
     {
-        painter->setBrush(Qt::darkGray);
+        //painter->setBrush(Qt::darkGray);
 
         for(int j = 0; j < keyPressed->length(); j++)
         {
             if(i == keyPressed->at(j))
             {
-                painter->setBrush(Qt::lightGray);
+                //painter->setBrush(Qt::lightGray);
             }
         }
-        //qDebug() << stripWidth*i;
         painter->drawRect(QRectF(stripWidth*i, frame.height() - HEIGHT_NOTES_STRIP, stripWidth, HEIGHT_NOTES_STRIP));
-        collision();
     }
-    itemBoundingRect = QRectF(0, frame.height() - HEIGHT_NOTES_STRIP, stripWidth * 4, HEIGHT_NOTES_STRIP);
 }
 
 void GAHorizontalNotesBar::isPressed(int keyPressed)
@@ -79,17 +78,5 @@ void GAHorizontalNotesBar::isPressed(int keyPressed)
     {
         this->keyPressed->append(keyPressed);
         this->update();
-    }
-}
-
-void GAHorizontalNotesBar::collision()
-{
-    QList<QGraphicsItem*> listItemsCollision = collidingItems(Qt::IntersectsItemBoundingRect);
-    for(int i = 0; i < listItemsCollision.size(); i++)
-    {
-        if(listItemsCollision[i]->type() == 4)
-        {
-            qDebug() << listItemsCollision[i]->pos();
-        }
     }
 }

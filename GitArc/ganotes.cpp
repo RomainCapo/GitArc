@@ -1,4 +1,5 @@
 #include "ganotes.h"
+#include "gahorizontalnotesbar.h"
 #include "constants.h"
 #include <QPainter>
 #include <QPropertyAnimation>
@@ -9,8 +10,8 @@ GANotes::GANotes(const QPointF startPosition, const float sceneHeight) : startPo
     QPen pen(Qt::black, PEN_WIDTH);
     QGraphicsEllipseItem* note = new QGraphicsEllipseItem(this);
     note->setRect(startPosition.x(), startPosition.y(), NOTE_RADIUS, NOTE_RADIUS);
-    note->setPen(pen);
-    note->setBrush(Qt::darkCyan);
+    //note->setPen(pen);
+    //note->setBrush(Qt::darkCyan);
 
     itemBoundingRect = new QRectF();
 
@@ -25,8 +26,17 @@ QRectF GANotes::boundingRect() const
 
 void GANotes::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
-    //painter->setBrush(Qt::blue);
-    //painter->drawRect(boundingRect());
+    painter->setBrush(Qt::blue);
+    painter->drawEllipse(boundingRect());
+    QList<QGraphicsItem*> listItemsCollision = collidingItems(Qt::IntersectsItemBoundingRect);
+    for(int i = 0; i < listItemsCollision.size(); i++)
+    {
+        if(typeid(*(listItemsCollision[i])) == typeid(GAHorizontalNotesBar))
+        {
+            painter->drawEllipse(listItemsCollision[i]->pos(), 7,7);
+
+        }
+    }
 }
 
 void GANotes::animateDropTranslation()
