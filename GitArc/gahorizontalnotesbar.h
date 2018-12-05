@@ -19,17 +19,12 @@ public:
     void isPressed(int);
     void isReleased(int);
 
-protected:
-    QRectF boundingRect() const;
-
 public slots:
     void checkNoteCollision();
 
 private:
     QList<QGraphicsRectItem*> noteBurner;
     QTimer *timerCollision;
-    float sceneWidth;
-    float sceneHeight;
 };
 
 #endif // GAHORIZONTALNOTESBAR_H

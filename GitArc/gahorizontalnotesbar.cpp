@@ -10,7 +10,7 @@
 * @param const QRect widgetRect : Should be the graphic view's rect
 * @param QGraphicsItem* parent : The QGraphicsItem used as parent
 */
-GAHorizontalNotesBar::GAHorizontalNotesBar(const float sceneWidth, const float sceneHeight) : sceneWidth(sceneWidth), sceneHeight(sceneHeight)
+GAHorizontalNotesBar::GAHorizontalNotesBar(const float sceneWidth, const float sceneHeight)
 {
     float stripWidth = sceneWidth / NUM_NOTES;
     QPen pen(Qt::black, PEN_WIDTH);
@@ -41,12 +41,6 @@ void GAHorizontalNotesBar::isReleased(int keyPressed)
 {
     static QBrush brushDisactivated(Qt::darkGray);
     this->noteBurner.at(keyPressed)->setBrush(brushDisactivated);
-}
-
-// TODO : A supprimer
-QRectF GAHorizontalNotesBar::boundingRect() const
-{
-    return QRectF(0, sceneHeight - HEIGHT_NOTES_STRIP, this->sceneWidth, HEIGHT_NOTES_STRIP);
 }
 
 void GAHorizontalNotesBar::checkNoteCollision()
