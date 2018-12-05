@@ -2,6 +2,7 @@
 #include "gaviewgame.h"
 #include <QHBoxLayout>
 #include <QLabel>
+#include <QPushButton>
 
 GAGame::GAGame(QWidget *parent) : QWidget(parent)
 {
@@ -9,6 +10,10 @@ GAGame::GAGame(QWidget *parent) : QWidget(parent)
 
     QSize viewSize(this->width() * 3 / 5, this->height());//Part of the layout occupied by the view
     GAViewGame *gameView = new GAViewGame(viewSize);
+
+    QPushButton *btn_quit = new QPushButton("Quitter le jeu", this);
+    btn_quit->resize(200, 100);
+    this->connect(btn_quit, &QPushButton::clicked, this, &QWidget::close);
 
     QLabel *lbScore = new QLabel(this);
     lbScore->setText("Score : 0");
@@ -22,6 +27,7 @@ GAGame::GAGame(QWidget *parent) : QWidget(parent)
     hLayout->addWidget(gameView);
     hLayout->setStretch(1, 3);
     hLayout->addWidget(lbScore);
+    hLayout->addWidget(btn_quit);
     hLayout->setStretch(2, 1);
 
     hLayout->setSpacing(0);

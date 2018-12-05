@@ -22,6 +22,7 @@ class GAViewGame : public QGraphicsView
 public:
     GAViewGame(QSize layoutSize, QGraphicsView *parent = nullptr);
     void keyPressEvent(QKeyEvent *event);
+    void drawHorizontalRectangle(bool isClicked, int nbClic);
 
 public slots:
     void drawNoteLine(QByteArray notesLine);

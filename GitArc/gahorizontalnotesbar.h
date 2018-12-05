@@ -16,17 +16,14 @@ class QPainter;
 class GAHorizontalNotesBar : public QGraphicsItem
 {
 public:
-    GAHorizontalNotesBar(const QRect widgetRect, QGraphicsItem *parent = nullptr);
+    GAHorizontalNotesBar(int numberOfRectangle, bool isClicked, const QRect widgetRect, QGraphicsItem *parent = nullptr);
 
     // inherited from QGraphicsItem
     QRectF boundingRect() const override;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
 
-    void isPressed(int);
-
 private:
     QRectF widgetBoundingRect;
-    QList<int> *keyPressed;
 };
 
 #endif // GAHORIZONTALNOTESBAR_H

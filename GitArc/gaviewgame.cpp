@@ -25,8 +25,10 @@ GAViewGame::GAViewGame(QSize layoutSize, QGraphicsView *parent) : QGraphicsView(
     verticalNotes = new GAVerticalNotes(this->mySceneRect);
     this->scene->addItem(verticalNotes);
 
-    horizontalNotes = new GAHorizontalNotesBar(this->mySceneRect);
-    this->scene->addItem(horizontalNotes);
+    //horizontalNotes = new GAHorizontalNotesBar(this->mySceneRect);
+    //this->scene->addItem(horizontalNotes);
+
+    this->drawHorizontalRectangle(false, -1);
 
     GANoteReader *noteReader = new GANoteReader(":res/partitions/notes.csv");
     this->connect(noteReader, &GANoteReader::nextNotesLine, this, &GAViewGame::drawNoteLine);
@@ -40,22 +42,26 @@ void GAViewGame::keyPressEvent(QKeyEvent *event)
 {
     if(event->key() == Qt::Key_A)
     {
-        horizontalNotes->isPressed(0);
+        //horizontalNotes->isPressed(0);
+        this->drawHorizontalRectangle(true, 0);
     }
 
     if(event->key() == Qt::Key_S)
     {
-        horizontalNotes->isPressed(1);
+        //horizontalNotes->isPressed(1);
+        this->drawHorizontalRectangle(true, 1);
     }
 
     if(event->key() == Qt::Key_D)
     {
-        horizontalNotes->isPressed(2);
+        //horizontalNotes->isPressed(2);
+        this->drawHorizontalRectangle(true, 2);
     }
 
     if(event->key() == Qt::Key_F)
     {
-        horizontalNotes->isPressed(3);
+        //horizontalNotes->isPressed(3);
+        this->drawHorizontalRectangle(true, 3);
     }
 }
 
@@ -69,6 +75,21 @@ void GAViewGame::drawNoteLine(QByteArray notesLine)
             float xPos = leftStripMargin + i * stripWidth / 2;
             GANotes *notes = new GANotes(QPointF(xPos - NOTE_RADIUS / 4, 0), this->sceneRect().height());
             this->scene->addItem(notes);
+        }
+    }
+}
+
+void GAViewGame::drawHorizontalRectangle(bool isClicked, int nbClic)
+{
+    for(int i = 0; i < NUM_NOTES; i++)
+    {
+        if(i == nbClic)
+        {
+            this->scene->addItem(new GAHorizontalNotesBar(i, isClicked, this->mySceneRect));
+        }
+        else
+        {
+            this->scene->addItem(new GAHorizontalNotesBar(i, false, this->mySceneRect));
         }
     }
 }
