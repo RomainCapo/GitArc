@@ -15,9 +15,10 @@
 class GAHorizontalNotesBar : public QGraphicsWidget
 {
 public:
-    GAHorizontalNotesBar(const float sceneWidth, const float sceneHeight);
+    GAHorizontalNotesBar(const float _sceneWidth, const float _sceneHeight);
     void isPressed(int);
     void isReleased(int);
+    int score();
 
 public slots:
     void checkNoteCollision();
@@ -25,6 +26,12 @@ public slots:
 private:
     QList<QGraphicsRectItem*> noteBurner;
     QTimer *timerCollision;
+    const float sceneWidth;
+    const float sceneHeight;
+    float stripWidth;
+    QList<int> keyPressed;
+
+    int _score;//temporary
 };
 
 #endif // GAHORIZONTALNOTESBAR_H

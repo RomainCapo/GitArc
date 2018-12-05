@@ -10,9 +10,10 @@
 * @param const QRect widgetRect : Should be the graphic view's rect
 * @param QGraphicsItem* parent : The QGraphicsItem used as parent
 */
-GAHorizontalNotesBar::GAHorizontalNotesBar(const float sceneWidth, const float sceneHeight)
+GAHorizontalNotesBar::GAHorizontalNotesBar(const float _sceneWidth, const float _sceneHeight): sceneWidth(_sceneWidth), sceneHeight(_sceneHeight)
 {
-    float stripWidth = sceneWidth / NUM_NOTES;
+    this->_score = 0;
+    stripWidth = sceneWidth / NUM_NOTES;
     QPen pen(Qt::black, PEN_WIDTH);
     QBrush brush(Qt::darkGray);
 
@@ -35,26 +36,63 @@ void GAHorizontalNotesBar::isPressed(int keyPressed)
 {
     static QBrush brushActivated(Qt::lightGray);
     this->noteBurner.at(keyPressed)->setBrush(brushActivated);
+
+
+
+
+    for(int i = 0; i < noteBurner.size(); i++)
+    {
+        QList<QGraphicsItem*> collidingItems = noteBurner[i]->collidingItems(Qt::IntersectsItemBoundingRect);
+        for(QGraphicsItem *collidingItem : collidingItems)
+        {
+            GANotes *note = dynamic_cast<GANotes *>(collidingItem);
+            if(note)
+            {
+                qDebug() << "keyPressed : " << keyPressed << " i : " << i;
+                    if(keyPressed == i && note->y() > sceneHeight - HEIGHT_NOTES_STRIP && note->y() < sceneHeight)
+                    {
+                        qDebug() << "collision on touche : " << i;
+                        _score+= 10;
+                        qDebug() << score();
+                    }
+            }
+        }
+    }
+
+    this->keyPressed.append(keyPressed);
 }
 
 void GAHorizontalNotesBar::isReleased(int keyPressed)
 {
     static QBrush brushDisactivated(Qt::darkGray);
     this->noteBurner.at(keyPressed)->setBrush(brushDisactivated);
+
+    this->keyPressed.append(keyPressed);
 }
 
 void GAHorizontalNotesBar::checkNoteCollision()
 {
-    for(QGraphicsRectItem *noteChord : this->noteBurner)
+   /* for(int i = 0; i < noteBurner.size(); i++)
     {
-        QList<QGraphicsItem*> collidingItems = noteChord->collidingItems(Qt::IntersectsItemBoundingRect);
+        QList<QGraphicsItem*> collidingItems = noteBurner[i]->collidingItems(Qt::IntersectsItemBoundingRect);
         for(QGraphicsItem *collidingItem : collidingItems)
         {
             GANotes *note = dynamic_cast<GANotes *>(collidingItem);
             if(note)
-                qDebug() << "Collision detected";
-            // qDebug() << collidingItem->boundingRect();
-            // qDebug() << collidingItem->x();
+            {
+                if(!keyPressed.empty())
+                {
+                    if(keyPressed.contains(i) && note->y() > sceneHeight - HEIGHT_NOTES_STRIP && note->y() < sceneHeight)
+                    {
+                        qDebug() << "collision on touche : " << i;
+                    }
+                }
+            }
         }
-    }
+    }*/
+}
+
+int GAHorizontalNotesBar::score()
+{
+    return _score;
 }

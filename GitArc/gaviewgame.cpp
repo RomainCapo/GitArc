@@ -26,8 +26,9 @@ GAViewGame::GAViewGame(QSize layoutSize, QGraphicsView *parent) : QGraphicsView(
     horizontalNotes = new GAHorizontalNotesBar(this->mySceneRect.width(), this->mySceneRect.height());
     this->scene->addItem(horizontalNotes);
 
-    GANoteReader *noteReader = new GANoteReader(":res/partitions/notes.csv");
+    GANoteReader *noteReader = new GANoteReader(":res/partitions/fes.csv");
     this->connect(noteReader, &GANoteReader::nextNotesLine, this, &GAViewGame::drawNoteLine);
+
     noteReader->readPartition();
 
     this->show();

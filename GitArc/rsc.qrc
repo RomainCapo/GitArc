@@ -3,5 +3,6 @@
         <file>res/img/guitare.png</file>
         <file>res/img/GitArc.PNG</file>
         <file>res/partitions/notes.csv</file>
+        <file>res/partitions/fes.csv</file>
     </qresource>
 </RCC>
