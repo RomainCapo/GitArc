@@ -9,24 +9,26 @@
 
 #include <QGraphicsEllipseItem>
 #include <QGraphicsWidget>
-#include <QObject>
+#include <QPen>
 
-class QPainter;
 class QPropertyAnimation;
 
 class GANotes : public QGraphicsWidget
 {
 
 public:
-    GANotes(const QPointF sceneRect, const float sceneHeight);
+    GANotes(const QPointF startPosition, const float sceneHeight);
+
+protected:
+    QRectF boundingRect() const;
 
 private:
     QPointF startPosition;
     float sceneHeight;
     QPropertyAnimation *animation;
+    QGraphicsEllipseItem *note;
 
     void animateDropTranslation();
-
 };
 
 #endif // GANOTES_H

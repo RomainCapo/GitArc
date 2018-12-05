@@ -7,23 +7,13 @@
 #ifndef GAVERTICALNOTES_H
 #define GAVERTICALNOTES_H
 
-#include <QGraphicsItem>
-#include <QGraphicsLayoutItem>
+#include <QGraphicsWidget>
+#include <QPen>
 
-class QPainter;
-
-class GAVerticalNotes : public QGraphicsItem
+class GAVerticalNotes : public QGraphicsWidget
 {
 public:
-    explicit GAVerticalNotes(const QRect widgetRect, QGraphicsItem *parent = nullptr);
-
-    // inherited from QGraphicsItem
-    QRectF boundingRect() const override;
-    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
-                   QWidget *widget) override;
-
-private:
-    QRectF widgetBoundingRect;
+    explicit GAVerticalNotes(const float sceneWidth, const float sceneHeight);
 };
 
 #endif // GAVERTICALNOTES_H

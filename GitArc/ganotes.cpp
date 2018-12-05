@@ -1,17 +1,22 @@
 #include "ganotes.h"
 #include "constants.h"
-#include <QPainter>
 #include <QPropertyAnimation>
 #include <QDebug>
 
 GANotes::GANotes(const QPointF startPosition, const float sceneHeight) : startPosition(startPosition), sceneHeight(sceneHeight)
 {
     QPen pen(Qt::black, PEN_WIDTH);
-    QGraphicsEllipseItem* note = new QGraphicsEllipseItem(this);
+    this->note = new QGraphicsEllipseItem(this);
     note->setRect(startPosition.x(), startPosition.y(), NOTE_RADIUS, NOTE_RADIUS);
     note->setPen(pen);
     note->setBrush(Qt::darkCyan);
     this->animateDropTranslation();
+    this->collidingItems();
+}
+
+QRectF GANotes::boundingRect() const
+{
+    return this->note->boundingRect();
 }
 
 void GANotes::animateDropTranslation()
@@ -22,4 +27,5 @@ void GANotes::animateDropTranslation()
     this->animation->setDuration(ANIMATION_DURATION);
     this->animation->setEndValue(endPosition);
     this->animation->start();
+    this->connect(this->animation, SIGNAL(finished()), this, SLOT(deleteLater()));
 }

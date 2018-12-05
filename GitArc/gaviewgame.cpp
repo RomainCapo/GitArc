@@ -7,11 +7,9 @@
 #include <QGraphicsWidget>
 #include <QDebug>
 #include <QByteArray>
-#include <QMessageBox>
 
 GAViewGame::GAViewGame(QSize layoutSize, QGraphicsView *parent) : QGraphicsView(parent)
 {
-
     this->scene = new QGraphicsScene(this);
     this->setScene(this->scene);
     this->setSceneRect(0, 0, layoutSize.width(), layoutSize.height());
@@ -22,41 +20,54 @@ GAViewGame::GAViewGame(QSize layoutSize, QGraphicsView *parent) : QGraphicsView(
 
     this->mySceneRect = QRect(sceneRect().x(), sceneRect().y(), sceneRect().width(), sceneRect().height());
 
-    verticalNotes = new GAVerticalNotes(this->mySceneRect);
+    verticalNotes = new GAVerticalNotes(this->mySceneRect.width(), this->mySceneRect.height());
     this->scene->addItem(verticalNotes);
 
-    horizontalNotes = new GAHorizontalNotesBar(this->mySceneRect);
+    horizontalNotes = new GAHorizontalNotesBar(this->mySceneRect.width(), this->mySceneRect.height());
     this->scene->addItem(horizontalNotes);
 
     GANoteReader *noteReader = new GANoteReader(":res/partitions/notes.csv");
     this->connect(noteReader, &GANoteReader::nextNotesLine, this, &GAViewGame::drawNoteLine);
     noteReader->readPartition();
 
-
     this->show();
 }
 
 void GAViewGame::keyPressEvent(QKeyEvent *event)
 {
-    if(event->key() == Qt::Key_A)
-    {
-        horizontalNotes->isPressed(0);
-    }
+    int chordId = this->getChordId(event->key());
+    if(chordId != -1)
+            horizontalNotes->isPressed(chordId);
+}
 
-    if(event->key() == Qt::Key_S)
-    {
-        horizontalNotes->isPressed(1);
-    }
+void GAViewGame::keyReleaseEvent(QKeyEvent *event)
+{
+    int chordId = this->getChordId(event->key());
+    if(chordId != -1)
+            horizontalNotes->isReleased(chordId);
+}
 
-    if(event->key() == Qt::Key_D)
+int GAViewGame::getChordId(int eventKey)
+{
+    int keyPressed = -1;
+    switch (eventKey)
     {
-        horizontalNotes->isPressed(2);
+        case Qt::Key_A:
+            keyPressed = 0;
+            break;
+        case Qt::Key_S:
+            keyPressed = 1;
+            break;
+        case Qt::Key_D:
+            keyPressed = 2;
+            break;
+        case Qt::Key_F:
+            keyPressed = 3;
+            break;
+        default:
+            break;
     }
-
-    if(event->key() == Qt::Key_F)
-    {
-        horizontalNotes->isPressed(3);
-    }
+    return keyPressed;
 }
 
 void GAViewGame::drawNoteLine(QByteArray notesLine)

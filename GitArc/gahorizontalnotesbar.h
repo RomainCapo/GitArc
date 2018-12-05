@@ -8,25 +8,28 @@
 #ifndef GAHORIZONTALNOTESBAR_H
 #define GAHORIZONTALNOTESBAR_H
 
-#include <QGraphicsItem>
-#include <QGraphicsLayoutItem>
+#include <QGraphicsWidget>
+#include <QPen>
+#include <QTimer>
 
-class QPainter;
-
-class GAHorizontalNotesBar : public QGraphicsItem
+class GAHorizontalNotesBar : public QGraphicsWidget
 {
 public:
-    GAHorizontalNotesBar(const QRect widgetRect, QGraphicsItem *parent = nullptr);
-
-    // inherited from QGraphicsItem
-    QRectF boundingRect() const override;
-    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
-
+    GAHorizontalNotesBar(const float sceneWidth, const float sceneHeight);
     void isPressed(int);
+    void isReleased(int);
+
+protected:
+    QRectF boundingRect() const;
+
+public slots:
+    void checkNoteCollision();
 
 private:
-    QRectF widgetBoundingRect;
-    QList<int> *keyPressed;
+    QList<QGraphicsRectItem*> noteBurner;
+    QTimer *timerCollision;
+    float sceneWidth;
+    float sceneHeight;
 };
 
 #endif // GAHORIZONTALNOTESBAR_H

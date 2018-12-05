@@ -1,6 +1,6 @@
 #include "gahorizontalnotesbar.h"
 #include "constants.h"
-#include <QPainter>
+#include "ganotes.h"
 #include <QDebug>
 
 /**
@@ -10,69 +10,57 @@
 * @param const QRect widgetRect : Should be the graphic view's rect
 * @param QGraphicsItem* parent : The QGraphicsItem used as parent
 */
-GAHorizontalNotesBar::GAHorizontalNotesBar(const QRect widgetRect, QGraphicsItem *parent) : QGraphicsItem(parent), widgetBoundingRect(widgetRect)
+GAHorizontalNotesBar::GAHorizontalNotesBar(const float sceneWidth, const float sceneHeight) : sceneWidth(sceneWidth), sceneHeight(sceneHeight)
 {
-    keyPressed = new QList<int>;
-}
-
-/**
-* boundingRect
-* Function used to get this item's bounding rect
-*
-* @return QRectF : The item's bounding rectangle
-*/
-QRectF GAHorizontalNotesBar::boundingRect() const
-{
-    return this->widgetBoundingRect;
-}
-
-/**
-* paint
-* Overrided function from QGraphicItem, usually called by QGraphicsView.
-* This function paints the basic graphic items composing this customized graphic item.
-*/
-void GAHorizontalNotesBar::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
-{
-    Q_UNUSED(option);
-    Q_UNUSED(widget);
-
-    QRectF frame = this->boundingRect();
-    float stripWidth = frame.width() / NUM_NOTES;
+    float stripWidth = sceneWidth / NUM_NOTES;
     QPen pen(Qt::black, PEN_WIDTH);
-    painter->setPen(pen);
+    QBrush brush(Qt::darkGray);
 
     for(int i = 0; i < NUM_NOTES; i++)
     {
-        painter->setBrush(Qt::darkGray);
-
-        for(int j = 0; j < keyPressed->length(); j++)
-        {
-            if(i == keyPressed->at(j))
-            {
-                painter->setBrush(Qt::lightGray);
-            }
-        }
-        //qDebug() << stripWidth*i;
-        painter->drawRect(QRectF(stripWidth*i, frame.height() - HEIGHT_NOTES_STRIP, stripWidth, HEIGHT_NOTES_STRIP));
+        float ox = stripWidth * i;
+        QGraphicsRectItem *rect = new QGraphicsRectItem(QRectF(ox, sceneHeight - HEIGHT_NOTES_STRIP, stripWidth, HEIGHT_NOTES_STRIP), this);
+        rect->setPen(pen);
+        rect->setBrush(brush);
+        this->noteBurner.append(rect);
     }
+
+    this->timerCollision = new QTimer(this);
+    this->connect(this->timerCollision, &QTimer::timeout, this, &GAHorizontalNotesBar::checkNoteCollision);
+    // FIXME : variable magique
+    this->timerCollision->start(100);
 }
 
 void GAHorizontalNotesBar::isPressed(int keyPressed)
 {
-    bool isAlready = false;
+    static QBrush brushActivated(Qt::lightGray);
+    this->noteBurner.at(keyPressed)->setBrush(brushActivated);
+}
 
-    for(int j = 0; j < this->keyPressed->length(); j++)
+void GAHorizontalNotesBar::isReleased(int keyPressed)
+{
+    static QBrush brushDisactivated(Qt::darkGray);
+    this->noteBurner.at(keyPressed)->setBrush(brushDisactivated);
+}
+
+// TODO : A supprimer
+QRectF GAHorizontalNotesBar::boundingRect() const
+{
+    return QRectF(0, sceneHeight - HEIGHT_NOTES_STRIP, this->sceneWidth, HEIGHT_NOTES_STRIP);
+}
+
+void GAHorizontalNotesBar::checkNoteCollision()
+{
+    for(QGraphicsRectItem *noteChord : this->noteBurner)
     {
-        if(keyPressed == this->keyPressed->at(j))
+        QList<QGraphicsItem*> collidingItems = noteChord->collidingItems(Qt::IntersectsItemBoundingRect);
+        for(QGraphicsItem *collidingItem : collidingItems)
         {
-            isAlready = true;
-            this->keyPressed->removeAt(j);
+            GANotes *note = dynamic_cast<GANotes *>(collidingItem);
+            if(note)
+                qDebug() << "Collision detected";
+            // qDebug() << collidingItem->boundingRect();
+            // qDebug() << collidingItem->x();
         }
-    }
-
-    if(!isAlready)
-    {
-        this->keyPressed->append(keyPressed);
-        this->update();
     }
 }

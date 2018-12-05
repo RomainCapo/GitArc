@@ -21,16 +21,21 @@ class GAViewGame : public QGraphicsView
 
 public:
     GAViewGame(QSize layoutSize, QGraphicsView *parent = nullptr);
-    void keyPressEvent(QKeyEvent *event);
 
 public slots:
     void drawNoteLine(QByteArray notesLine);
+
+protected:
+    void keyPressEvent(QKeyEvent *event);
+    void keyReleaseEvent(QKeyEvent *event);
 
 private:
     QGraphicsScene *scene;
     QRect mySceneRect;
     GAVerticalNotes *verticalNotes;
     GAHorizontalNotesBar *horizontalNotes;
+
+    int getChordId(int);
 };
 
 #endif // GAVIEWGAME_H
