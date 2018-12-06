@@ -52,7 +52,7 @@ void GAHorizontalNotesBar::isPressed(int keyPressed)
                     if(keyPressed == i && note->y() > sceneHeight - HEIGHT_NOTES_STRIP && note->y() < sceneHeight)
                     {
                         qDebug() << "collision on touche : " << i;
-                        _score+= 10;
+                        _score += 10;
                         qDebug() << score();
                     }
             }
@@ -72,6 +72,7 @@ void GAHorizontalNotesBar::isReleased(int keyPressed)
 
 void GAHorizontalNotesBar::checkNoteCollision()
 {
+    //qDebug() << this->score();
    /* for(int i = 0; i < noteBurner.size(); i++)
     {
         QList<QGraphicsItem*> collidingItems = noteBurner[i]->collidingItems(Qt::IntersectsItemBoundingRect);

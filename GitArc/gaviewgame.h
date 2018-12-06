@@ -14,13 +14,14 @@ class GAHorizontalNotesBar;
 class QGraphicsLinearLayout;
 class QGraphicsWidget;
 class QByteArray;
+class QLabel;
 
 class GAViewGame : public QGraphicsView
 {
     Q_OBJECT
 
 public:
-    GAViewGame(QSize layoutSize, QGraphicsView *parent = nullptr);
+    GAViewGame(QSize layoutSize,QWidget * _left, QWidget * _right, QGraphicsView *parent = nullptr);
 
 public slots:
     void drawNoteLine(QByteArray notesLine);
@@ -34,6 +35,8 @@ private:
     QRect mySceneRect;
     GAVerticalNotes *verticalNotes;
     GAHorizontalNotesBar *horizontalNotes;
+    QLabel *left;
+    QLabel *right;
 
     int getChordId(int);
 };

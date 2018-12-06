@@ -7,8 +7,9 @@
 #include <QGraphicsWidget>
 #include <QDebug>
 #include <QByteArray>
+#include <QLabel>
 
-GAViewGame::GAViewGame(QSize layoutSize, QGraphicsView *parent) : QGraphicsView(parent)
+GAViewGame::GAViewGame(QSize layoutSize, QWidget * _left, QWidget * _right, QGraphicsView *parent) : QGraphicsView(parent)
 {
     this->scene = new QGraphicsScene(this);
     this->setScene(this->scene);
@@ -16,6 +17,9 @@ GAViewGame::GAViewGame(QSize layoutSize, QGraphicsView *parent) : QGraphicsView(
 
     this->setHorizontalScrollBarPolicy( Qt::ScrollBarAlwaysOff );
     this->setVerticalScrollBarPolicy( Qt::ScrollBarAlwaysOff );
+
+    this->left = (QLabel*)_left;
+    this->right = (QLabel*)_right;
 
 
     this->mySceneRect = QRect(sceneRect().x(), sceneRect().y(), sceneRect().width(), sceneRect().height());
@@ -39,6 +43,8 @@ void GAViewGame::keyPressEvent(QKeyEvent *event)
     int chordId = this->getChordId(event->key());
     if(chordId != -1)
             horizontalNotes->isPressed(chordId);
+            qDebug() << horizontalNotes->score();
+            right->setText("Score : " + QString::number(horizontalNotes->score()));
 }
 
 void GAViewGame::keyReleaseEvent(QKeyEvent *event)
