@@ -19,6 +19,11 @@ QRectF GANotes::boundingRect() const
     return this->note->boundingRect();
 }
 
+void GANotes::isBurn()
+{
+    this->note->setBrush(Qt::red);
+}
+
 void GANotes::animateDropTranslation()
 {
     QPoint endPosition = QPoint(this->startPosition.x(), this->sceneHeight + NOTE_RADIUS);

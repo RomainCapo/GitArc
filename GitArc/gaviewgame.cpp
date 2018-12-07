@@ -43,7 +43,6 @@ void GAViewGame::keyPressEvent(QKeyEvent *event)
     int chordId = this->getChordId(event->key());
     if(chordId != -1)
             horizontalNotes->isPressed(chordId);
-            qDebug() << horizontalNotes->score();
             right->setText("Score : " + QString::number(horizontalNotes->score()));
 }
 

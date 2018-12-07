@@ -2,6 +2,7 @@
 #include "constants.h"
 #include "ganotes.h"
 #include <QDebug>
+#include <QSound>
 
 /**
 * GAHorizontalNotesBar
@@ -37,26 +38,30 @@ void GAHorizontalNotesBar::isPressed(int keyPressed)
     static QBrush brushActivated(Qt::lightGray);
     this->noteBurner.at(keyPressed)->setBrush(brushActivated);
 
-
+    QSound::play("..\\GitArc\\res\\sound\\ding.wav");
 
 
     for(int i = 0; i < noteBurner.size(); i++)
     {
-        QList<QGraphicsItem*> collidingItems = noteBurner[i]->collidingItems(Qt::IntersectsItemBoundingRect);
-        for(QGraphicsItem *collidingItem : collidingItems)
+        if(i == keyPressed)
         {
-            GANotes *note = dynamic_cast<GANotes *>(collidingItem);
-            if(note)
+            qDebug() << "fes";
+
+            QList<QGraphicsItem*> collidingItems = noteBurner[i]->collidingItems(Qt::IntersectsItemBoundingRect);
+            for(QGraphicsItem *collidingItem : collidingItems)
             {
-                qDebug() << "keyPressed : " << keyPressed << " i : " << i;
-                    if(keyPressed == i && note->y() > sceneHeight - HEIGHT_NOTES_STRIP && note->y() < sceneHeight)
-                    {
-                        qDebug() << "collision on touche : " << i;
-                        _score += 10;
-                        qDebug() << score();
-                    }
+                GANotes *note = dynamic_cast<GANotes *>(collidingItem);
+                if(note)
+                {
+                        if((note->y() > sceneHeight - HEIGHT_NOTES_STRIP && note->y() < sceneHeight))
+                        {
+                           _score += 10;
+                           note->isBurn();
+                        }
+                }
             }
         }
+
     }
 
     this->keyPressed.append(keyPressed);

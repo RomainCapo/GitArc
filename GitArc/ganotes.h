@@ -18,6 +18,7 @@ class GANotes : public QGraphicsWidget
 
 public:
     GANotes(const QPointF startPosition, const float sceneHeight);
+    void isBurn();
 
 protected:
     QRectF boundingRect() const;
