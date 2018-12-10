@@ -1,6 +1,6 @@
 #include "gahorizontalnotesbar.h"
 #include "constants.h"
-#include "ganotes.h"
+#include "ganote.h"
 #include <QDebug>
 #include <QSound>
 
@@ -38,33 +38,7 @@ void GAHorizontalNotesBar::isPressed(int keyPressed)
     static QBrush brushActivated(Qt::lightGray);
     this->noteBurner.at(keyPressed)->setBrush(brushActivated);
 
-    QSound::play("..\\GitArc\\res\\sound\\ding.wav");
-
-
-    for(int i = 0; i < noteBurner.size(); i++)
-    {
-        if(i == keyPressed)
-        {
-            qDebug() << "fes";
-
-            QList<QGraphicsItem*> collidingItems = noteBurner[i]->collidingItems(Qt::IntersectsItemBoundingRect);
-            for(QGraphicsItem *collidingItem : collidingItems)
-            {
-                GANotes *note = dynamic_cast<GANotes *>(collidingItem);
-                if(note)
-                {
-                        if((note->y() > sceneHeight - HEIGHT_NOTES_STRIP && note->y() < sceneHeight))
-                        {
-                           _score += 10;
-                           note->isBurn();
-                        }
-                }
-            }
-        }
-
-    }
-
-    this->keyPressed.append(keyPressed);
+   QSound::play("..\\GitArc\\res\\sound\\ding.wav");
 }
 
 void GAHorizontalNotesBar::isReleased(int keyPressed)
@@ -77,25 +51,7 @@ void GAHorizontalNotesBar::isReleased(int keyPressed)
 
 void GAHorizontalNotesBar::checkNoteCollision()
 {
-    //qDebug() << this->score();
-   /* for(int i = 0; i < noteBurner.size(); i++)
-    {
-        QList<QGraphicsItem*> collidingItems = noteBurner[i]->collidingItems(Qt::IntersectsItemBoundingRect);
-        for(QGraphicsItem *collidingItem : collidingItems)
-        {
-            GANotes *note = dynamic_cast<GANotes *>(collidingItem);
-            if(note)
-            {
-                if(!keyPressed.empty())
-                {
-                    if(keyPressed.contains(i) && note->y() > sceneHeight - HEIGHT_NOTES_STRIP && note->y() < sceneHeight)
-                    {
-                        qDebug() << "collision on touche : " << i;
-                    }
-                }
-            }
-        }
-    }*/
+
 }
 
 int GAHorizontalNotesBar::score()

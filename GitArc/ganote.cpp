@@ -1,10 +1,12 @@
-#include "ganotes.h"
+#include "ganote.h"
 #include "constants.h"
 #include <QPropertyAnimation>
 #include <QDebug>
 
-GANotes::GANotes(const QPointF startPosition, const float sceneHeight) : startPosition(startPosition), sceneHeight(sceneHeight)
+GANote::GANote(const QPointF startPosition, const float sceneHeight) : startPosition(startPosition), sceneHeight(sceneHeight)
 {
+    this->prepareGeometryChange();
+
     QPen pen(Qt::black, PEN_WIDTH);
     this->note = new QGraphicsEllipseItem(this);
     note->setRect(startPosition.x(), startPosition.y(), NOTE_RADIUS, NOTE_RADIUS);
@@ -14,17 +16,17 @@ GANotes::GANotes(const QPointF startPosition, const float sceneHeight) : startPo
     this->collidingItems();
 }
 
-QRectF GANotes::boundingRect() const
+QRectF GANote::boundingRect() const
 {
     return this->note->boundingRect();
 }
 
-void GANotes::isBurn()
+void GANote::isBurn()
 {
     this->note->setBrush(Qt::red);
 }
 
-void GANotes::animateDropTranslation()
+void GANote::animateDropTranslation()
 {
     QPoint endPosition = QPoint(this->startPosition.x(), this->sceneHeight + NOTE_RADIUS);
     this->animation = new QPropertyAnimation(this, "pos");

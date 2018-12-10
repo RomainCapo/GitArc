@@ -28,21 +28,21 @@ SOURCES += \
         main.cpp \
         gaviewmainmenu.cpp \
     gaviewgame.cpp \
-    ganotes.cpp \
     gaverticalnotes.cpp \
     gahorizontalnotesbar.cpp \
     gagame.cpp \
-    ganotereader.cpp
+    ganotereader.cpp \
+    ganote.cpp
 
 HEADERS += \
         gaviewmainmenu.h \
     gaviewgame.h \
-    ganotes.h \
     gaverticalnotes.h \
     gahorizontalnotesbar.h \
     constants.h \
     gagame.h \
-    ganotereader.h
+    ganotereader.h \
+    ganote.h
 
 RESOURCES += \
     rsc.qrc

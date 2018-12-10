@@ -8,6 +8,8 @@
 #define GAVIEWGAME_H
 
 #include <QGraphicsView>
+#include <QMap>
+#include "constants.h"
 
 class GAVerticalNotes;
 class GAHorizontalNotesBar;
@@ -15,6 +17,7 @@ class QGraphicsLinearLayout;
 class QGraphicsWidget;
 class QByteArray;
 class QLabel;
+class GANote;
 
 class GAViewGame : public QGraphicsView
 {
@@ -37,6 +40,8 @@ private:
     GAHorizontalNotesBar *horizontalNotes;
     QLabel *left;
     QLabel *right;
+
+    QList<QList<GANote*>*> * strips;
 
     int getChordId(int);
 };

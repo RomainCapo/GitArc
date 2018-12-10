@@ -13,11 +13,11 @@
 
 class QPropertyAnimation;
 
-class GANotes : public QGraphicsWidget
+class GANote : public QGraphicsWidget
 {
 
 public:
-    GANotes(const QPointF startPosition, const float sceneHeight);
+    GANote(const QPointF startPosition, const float sceneHeight);
     void isBurn();
 
 protected:

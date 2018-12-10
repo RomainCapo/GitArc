@@ -1,7 +1,7 @@
 #include "gaviewgame.h"
 #include "gaverticalnotes.h"
 #include "gahorizontalnotesbar.h"
-#include "ganotes.h"
+#include "ganote.h"
 #include "ganotereader.h"
 #include "constants.h"
 #include <QGraphicsWidget>
@@ -11,6 +11,12 @@
 
 GAViewGame::GAViewGame(QSize layoutSize, QWidget * _left, QWidget * _right, QGraphicsView *parent) : QGraphicsView(parent)
 {
+    this->strips = new QList<QList<GANote*>*>();
+    strips->append(new QList<GANote*>());
+    strips->append(new QList<GANote*>());
+    strips->append(new QList<GANote*>());
+    strips->append(new QList<GANote*>());
+
     this->scene = new QGraphicsScene(this);
     this->setScene(this->scene);
     this->setSceneRect(0, 0, layoutSize.width(), layoutSize.height());
@@ -24,8 +30,8 @@ GAViewGame::GAViewGame(QSize layoutSize, QWidget * _left, QWidget * _right, QGra
 
     this->mySceneRect = QRect(sceneRect().x(), sceneRect().y(), sceneRect().width(), sceneRect().height());
 
-    verticalNotes = new GAVerticalNotes(this->mySceneRect.width(), this->mySceneRect.height());
-    this->scene->addItem(verticalNotes);
+    //verticalNotes = new GAVerticalNotes(this->mySceneRect.width(), this->mySceneRect.height());
+    //this->scene->addItem(verticalNotes);
 
     horizontalNotes = new GAHorizontalNotesBar(this->mySceneRect.width(), this->mySceneRect.height());
     this->scene->addItem(horizontalNotes);
@@ -42,8 +48,21 @@ void GAViewGame::keyPressEvent(QKeyEvent *event)
 {
     int chordId = this->getChordId(event->key());
     if(chordId != -1)
+       {
             horizontalNotes->isPressed(chordId);
             right->setText("Score : " + QString::number(horizontalNotes->score()));
+
+            qreal rectTop = horizontalNotes->noteBurner[chordId]->rect().y();
+            qreal noteY = strips->at(chordId)->last()->y();
+
+            qDebug() << rectTop;
+            qDebug() << noteY;
+
+            if(noteY >= rectTop && noteY <= rectTop + HEIGHT_NOTES_STRIP)
+            {
+                qDebug() << "fes";
+            }
+       }
 }
 
 void GAViewGame::keyReleaseEvent(QKeyEvent *event)
@@ -84,7 +103,8 @@ void GAViewGame::drawNoteLine(QByteArray notesLine)
     {
         if(notesLine[i] == '1'){
             float xPos = leftStripMargin + i * stripWidth / 2;
-            GANotes *notes = new GANotes(QPointF(xPos - NOTE_RADIUS / 4, 0), this->sceneRect().height());
+            GANote *notes = new GANote(QPointF(xPos - NOTE_RADIUS / 4, 0), this->sceneRect().height());
+            this->strips->at(i)->append(notes);
             this->scene->addItem(notes);
         }
     }

@@ -19,12 +19,13 @@ public:
     void isPressed(int);
     void isReleased(int);
     int score();
+    QList<QGraphicsRectItem*> noteBurner;
 
 public slots:
     void checkNoteCollision();
 
 private:
-    QList<QGraphicsRectItem*> noteBurner;
+
     QTimer *timerCollision;
     const float sceneWidth;
     const float sceneHeight;
