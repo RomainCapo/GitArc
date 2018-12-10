@@ -26,11 +26,6 @@ GAHorizontalNotesBar::GAHorizontalNotesBar(const float _sceneWidth, const float 
         rect->setBrush(brush);
         this->noteBurner.append(rect);
     }
-
-    this->timerCollision = new QTimer(this);
-    this->connect(this->timerCollision, &QTimer::timeout, this, &GAHorizontalNotesBar::checkNoteCollision);
-    // FIXME : variable magique
-    this->timerCollision->start(100);
 }
 
 void GAHorizontalNotesBar::isPressed(int keyPressed)
@@ -47,11 +42,6 @@ void GAHorizontalNotesBar::isReleased(int keyPressed)
     this->noteBurner.at(keyPressed)->setBrush(brushDisactivated);
 
     this->keyPressed.append(keyPressed);
-}
-
-void GAHorizontalNotesBar::checkNoteCollision()
-{
-
 }
 
 int GAHorizontalNotesBar::score()

@@ -41,6 +41,8 @@ GAViewGame::GAViewGame(QSize layoutSize, QWidget * _left, QWidget * _right, QGra
 
     noteReader->readPartition();
 
+
+
     this->show();
 }
 
@@ -49,6 +51,17 @@ void GAViewGame::keyPressEvent(QKeyEvent *event)
     int chordId = this->getChordId(event->key());
     if(chordId != -1)
        {
+            for(int i = 0; i < strips->size(); i++)
+            {
+                for(int j = 0; j < strips->at(i)->size(); j++)
+                {
+                    if(strips->at(i)->at(j)->y() >= horizontalNotes->noteBurner[0]->rect().y() + HEIGHT_NOTES_STRIP)
+                    {
+                        strips->at(i)->removeAt(j);
+                    }
+                }
+            }
+
             horizontalNotes->isPressed(chordId);
             right->setText("Score : " + QString::number(horizontalNotes->score()));
 

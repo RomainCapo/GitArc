@@ -18,6 +18,7 @@ class QGraphicsWidget;
 class QByteArray;
 class QLabel;
 class GANote;
+class QTimer;
 
 class GAViewGame : public QGraphicsView
 {
@@ -40,9 +41,8 @@ private:
     GAHorizontalNotesBar *horizontalNotes;
     QLabel *left;
     QLabel *right;
-
     QList<QList<GANote*>*> * strips;
-
+    //QTimer timer;
     int getChordId(int);
 };
 

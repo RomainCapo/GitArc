@@ -21,12 +21,9 @@ public:
     int score();
     QList<QGraphicsRectItem*> noteBurner;
 
-public slots:
-    void checkNoteCollision();
 
 private:
 
-    QTimer *timerCollision;
     const float sceneWidth;
     const float sceneHeight;
     float stripWidth;
