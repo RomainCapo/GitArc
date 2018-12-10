@@ -34,5 +34,5 @@ void GANote::animateDropTranslation()
     this->animation->setDuration(ANIMATION_DURATION);
     this->animation->setEndValue(endPosition);
     this->animation->start();
-    this->connect(this->animation, SIGNAL(finished()), this, SLOT(deleteLater()));
+    //this->connect(this->animation, SIGNAL(finished()), this, SLOT(deleteLater()));
 }

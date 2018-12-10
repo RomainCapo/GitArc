@@ -52,15 +52,21 @@ void GAViewGame::keyPressEvent(QKeyEvent *event)
             horizontalNotes->isPressed(chordId);
             right->setText("Score : " + QString::number(horizontalNotes->score()));
 
-            qreal rectTop = horizontalNotes->noteBurner[chordId]->rect().y();
-            qreal noteY = strips->at(chordId)->last()->y();
-
-            qDebug() << rectTop;
-            qDebug() << noteY;
-
-            if(noteY >= rectTop && noteY <= rectTop + HEIGHT_NOTES_STRIP)
+            if(!strips->at(chordId)->empty())
             {
-                qDebug() << "fes";
+                qreal rectTop = horizontalNotes->noteBurner[chordId]->rect().y();
+                qreal noteY = strips->at(chordId)->first()->y();
+
+                if(noteY >= rectTop && noteY <= rectTop + HEIGHT_NOTES_STRIP)
+                {
+                    qDebug() << "collision : " << chordId;
+                }
+
+                if(noteY >= rectTop + HEIGHT_NOTES_STRIP )
+                {
+                    qDebug() << "delete";
+                    strips->at(chordId)->removeFirst();
+                }
             }
        }
 }
