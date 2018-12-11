@@ -13,7 +13,6 @@
 */
 GAHorizontalNotesBar::GAHorizontalNotesBar(const float _sceneWidth, const float _sceneHeight): sceneWidth(_sceneWidth), sceneHeight(_sceneHeight)
 {
-    this->_score = 0;
     stripWidth = sceneWidth / NUM_NOTES;
     QPen pen(Qt::black, PEN_WIDTH);
     QBrush brush(Qt::darkGray);
@@ -42,9 +41,4 @@ void GAHorizontalNotesBar::isReleased(int keyPressed)
     this->noteBurner.at(keyPressed)->setBrush(brushDisactivated);
 
     this->keyPressed.append(keyPressed);
-}
-
-int GAHorizontalNotesBar::score()
-{
-    return _score;
 }

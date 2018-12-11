@@ -42,8 +42,8 @@ private:
     QLabel *left;
     QLabel *right;
     QList<QList<GANote*>*> * strips;
-    //QTimer timer;
     int getChordId(int);
+    int score;
 };
 
 #endif // GAVIEWGAME_H

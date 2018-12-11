@@ -17,6 +17,8 @@ GAViewGame::GAViewGame(QSize layoutSize, QWidget * _left, QWidget * _right, QGra
     strips->append(new QList<GANote*>());
     strips->append(new QList<GANote*>());
 
+    this->score = 0;
+
     this->scene = new QGraphicsScene(this);
     this->setScene(this->scene);
     this->setSceneRect(0, 0, layoutSize.width(), layoutSize.height());
@@ -30,8 +32,8 @@ GAViewGame::GAViewGame(QSize layoutSize, QWidget * _left, QWidget * _right, QGra
 
     this->mySceneRect = QRect(sceneRect().x(), sceneRect().y(), sceneRect().width(), sceneRect().height());
 
-    //verticalNotes = new GAVerticalNotes(this->mySceneRect.width(), this->mySceneRect.height());
-    //this->scene->addItem(verticalNotes);
+    verticalNotes = new GAVerticalNotes(this->mySceneRect.width(), this->mySceneRect.height());
+    this->scene->addItem(verticalNotes);
 
     horizontalNotes = new GAHorizontalNotesBar(this->mySceneRect.width(), this->mySceneRect.height());
     this->scene->addItem(horizontalNotes);
@@ -62,8 +64,8 @@ void GAViewGame::keyPressEvent(QKeyEvent *event)
                 }
             }
 
+
             horizontalNotes->isPressed(chordId);
-            right->setText("Score : " + QString::number(horizontalNotes->score()));
 
             if(!strips->at(chordId)->empty())
             {
@@ -72,13 +74,9 @@ void GAViewGame::keyPressEvent(QKeyEvent *event)
 
                 if(noteY >= rectTop && noteY <= rectTop + HEIGHT_NOTES_STRIP)
                 {
-                    qDebug() << "collision : " << chordId;
-                }
-
-                if(noteY >= rectTop + HEIGHT_NOTES_STRIP )
-                {
-                    qDebug() << "delete";
-                    strips->at(chordId)->removeFirst();
+                    strips->at(chordId)->first()->isBurn();
+                    score += 100;
+                    this->right->setText(QString("Score : %1").arg(score));
                 }
             }
        }

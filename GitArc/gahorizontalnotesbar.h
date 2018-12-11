@@ -18,7 +18,6 @@ public:
     GAHorizontalNotesBar(const float _sceneWidth, const float _sceneHeight);
     void isPressed(int);
     void isReleased(int);
-    int score();
     QList<QGraphicsRectItem*> noteBurner;
 
 
@@ -28,8 +27,6 @@ private:
     const float sceneHeight;
     float stripWidth;
     QList<int> keyPressed;
-
-    int _score;//temporary
 };
 
 #endif // GAHORIZONTALNOTESBAR_H
