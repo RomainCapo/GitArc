@@ -26,7 +26,6 @@ private:
     const float sceneWidth;
     const float sceneHeight;
     float stripWidth;
-    QList<int> keyPressed;
 };
 
 #endif // GAHORIZONTALNOTESBAR_H

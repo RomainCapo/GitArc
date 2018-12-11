@@ -39,6 +39,4 @@ void GAHorizontalNotesBar::isReleased(int keyPressed)
 {
     static QBrush brushDisactivated(Qt::darkGray);
     this->noteBurner.at(keyPressed)->setBrush(brushDisactivated);
-
-    this->keyPressed.append(keyPressed);
 }

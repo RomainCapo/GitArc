@@ -4,6 +4,7 @@
 #include "ganote.h"
 #include "ganotereader.h"
 #include "constants.h"
+
 #include <QGraphicsWidget>
 #include <QDebug>
 #include <QByteArray>
@@ -11,7 +12,8 @@
 
 GAViewGame::GAViewGame(QSize layoutSize, QWidget * _left, QWidget * _right, QGraphicsView *parent) : QGraphicsView(parent)
 {
-    this->strips = new QList<QList<GANote*>*>();
+    //create list that contains notes
+    this->strips = new QList<QList<GANote*>*>();//contain the 4 note strip list
     strips->append(new QList<GANote*>());
     strips->append(new QList<GANote*>());
     strips->append(new QList<GANote*>());
@@ -26,23 +28,21 @@ GAViewGame::GAViewGame(QSize layoutSize, QWidget * _left, QWidget * _right, QGra
     this->setHorizontalScrollBarPolicy( Qt::ScrollBarAlwaysOff );
     this->setVerticalScrollBarPolicy( Qt::ScrollBarAlwaysOff );
 
+    //get right and left widget
     this->left = (QLabel*)_left;
     this->right = (QLabel*)_right;
 
-
-    this->mySceneRect = QRect(sceneRect().x(), sceneRect().y(), sceneRect().width(), sceneRect().height());
-
-    verticalNotes = new GAVerticalNotes(this->mySceneRect.width(), this->mySceneRect.height());
+    //create horizonatal and vertical note bar
+    verticalNotes = new GAVerticalNotes(sceneRect().width(), sceneRect().height());
     this->scene->addItem(verticalNotes);
 
-    horizontalNotes = new GAHorizontalNotesBar(this->mySceneRect.width(), this->mySceneRect.height());
+    horizontalNotes = new GAHorizontalNotesBar(sceneRect().width(), sceneRect().height());
     this->scene->addItem(horizontalNotes);
 
+    //allow to read the note csv file note
     GANoteReader *noteReader = new GANoteReader(":res/partitions/fes.csv");
-    this->connect(noteReader, &GANoteReader::nextNotesLine, this, &GAViewGame::drawNoteLine);
-
     noteReader->readPartition();
-
+    this->connect(noteReader, &GANoteReader::nextNotesLine, this, &GAViewGame::drawNoteLine);
 
 
     this->show();
@@ -53,6 +53,9 @@ void GAViewGame::keyPressEvent(QKeyEvent *event)
     int chordId = this->getChordId(event->key());
     if(chordId != -1)
        {
+            horizontalNotes->isPressed(chordId);
+
+            //delete all the note outside the screen
             for(int i = 0; i < strips->size(); i++)
             {
                 for(int j = 0; j < strips->at(i)->size(); j++)
@@ -65,18 +68,19 @@ void GAViewGame::keyPressEvent(QKeyEvent *event)
             }
 
 
-            horizontalNotes->isPressed(chordId);
-
             if(!strips->at(chordId)->empty())
             {
                 qreal rectTop = horizontalNotes->noteBurner[chordId]->rect().y();
                 qreal noteY = strips->at(chordId)->first()->y();
 
+                //detect if the note is inside the horizontal note bar
                 if(noteY >= rectTop && noteY <= rectTop + HEIGHT_NOTES_STRIP)
                 {
-                    strips->at(chordId)->first()->isBurn();
+                    strips->at(chordId)->first()->isBurn();//set the note in red
                     score += 100;
                     this->right->setText(QString("Score : %1").arg(score));
+                    strips->at(chordId)->removeFirst();
+
                 }
             }
        }

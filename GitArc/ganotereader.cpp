@@ -11,7 +11,8 @@ GANoteReader::GANoteReader(QString fileName, QObject *parent) : QObject(parent)
 
 void GANoteReader::getNotes()
 {
-    emit nextNotesLine(this->partition[this->noteLineCount++]);
+    if(this->noteLineCount < this->partition.count())
+        emit nextNotesLine(this->partition[this->noteLineCount++]);
 }
 
 void GANoteReader::readPartition()

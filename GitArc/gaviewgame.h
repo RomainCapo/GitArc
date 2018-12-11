@@ -36,12 +36,12 @@ protected:
 
 private:
     QGraphicsScene *scene;
-    QRect mySceneRect;
     GAVerticalNotes *verticalNotes;
-    GAHorizontalNotesBar *horizontalNotes;
+    GAHorizontalNotesBar *horizontalNotes;   
     QLabel *left;
-    QLabel *right;
+    QLabel *right;  
     QList<QList<GANote*>*> * strips;
+
     int getChordId(int);
     int score;
 };
