@@ -84,7 +84,7 @@ void GAViewGame::keyPressEvent(QKeyEvent *event)
                 }
                 else
                 {
-                    score -= 10;
+                    score -= 50;
                     this->right->setText(QString("Score : %1").arg(score));
                 }
             }
