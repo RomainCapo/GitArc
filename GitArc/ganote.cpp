@@ -21,9 +21,9 @@ QRectF GANote::boundingRect() const
     return this->note->boundingRect();
 }
 
-void GANote::isBurn()
+void GANote::setColor(QBrush color)
 {
-    this->note->setBrush(Qt::red);
+    this->note->setBrush(color);
 }
 
 void GANote::animateDropTranslation()

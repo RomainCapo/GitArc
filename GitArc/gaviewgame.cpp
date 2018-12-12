@@ -76,11 +76,16 @@ void GAViewGame::keyPressEvent(QKeyEvent *event)
                 //detect if the note is inside the horizontal note bar
                 if(noteY >= rectTop && noteY <= rectTop + HEIGHT_NOTES_STRIP)
                 {
-                    strips->at(chordId)->first()->isBurn();//set the note in red
+                    strips->at(chordId)->first()->setColor(Qt::green);//set the note in red
                     score += 100;
                     this->right->setText(QString("Score : %1").arg(score));
                     strips->at(chordId)->removeFirst();
 
+                }
+                else
+                {
+                    score -= 10;
+                    this->right->setText(QString("Score : %1").arg(score));
                 }
             }
        }

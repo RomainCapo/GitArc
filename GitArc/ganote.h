@@ -10,6 +10,7 @@
 #include <QGraphicsEllipseItem>
 #include <QGraphicsWidget>
 #include <QPen>
+#include <QBrush>
 
 class QPropertyAnimation;
 
@@ -18,7 +19,7 @@ class GANote : public QGraphicsWidget
 
 public:
     GANote(const QPointF startPosition, const float sceneHeight);
-    void isBurn();
+    void setColor(QBrush color);
 
 protected:
     QRectF boundingRect() const;
