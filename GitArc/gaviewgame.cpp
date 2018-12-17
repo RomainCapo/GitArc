@@ -17,7 +17,7 @@
 GAViewGame::GAViewGame(QSize layoutSize, QWidget * _left, QWidget * _right, QGraphicsView *_parent) : QGraphicsView(_parent)
 {
     //create list that contains notes
-    this->strips = new QList<QList<GANote*>*>();//contain the 4 note strip list
+    this->strips = new QList<QList<GANote*>*>(); //contain the 4 note strip list
     strips->append(new QList<GANote*>());
     strips->append(new QList<GANote*>());
     strips->append(new QList<GANote*>());
@@ -34,14 +34,15 @@ GAViewGame::GAViewGame(QSize layoutSize, QWidget * _left, QWidget * _right, QGra
 
     //get right and left widget
     this->left = (QLabel*)_left;
-    this->right = (QLabel*)_right;
+    this->right = (GAGameRightPannel*)_right;
 
     //create horizonatal and vertical note bar
-    verticalNotes = new GAVerticalNotes(sceneRect().width(), sceneRect().height());
-    this->scene->addItem(verticalNotes);
+    this->verticalNotes = new GAVerticalNotes(sceneRect().width(), sceneRect().height());
+    this->scene->addItem(this->verticalNotes);
 
-    horizontalNotes = new GAHorizontalNotesBar(sceneRect().width(), sceneRect().height());
-    this->scene->addItem(horizontalNotes);
+    this->horizontalNotes = new GAHorizontalNotesBar(sceneRect().width(), sceneRect().height());
+    this->scene->addItem(this->horizontalNotes);
+    this->connect(this, &GAViewGame::wrongNotePlayed, this->horizontalNotes, &GAHorizontalNotesBar::wrongNotePlayed);
 
     //allow to read the note csv file note
     GANoteReader *noteReader = new GANoteReader(":res/partitions/fes.csv");
@@ -55,8 +56,22 @@ GAViewGame::GAViewGame(QSize layoutSize, QWidget * _left, QWidget * _right, QGra
     this->show();
 }
 
+GAViewGame::~GAViewGame()
+{
+    delete this->verticalNotes;
+    delete this->horizontalNotes;
+
+    for(int i=0; i < this->strips->length(); i++)
+    {
+        delete this->strips->at(i);
+    }
+    delete this->strips;
+}
+
 void GAViewGame::keyPressEvent(QKeyEvent *event)
 {
+    static int totalCorrectNote = 0;
+
     int chordId = this->getChordId(event->key());
     if(chordId != -1)
        {
@@ -85,14 +100,16 @@ void GAViewGame::keyPressEvent(QKeyEvent *event)
                 {
                     strips->at(chordId)->first()->setColor(Qt::green);//set the note in green
                     score += 100;
-                    this->right->setText(QString("Score : %1").arg(score));
+                    this->right->setScore(score);
                     strips->at(chordId)->removeFirst();
-
+                    totalCorrectNote++;
+                    this->right->setTotalCorrectNote(totalCorrectNote);
                 }
                 else
                 {
                     score -= 50;
-                    this->right->setText(QString("Score : %1").arg(score));
+                    this->right->setScore(score);
+                    emit this->wrongNotePlayed(chordId);
                 }
             }
        }
@@ -130,6 +147,8 @@ int GAViewGame::getChordId(int eventKey)
 
 void GAViewGame::drawNoteLine(QByteArray notesLine)
 {
+    static int totalNotes = 0;
+
     float stripWidth = this->sceneRect().width() / NUM_NOTES;
     float leftStripMargin = LEFTMARGIN_PERCENTAGE * stripWidth;
     for(int i = 0; i <= NUM_NOTES; i++)
@@ -145,8 +164,12 @@ void GAViewGame::drawNoteLine(QByteArray notesLine)
                 gameTimer->start();
                 isFirst = false;
             }
+
+            totalNotes++;
         }
     }
+
+    this->right->setTotalNote(totalNotes);
 }
 
 void GAViewGame::timerGame()

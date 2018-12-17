@@ -11,6 +11,7 @@
 #include <QGraphicsWidget>
 #include <QPen>
 #include <QTimer>
+#include <QSound>
 
 class GAHorizontalNotesBar : public QGraphicsWidget
 {
@@ -20,12 +21,15 @@ public:
     void isReleased(int);
     QList<QGraphicsRectItem*> noteBurner;
 
+public slots:
+    void wrongNotePlayed(int);
 
 private:
 
     const float sceneWidth;
     const float sceneHeight;
     float stripWidth;
+    QSound *bellSound;
 };
 
 #endif // GAHORIZONTALNOTESBAR_H
