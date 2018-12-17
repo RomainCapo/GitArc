@@ -16,6 +16,7 @@ class GANoteReader : public QObject
 public:
     explicit GANoteReader(QString filename, QObject *parent = nullptr);
     void readPartition();
+    void generatePartition();
 
 public slots:
     void getNotes();

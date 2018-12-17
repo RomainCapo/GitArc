@@ -1,8 +1,10 @@
 #include "ganotereader.h"
+#include "constants.h"
 #include <QFile>
 #include <QList>
 #include <QDebug>
 #include <QTimer>
+#include <QRandomGenerator>
 
 GANoteReader::GANoteReader(QString fileName, QObject *parent) : QObject(parent)
 {
@@ -26,6 +28,22 @@ void GANoteReader::readPartition()
     noteTimer->setInterval(1000);
     this->connect(noteTimer, &QTimer::timeout, this, &GANoteReader::getNotes);
     noteTimer->start();
+}
+
+void GANoteReader::generatePartition()
+{
+    /*for(int i = 0; i < NB_NOTES; i++)
+    {
+        QByteArray *line = new QByteArray();
+        for(int j = 0; j < NUM_NOTES; j++)
+        {
+            int value = QRandomGenerator::global()->generate() % 2;
+            line->append(value);
+
+        }
+    this->partition.append(*line);
+    }*/
+    QFile::remove("..\\GitArc\\res\\partitions\\test.csv");
 }
 
 void GANoteReader::readCSVNote()
