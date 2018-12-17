@@ -48,6 +48,18 @@ GAViewGame::GAViewGame(QSize layoutSize, QWidget * _left, QWidget * _right, QGra
     this->show();
 }
 
+GAViewGame::~GAViewGame()
+{
+    delete this->verticalNotes;
+    delete this->horizontalNotes;
+
+    for(int i=0; i < this->strips->length(); i++)
+    {
+        delete this->strips->at(i);
+    }
+    delete this->strips;
+}
+
 void GAViewGame::keyPressEvent(QKeyEvent *event)
 {
     int chordId = this->getChordId(event->key());

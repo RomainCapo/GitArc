@@ -34,5 +34,4 @@ void GANote::animateDropTranslation()
     this->animation->setDuration(ANIMATION_DURATION);
     this->animation->setEndValue(endPosition);
     this->animation->start(QPropertyAnimation::DeleteWhenStopped);
-    //this->connect(this->animation, SIGNAL(finished()), this, SLOT(deleteLater()));
 }

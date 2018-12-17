@@ -13,6 +13,8 @@
 */
 GAHorizontalNotesBar::GAHorizontalNotesBar(const float _sceneWidth, const float _sceneHeight): sceneWidth(_sceneWidth), sceneHeight(_sceneHeight)
 {
+    this->bellSound = new QSound("..\\GitArc\\res\\sound\\ding.wav");
+
     stripWidth = sceneWidth / NUM_NOTES;
     QPen pen(Qt::black, PEN_WIDTH);
     QBrush brush(Qt::darkGray);
@@ -32,7 +34,7 @@ void GAHorizontalNotesBar::isPressed(int keyPressed)
     static QBrush brushActivated(Qt::lightGray);
     this->noteBurner.at(keyPressed)->setBrush(brushActivated);
 
-   QSound::play("..\\GitArc\\res\\sound\\ding.wav");
+    this->bellSound->play();
 }
 
 void GAHorizontalNotesBar::isReleased(int keyPressed)

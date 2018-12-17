@@ -26,6 +26,7 @@ class GAViewGame : public QGraphicsView
 
 public:
     GAViewGame(QSize layoutSize,QWidget * _left, QWidget * _right, QGraphicsView *parent = nullptr);
+    ~GAViewGame();
 
 public slots:
     void drawNoteLine(QByteArray notesLine);
