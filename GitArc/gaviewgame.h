@@ -10,6 +10,7 @@
 #include <QGraphicsView>
 #include <QMap>
 #include "constants.h"
+#include "gagamerightpannel.h"
 
 class GAVerticalNotes;
 class GAHorizontalNotesBar;
@@ -43,7 +44,7 @@ private:
     GAVerticalNotes *verticalNotes;
     GAHorizontalNotesBar *horizontalNotes;   
     QLabel *left;
-    QLabel *right;  
+    GAGameRightPannel *right;
     QList<QList<GANote*>*> * strips;
 
     int getChordId(int);

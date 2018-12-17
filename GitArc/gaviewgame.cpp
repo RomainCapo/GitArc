@@ -13,7 +13,7 @@
 GAViewGame::GAViewGame(QSize layoutSize, QWidget * _left, QWidget * _right, QGraphicsView *parent) : QGraphicsView(parent)
 {
     //create list that contains notes
-    this->strips = new QList<QList<GANote*>*>();//contain the 4 note strip list
+    this->strips = new QList<QList<GANote*>*>(); //contain the 4 note strip list
     strips->append(new QList<GANote*>());
     strips->append(new QList<GANote*>());
     strips->append(new QList<GANote*>());
@@ -30,7 +30,7 @@ GAViewGame::GAViewGame(QSize layoutSize, QWidget * _left, QWidget * _right, QGra
 
     //get right and left widget
     this->left = (QLabel*)_left;
-    this->right = (QLabel*)_right;
+    this->right = (GAGameRightPannel*)_right;
 
     //create horizonatal and vertical note bar
     this->verticalNotes = new GAVerticalNotes(sceneRect().width(), sceneRect().height());
@@ -63,6 +63,8 @@ GAViewGame::~GAViewGame()
 
 void GAViewGame::keyPressEvent(QKeyEvent *event)
 {
+    static int totalCorrectNote = 0;
+
     int chordId = this->getChordId(event->key());
     if(chordId != -1)
        {
@@ -91,14 +93,15 @@ void GAViewGame::keyPressEvent(QKeyEvent *event)
                 {
                     strips->at(chordId)->first()->setColor(Qt::green);//set the note in red
                     score += 100;
-                    this->right->setText(QString("Score : %1").arg(score));
+                    this->right->setScore(score);
                     strips->at(chordId)->removeFirst();
-
+                    totalCorrectNote++;
+                    this->right->setTotalCorrectNote(totalCorrectNote);
                 }
                 else
                 {
                     score -= 50;
-                    this->right->setText(QString("Score : %1").arg(score));
+                    this->right->setScore(score);
                     emit this->wrongNotePlayed(chordId);
                 }
             }
@@ -137,6 +140,8 @@ int GAViewGame::getChordId(int eventKey)
 
 void GAViewGame::drawNoteLine(QByteArray notesLine)
 {
+    static int totalNotes = 0;
+
     float stripWidth = this->sceneRect().width() / NUM_NOTES;
     float leftStripMargin = LEFTMARGIN_PERCENTAGE * stripWidth;
     for(int i = 0; i <= NUM_NOTES; i++)
@@ -146,7 +151,10 @@ void GAViewGame::drawNoteLine(QByteArray notesLine)
             GANote *notes = new GANote(QPointF(xPos - NOTE_RADIUS / 4, 0), this->sceneRect().height());
             this->strips->at(i)->append(notes);
             this->scene->addItem(notes);
+            totalNotes++;
         }
     }
+
+    this->right->setTotalNote(totalNotes);
 }
 

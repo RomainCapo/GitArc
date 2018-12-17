@@ -51,7 +51,7 @@ void GAHorizontalNotesBar::wrongNotePlayed(int keyPressed)
     QTimer *changeColorTimer = new QTimer(this);
     changeColorTimer->setInterval(500);
     changeColorTimer->setSingleShot(true);
-    this->connect(changeColorTimer,  &QTimer::timeout, this, [keyPressed, this]() -> void {
+    this->connect(changeColorTimer,  &QTimer::timeout, this, [&keyPressed, this]() -> void {
         this->isReleased(keyPressed);
     });
 }

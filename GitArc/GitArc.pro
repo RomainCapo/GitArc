@@ -32,7 +32,8 @@ SOURCES += \
     gahorizontalnotesbar.cpp \
     gagame.cpp \
     ganotereader.cpp \
-    ganote.cpp
+    ganote.cpp \
+    gagamerightpannel.cpp
 
 HEADERS += \
         gaviewmainmenu.h \
@@ -42,7 +43,8 @@ HEADERS += \
     constants.h \
     gagame.h \
     ganotereader.h \
-    ganote.h
+    ganote.h \
+    gagamerightpannel.h
 
 RESOURCES += \
     rsc.qrc
