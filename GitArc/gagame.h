@@ -12,6 +12,8 @@ class GAGame : public QWidget
 public:
     explicit GAGame(QWidget *parent = nullptr);
 
+public slots:
+
 signals:
 
 public slots:

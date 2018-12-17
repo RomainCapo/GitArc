@@ -9,8 +9,12 @@
 #include <QDebug>
 #include <QByteArray>
 #include <QLabel>
+#include <QPushButton>
+#include <QHBoxLayout>
 
-GAViewGame::GAViewGame(QSize layoutSize, QWidget * _left, QWidget * _right, QGraphicsView *parent) : QGraphicsView(parent)
+#include <QMessageBox>
+
+GAViewGame::GAViewGame(QSize layoutSize, QWidget * _left, QWidget * _right, QGraphicsView *_parent) : QGraphicsView(_parent)
 {
     //create list that contains notes
     this->strips = new QList<QList<GANote*>*>();//contain the 4 note strip list
@@ -44,6 +48,9 @@ GAViewGame::GAViewGame(QSize layoutSize, QWidget * _left, QWidget * _right, QGra
     noteReader->readPartition();
     this->connect(noteReader, &GANoteReader::nextNotesLine, this, &GAViewGame::drawNoteLine);
 
+    gameTimer = new QTimer(this);
+    gameTimer->setInterval(1000);
+    this->connect(gameTimer, &QTimer::timeout, this, &GAViewGame::timerGame);
 
     this->show();
 }
@@ -56,7 +63,7 @@ void GAViewGame::keyPressEvent(QKeyEvent *event)
             horizontalNotes->isPressed(chordId);
 
             //delete all the note outside the screen
-            for(int i = 0; i < strips->size(); i++)
+            /*for(int i = 0; i < strips->size(); i++)
             {
                 for(int j = 0; j < strips->at(i)->size(); j++)
                 {
@@ -65,7 +72,7 @@ void GAViewGame::keyPressEvent(QKeyEvent *event)
                         strips->at(i)->removeAt(j);
                     }
                 }
-            }
+            }*/
 
 
             if(!strips->at(chordId)->empty())
@@ -76,7 +83,7 @@ void GAViewGame::keyPressEvent(QKeyEvent *event)
                 //detect if the note is inside the horizontal note bar
                 if(noteY >= rectTop && noteY <= rectTop + HEIGHT_NOTES_STRIP)
                 {
-                    strips->at(chordId)->first()->setColor(Qt::green);//set the note in red
+                    strips->at(chordId)->first()->setColor(Qt::green);//set the note in green
                     score += 100;
                     this->right->setText(QString("Score : %1").arg(score));
                     strips->at(chordId)->removeFirst();
@@ -132,7 +139,53 @@ void GAViewGame::drawNoteLine(QByteArray notesLine)
             GANote *notes = new GANote(QPointF(xPos - NOTE_RADIUS / 4, 0), this->sceneRect().height());
             this->strips->at(i)->append(notes);
             this->scene->addItem(notes);
+
+            if(isFirst)
+            {
+                gameTimer->start();
+                isFirst = false;
+            }
         }
+    }
+}
+
+void GAViewGame::timerGame()
+{
+    bool isEmptyList = true;
+
+    for(int i = 0; i < strips->size(); i++)
+    {
+        for(int j = 0; j < strips->at(i)->size(); j++)
+        {
+            if(strips->at(i)->at(j)->y() >= horizontalNotes->noteBurner[0]->rect().y() + HEIGHT_NOTES_STRIP)
+            {
+                strips->at(i)->removeAt(j);
+                //this->score -= 50;
+            }
+
+            if(!strips->at(i)->isEmpty())
+            {
+                isEmptyList = false;
+            }
+        }
+    }
+
+    if(isEmptyList)
+    {
+        gameTimer->stop();
+
+        this->verticalNotes->hide();
+        this->horizontalNotes->hide();
+        //this->right->hide();
+        //this->left->hide();
+        this->setStyleSheet("QGraphicsView { background-color : grey }");
+
+        QLabel *lbl = new QLabel(this);
+        lbl->setText("END !");
+
+        this->scene->addWidget(lbl);
+        this->setScene(scene);
+
     }
 }
 
