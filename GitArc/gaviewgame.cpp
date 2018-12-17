@@ -33,11 +33,12 @@ GAViewGame::GAViewGame(QSize layoutSize, QWidget * _left, QWidget * _right, QGra
     this->right = (QLabel*)_right;
 
     //create horizonatal and vertical note bar
-    verticalNotes = new GAVerticalNotes(sceneRect().width(), sceneRect().height());
-    this->scene->addItem(verticalNotes);
+    this->verticalNotes = new GAVerticalNotes(sceneRect().width(), sceneRect().height());
+    this->scene->addItem(this->verticalNotes);
 
-    horizontalNotes = new GAHorizontalNotesBar(sceneRect().width(), sceneRect().height());
-    this->scene->addItem(horizontalNotes);
+    this->horizontalNotes = new GAHorizontalNotesBar(sceneRect().width(), sceneRect().height());
+    this->scene->addItem(this->horizontalNotes);
+    this->connect(this, &GAViewGame::wrongNotePlayed, this->horizontalNotes, &GAHorizontalNotesBar::wrongNotePlayed);
 
     //allow to read the note csv file note
     GANoteReader *noteReader = new GANoteReader(":res/partitions/fes.csv");
@@ -98,6 +99,7 @@ void GAViewGame::keyPressEvent(QKeyEvent *event)
                 {
                     score -= 50;
                     this->right->setText(QString("Score : %1").arg(score));
+                    emit this->wrongNotePlayed(chordId);
                 }
             }
        }

@@ -21,6 +21,8 @@ public:
     void isReleased(int);
     QList<QGraphicsRectItem*> noteBurner;
 
+public slots:
+    void wrongNotePlayed(int);
 
 private:
 

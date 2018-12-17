@@ -31,6 +31,9 @@ public:
 public slots:
     void drawNoteLine(QByteArray notesLine);
 
+signals:
+    void wrongNotePlayed(int);
+
 protected:
     void keyPressEvent(QKeyEvent *event);
     void keyReleaseEvent(QKeyEvent *event);

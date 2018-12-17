@@ -42,3 +42,17 @@ void GAHorizontalNotesBar::isReleased(int keyPressed)
     static QBrush brushDisactivated(Qt::darkGray);
     this->noteBurner.at(keyPressed)->setBrush(brushDisactivated);
 }
+
+void GAHorizontalNotesBar::wrongNotePlayed(int keyPressed)
+{
+    static QBrush brushFail(Qt::red);
+    this->noteBurner.at(keyPressed)->setBrush(brushFail);
+
+    QTimer *changeColorTimer = new QTimer(this);
+    changeColorTimer->setInterval(500);
+    changeColorTimer->setSingleShot(true);
+    this->connect(changeColorTimer,  &QTimer::timeout, this, [keyPressed, this]() -> void {
+        this->isReleased(keyPressed);
+    });
+}
+
