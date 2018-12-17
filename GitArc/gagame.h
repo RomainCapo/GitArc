@@ -11,10 +11,6 @@ class GAGame : public QWidget
     Q_OBJECT
 public:
     explicit GAGame(QWidget *parent = nullptr);
-
-signals:
-
-public slots:
 };
 
 #endif // GAGAME_H

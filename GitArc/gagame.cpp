@@ -1,6 +1,7 @@
 #include "gagame.h"
 #include "gaviewgame.h"
 #include "gahorizontalnotesbar.h"
+#include "gagamerightpannel.h"
 #include <QHBoxLayout>
 #include <QLabel>
 #include <QSound>
@@ -14,9 +15,7 @@ GAGame::GAGame(QWidget *parent) : QWidget(parent)
     QSound::play("..\\GitArc\\res\\sound\\NewLevel.wav");
 
 
-    QLabel *lbScore = new QLabel(this);
-    lbScore->setText("Score : 0");
-    lbScore->setStyleSheet("font-size: 18px;");
+    GAGameRightPannel *rightPannel = new GAGameRightPannel(this);
 
     QMovie *gif = new QMovie("C:\\DEV\\gitarc\\GitArc\\res\\img\\SnoopDogg.gif");
     QLabel *processLabel = new QLabel(this);
@@ -24,14 +23,14 @@ GAGame::GAGame(QWidget *parent) : QWidget(parent)
     gif->start();
 
     QSize viewSize(this->width() * 3 / 5, this->height());//Part of the layout occupied by the view
-    GAViewGame *gameView = new GAViewGame(viewSize, processLabel, lbScore);
+    GAViewGame *gameView = new GAViewGame(viewSize, processLabel, rightPannel);
 
     QHBoxLayout *hLayout = new QHBoxLayout(this);
     hLayout->addWidget(processLabel);
     hLayout->setStretch(0, 1);
     hLayout->addWidget(gameView);
     hLayout->setStretch(1, 3);
-    hLayout->addWidget(lbScore);
+    hLayout->addWidget(rightPannel);
     hLayout->setStretch(2, 1);
 
     hLayout->setSpacing(0);

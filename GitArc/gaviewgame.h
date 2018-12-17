@@ -10,6 +10,7 @@
 #include <QGraphicsView>
 #include <QMap>
 #include "constants.h"
+#include "gagamerightpannel.h"
 
 class GAVerticalNotes;
 class GAHorizontalNotesBar;
@@ -19,16 +20,23 @@ class QByteArray;
 class QLabel;
 class GANote;
 class QTimer;
+class QPushButton;
+class QHBoxLayout;
 
 class GAViewGame : public QGraphicsView
 {
     Q_OBJECT
 
 public:
-    GAViewGame(QSize layoutSize,QWidget * _left, QWidget * _right, QGraphicsView *parent = nullptr);
+    GAViewGame(QSize layoutSize,QWidget * _left, QWidget * _right, QGraphicsView *_parent = nullptr);
+    ~GAViewGame();
 
 public slots:
     void drawNoteLine(QByteArray notesLine);
+    void timerGame();
+
+signals:
+    void wrongNotePlayed(int);
 
 protected:
     void keyPressEvent(QKeyEvent *event);
@@ -39,8 +47,11 @@ private:
     GAVerticalNotes *verticalNotes;
     GAHorizontalNotesBar *horizontalNotes;   
     QLabel *left;
-    QLabel *right;  
+    GAGameRightPannel *right;
     QList<QList<GANote*>*> * strips;
+    QTimer *gameTimer;
+
+    bool isFirst = true;
 
     int getChordId(int);
     int score;
