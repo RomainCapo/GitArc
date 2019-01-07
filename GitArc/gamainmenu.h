@@ -14,14 +14,15 @@ class QPushButton;
 class QLabel;
 class QStackedLayout;
 
-class GAViewMainMenu : public QWidget
+class GAMainMenu : public QWidget
 {
     Q_OBJECT
 
 public:
-    GAViewMainMenu(QWidget *parent = 0);
-
-    ~GAViewMainMenu();
+    GAMainMenu(QWidget *parent = 0);
+    void showAbout();
+    void showOption();
+    ~GAMainMenu();
 
 public slots:
     void onBtnPlayClicked();

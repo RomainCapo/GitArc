@@ -11,7 +11,6 @@
 #include <QLabel>
 #include <QPushButton>
 #include <QHBoxLayout>
-
 #include <QMessageBox>
 
 GAViewGame::GAViewGame(QSize layoutSize, QWidget * _left, QWidget * _right, QGraphicsView *_parent) : QGraphicsView(_parent)

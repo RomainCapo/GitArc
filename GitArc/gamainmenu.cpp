@@ -1,12 +1,14 @@
-#include "gaviewmainmenu.h"
+#include "gamainmenu.h"
 #include "gagame.h"
+#include "gashowabout.h"
 #include "constants.h"
 #include <QPushButton>
 #include <QLabel>
 #include <QVBoxLayout>
+#include <QMessageBox>
 
 
-GAViewMainMenu::GAViewMainMenu(QWidget *parent): QWidget(parent)
+GAMainMenu::GAMainMenu(QWidget *parent): QWidget(parent)
 {
     this->setWindowTitle(tr("GitArc Menu"));
     this->showFullScreen();
@@ -25,6 +27,10 @@ GAViewMainMenu::GAViewMainMenu(QWidget *parent): QWidget(parent)
     btnOption->setFont(QFont(FONT, FONT_SIZE));
     btnOption->setFixedSize(BUTTON_WIDTH, BUTTON_HEIGHT);
 
+    QPushButton *btnAbout = new QPushButton(tr("&About"), this);
+    btnAbout->setFont(QFont(FONT, FONT_SIZE));
+    btnAbout->setFixedSize(BUTTON_WIDTH, BUTTON_HEIGHT);
+
     QPushButton *btnQuit = new QPushButton(tr("&Quit Game"), this);
     btnQuit->setFont(QFont(FONT, FONT_SIZE));
     btnQuit->setFixedSize(BUTTON_WIDTH, BUTTON_HEIGHT);
@@ -36,23 +42,33 @@ GAViewMainMenu::GAViewMainMenu(QWidget *parent): QWidget(parent)
     vboxLayout->addWidget(lbImg);
     vboxLayout->addWidget(btnPlay);
     vboxLayout->addWidget(btnOption);
+    vboxLayout->addWidget(btnAbout);
     vboxLayout->addWidget(btnQuit);
     vboxLayout->addWidget(lbInfo);
     vboxLayout->setAlignment(Qt::AlignCenter);
     vboxLayout->setSpacing(50);
     this->setLayout(vboxLayout);
 
-    this->connect(btnPlay, &QPushButton::clicked, this, &GAViewMainMenu::onBtnPlayClicked);
+    this->connect(btnPlay, &QPushButton::clicked, this, &GAMainMenu::onBtnPlayClicked);
     this->connect(btnQuit, &QPushButton::clicked, this, &QApplication::quit);
+    this->connect(btnAbout, &QPushButton::clicked, this, &GAMainMenu::showAbout);
 }
 
-void GAViewMainMenu::onBtnPlayClicked()
+void GAMainMenu::onBtnPlayClicked()
 {
     GAGame *game = new GAGame();
     this->hide();
 }
 
-GAViewMainMenu::~GAViewMainMenu()
+void GAMainMenu::showAbout()
+{
+    QString description = "test";
+    //QMessageBox::information(this, "About GitArc", description);
+    GAShowAbout *aboutDialog = new GAShowAbout();
+    aboutDialog->show();
+}
+
+GAMainMenu::~GAMainMenu()
 {
 
 }
