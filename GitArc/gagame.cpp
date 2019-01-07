@@ -39,5 +39,13 @@ GAGame::GAGame(QWidget *parent) : QWidget(parent)
     hLayout->setMargin(0);
     this->setLayout(hLayout);
 
+    this->connect(rightPannel, &GAGameRightPannel::quitGameSig, this, &GAViewGame::close);
+
     this->show();
+}
+
+void GAGame::quitGame()
+{
+    this->close();
+    GAViewMainMenu *gaViewMainMenu = new GAViewMainMenu();
 }
