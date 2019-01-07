@@ -11,6 +11,7 @@
 #include <QLabel>
 #include <QPushButton>
 #include <QHBoxLayout>
+#include <QtMath>
 
 #include <QMessageBox>
 
@@ -76,7 +77,7 @@ void GAViewGame::keyPressEvent(QKeyEvent *event)
     int chordId = this->getChordId(event->key());
     if(chordId != -1)
        {
-            horizontalNotes->isPressed(chordId);
+            horizontalNotes->highlightFret(chordId);
 
             //delete all the note outside the screen
             /*for(int i = 0; i < strips->size(); i++)
@@ -99,8 +100,12 @@ void GAViewGame::keyPressEvent(QKeyEvent *event)
                 //detect if the note is inside the horizontal note bar
                 if(noteY >= rectTop && noteY <= rectTop + HEIGHT_NOTES_STRIP)
                 {
-                    strips->at(chordId)->first()->setColor(Qt::green);//set the note in green
-                    score += 100;
+                    strips->at(chordId)->first()->setColor(QColor(76, 175, 80)); //set the note in green
+
+                    result = (100 - qFabs((HEIGHT_NOTES_STRIP / 2) - (noteY - rectTop)));
+
+                    score += result;
+
                     this->right->setScore(score);
                     strips->at(chordId)->removeFirst();
                     totalCorrectNote++;
@@ -120,7 +125,7 @@ void GAViewGame::keyReleaseEvent(QKeyEvent *event)
 {
     int chordId = this->getChordId(event->key());
     if(chordId != -1)
-            horizontalNotes->isReleased(chordId);
+            horizontalNotes->toBasicFret(chordId);
 }
 
 int GAViewGame::getChordId(int eventKey)

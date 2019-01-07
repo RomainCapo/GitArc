@@ -17,7 +17,7 @@ GAHorizontalNotesBar::GAHorizontalNotesBar(const float _sceneWidth, const float 
 
     stripWidth = sceneWidth / NUM_NOTES;
     QPen pen(Qt::black, PEN_WIDTH);
-    QBrush brush(Qt::darkGray);
+    QBrush brush(QColor(97, 97, 97));
 
     for(int i = 0; i < NUM_NOTES; i++)
     {
@@ -29,30 +29,30 @@ GAHorizontalNotesBar::GAHorizontalNotesBar(const float _sceneWidth, const float 
     }
 }
 
-void GAHorizontalNotesBar::isPressed(int keyPressed)
+void GAHorizontalNotesBar::highlightFret(int keyPressed)
 {
-    static QBrush brushActivated(Qt::lightGray);
+    static QBrush brushActivated(QColor(158, 158, 158));
     this->noteBurner.at(keyPressed)->setBrush(brushActivated);
 
     this->bellSound->play();
 }
 
-void GAHorizontalNotesBar::isReleased(int keyPressed)
+void GAHorizontalNotesBar::toBasicFret(int keyPressed)
 {
-    static QBrush brushDisactivated(Qt::darkGray);
+    static QBrush brushDisactivated(QColor(97, 97, 97));
     this->noteBurner.at(keyPressed)->setBrush(brushDisactivated);
 }
 
 void GAHorizontalNotesBar::wrongNotePlayed(int keyPressed)
 {
-    static QBrush brushFail(Qt::red);
+    static QBrush brushFail(QColor(229, 57, 53));
     this->noteBurner.at(keyPressed)->setBrush(brushFail);
 
     QTimer *changeColorTimer = new QTimer(this);
     changeColorTimer->setInterval(500);
     changeColorTimer->setSingleShot(true);
     this->connect(changeColorTimer,  &QTimer::timeout, this, [&keyPressed, this]() -> void {
-        this->isReleased(keyPressed);
+        this->toBasicFret(keyPressed);
     });
 }
 

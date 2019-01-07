@@ -55,6 +55,7 @@ private:
 
     int getChordId(int);
     int score;
+    qreal result;
 };
 
 #endif // GAVIEWGAME_H

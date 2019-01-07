@@ -11,7 +11,7 @@ GANote::GANote(const QPointF startPosition, const float sceneHeight) : startPosi
     this->note = new QGraphicsEllipseItem(this);
     note->setRect(startPosition.x(), startPosition.y(), NOTE_RADIUS, NOTE_RADIUS);
     note->setPen(pen);
-    note->setBrush(Qt::darkCyan);
+    note->setBrush(QColor(3, 169, 244));
     this->animateDropTranslation();
     this->collidingItems();
 }

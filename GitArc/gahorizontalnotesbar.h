@@ -17,8 +17,8 @@ class GAHorizontalNotesBar : public QGraphicsWidget
 {
 public:
     GAHorizontalNotesBar(const float _sceneWidth, const float _sceneHeight);
-    void isPressed(int);
-    void isReleased(int);
+    void highlightFret(int);
+    void toBasicFret(int);
     QList<QGraphicsRectItem*> noteBurner;
 
 public slots:
