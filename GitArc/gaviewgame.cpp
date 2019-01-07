@@ -45,7 +45,8 @@ GAViewGame::GAViewGame(QSize layoutSize, QWidget * _left, QWidget * _right, QGra
     this->connect(this, &GAViewGame::wrongNotePlayed, this->horizontalNotes, &GAHorizontalNotesBar::wrongNotePlayed);
 
     //allow to read the note csv file note
-    GANoteReader *noteReader = new GANoteReader(":res/partitions/fes.csv");
+    //GANoteReader *noteReader = new GANoteReader(":res/partitions/fes.csv");
+    GANoteReader *noteReader = new GANoteReader("..\\GitArc\\res\\partitions\\randomPartition.csv");
     noteReader->generatePartition();
     noteReader->readPartition();
     this->connect(noteReader, &GANoteReader::nextNotesLine, this, &GAViewGame::drawNoteLine);

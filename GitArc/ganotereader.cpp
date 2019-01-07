@@ -34,18 +34,25 @@ void GANoteReader::readPartition()
 
 void GANoteReader::generatePartition()
 {
-    /*for(int i = 0; i < NB_NOTES; i++)
+    QFile::remove("..\\GitArc\\res\\partitions\\randomPartition.csv");
+    QFile file("..\\GitArc\\res\\partitions\\randomPartition.csv");
+    if(file.open(QIODevice::WriteOnly))
     {
-        QByteArray *line = new QByteArray();
-        for(int j = 0; j < NUM_NOTES; j++)
+        QTextStream stream(&file);
+        for(int i = 0; i < NB_NOTES; i++)
         {
-            int value = QRandomGenerator::global()->generate() % 2;
-            line->append(value);
-
+            for(int j = 0; j < NUM_NOTES; j++)
+            {
+                stream << QString::number(QRandomGenerator::global()->generate() % 2);
+                if(!(j == NUM_NOTES - 1))
+                {
+                    stream << ";";
+                }
+            }
+            stream << endl;
         }
-    this->partition.append(*line);
-    }*/
-    QFile::remove("..\\GitArc\\res\\partitions\\test.csv");
+    }
+
 }
 
 void GANoteReader::readCSVNote()
