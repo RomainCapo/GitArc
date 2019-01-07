@@ -34,7 +34,8 @@ SOURCES += \
     ganote.cpp \
     gagamerightpannel.cpp \
     gamainmenu.cpp \
-    gashowabout.cpp
+    gashowabout.cpp \
+    gascore.cpp
 
 HEADERS += \
     gaviewgame.h \
@@ -46,7 +47,8 @@ HEADERS += \
     ganote.h \
     gagamerightpannel.h \
     gamainmenu.h \
-    gashowabout.h
+    gashowabout.h \
+    gascore.h
 
 RESOURCES += \
     rsc.qrc

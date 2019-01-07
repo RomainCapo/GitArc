@@ -56,8 +56,8 @@ GAMainMenu::GAMainMenu(QWidget *parent): QWidget(parent)
 
 void GAMainMenu::onBtnPlayClicked()
 {
+    this->close();
     GAGame *game = new GAGame();
-    this->hide();
 }
 
 void GAMainMenu::showAbout()
@@ -70,5 +70,4 @@ void GAMainMenu::showAbout()
 
 GAMainMenu::~GAMainMenu()
 {
-
 }

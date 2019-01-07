@@ -29,4 +29,7 @@
 // HORIZONTAL NOTES
 #define HEIGHT_NOTES_STRIP 100.0
 
+// SCORE FILE
+#define BEST_SCORE_PATH "..\\GitArc\\res\\score"
+
 #endif // CONSTANTS_H
