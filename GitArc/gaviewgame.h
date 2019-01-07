@@ -11,6 +11,7 @@
 #include <QMap>
 #include "constants.h"
 #include "gagamerightpannel.h"
+#include "gascore.h"
 
 class GAVerticalNotes;
 class GAHorizontalNotesBar;
@@ -50,11 +51,12 @@ private:
     GAGameRightPannel *right;
     QList<QList<GANote*>*> * strips;
     QTimer *gameTimer;
+    GAScore *scoreSaver;
+    int score;
 
     bool isFirst = true;
 
     int getChordId(int);
-    int score;
 };
 
 #endif // GAVIEWGAME_H

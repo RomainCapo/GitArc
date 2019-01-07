@@ -33,7 +33,8 @@ SOURCES += \
     gagame.cpp \
     ganotereader.cpp \
     ganote.cpp \
-    gagamerightpannel.cpp
+    gagamerightpannel.cpp \
+    gascore.cpp
 
 HEADERS += \
         gaviewmainmenu.h \
@@ -44,7 +45,8 @@ HEADERS += \
     gagame.h \
     ganotereader.h \
     ganote.h \
-    gagamerightpannel.h
+    gagamerightpannel.h \
+    gascore.h
 
 RESOURCES += \
     rsc.qrc

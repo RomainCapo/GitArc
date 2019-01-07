@@ -16,6 +16,8 @@
 
 GAViewGame::GAViewGame(QSize layoutSize, QWidget * _left, QWidget * _right, QGraphicsView *_parent) : QGraphicsView(_parent)
 {
+    this->scoreSaver = GAScore::get();
+
     //create list that contains notes
     this->strips = new QList<QList<GANote*>*>(); //contain the 4 note strip list
     strips->append(new QList<GANote*>());
@@ -210,6 +212,7 @@ void GAViewGame::timerGame()
         this->scene->addWidget(lbl);
         this->setScene(scene);
 
+        this->scoreSaver->saveScore(this->score);
     }
 }
 

@@ -48,8 +48,8 @@ GAViewMainMenu::GAViewMainMenu(QWidget *parent): QWidget(parent)
 
 void GAViewMainMenu::onBtnPlayClicked()
 {
-    GAGame *game = new GAGame();
     this->hide();
+    GAGame *game = new GAGame();
 }
 
 GAViewMainMenu::~GAViewMainMenu()

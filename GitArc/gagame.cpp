@@ -10,6 +10,8 @@
 
 GAGame::GAGame(QWidget *parent) : QWidget(parent)
 {
+    this->raise();
+    this->activateWindow();
     this->showFullScreen();
 
     QSound::play("..\\GitArc\\res\\sound\\NewLevel.wav");
