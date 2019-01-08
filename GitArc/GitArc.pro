@@ -26,17 +26,18 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
         main.cpp \
-        gaviewmainmenu.cpp \
     gaviewgame.cpp \
     gaverticalnotes.cpp \
     gahorizontalnotesbar.cpp \
     gagame.cpp \
     ganotereader.cpp \
     ganote.cpp \
-    gagamerightpannel.cpp
+    gagamerightpannel.cpp \
+    gamainmenu.cpp \
+    gashowabout.cpp \
+    gascore.cpp
 
 HEADERS += \
-        gaviewmainmenu.h \
     gaviewgame.h \
     gaverticalnotes.h \
     gahorizontalnotesbar.h \
@@ -44,7 +45,10 @@ HEADERS += \
     gagame.h \
     ganotereader.h \
     ganote.h \
-    gagamerightpannel.h
+    gagamerightpannel.h \
+    gamainmenu.h \
+    gashowabout.h \
+    gascore.h
 
 RESOURCES += \
     rsc.qrc

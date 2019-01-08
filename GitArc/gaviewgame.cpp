@@ -12,11 +12,12 @@
 #include <QPushButton>
 #include <QHBoxLayout>
 #include <QtMath>
-
 #include <QMessageBox>
 
 GAViewGame::GAViewGame(QSize layoutSize, QWidget * _left, QWidget * _right, QGraphicsView *_parent) : QGraphicsView(_parent)
 {
+    this->scoreSaver = GAScore::get();
+
     //create list that contains notes
     this->strips = new QList<QList<GANote*>*>(); //contain the 4 note strip list
     strips->append(new QList<GANote*>());
@@ -46,7 +47,8 @@ GAViewGame::GAViewGame(QSize layoutSize, QWidget * _left, QWidget * _right, QGra
     this->connect(this, &GAViewGame::wrongNotePlayed, this->horizontalNotes, &GAHorizontalNotesBar::wrongNotePlayed);
 
     //allow to read the note csv file note
-    GANoteReader *noteReader = new GANoteReader(":res/partitions/fes.csv");
+    //GANoteReader *noteReader = new GANoteReader(":res/partitions/fes.csv");
+    GANoteReader *noteReader = new GANoteReader("..\\GitArc\\res\\partitions\\randomPartition.csv");
     noteReader->generatePartition();
     noteReader->readPartition();
     this->connect(noteReader, &GANoteReader::nextNotesLine, this, &GAViewGame::drawNoteLine);
@@ -215,6 +217,7 @@ void GAViewGame::timerGame()
         this->scene->addWidget(lbl);
         this->setScene(scene);
 
+        this->scoreSaver->saveScore(this->score);
     }
 }
 

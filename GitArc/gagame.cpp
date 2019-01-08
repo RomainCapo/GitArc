@@ -10,6 +10,8 @@
 
 GAGame::GAGame(QWidget *parent) : QWidget(parent)
 {
+    this->raise();
+    this->activateWindow();
     this->showFullScreen();
 
     QSound::play("..\\GitArc\\res\\sound\\NewLevel.wav");
@@ -37,5 +39,13 @@ GAGame::GAGame(QWidget *parent) : QWidget(parent)
     hLayout->setMargin(0);
     this->setLayout(hLayout);
 
+    this->connect(rightPannel, &GAGameRightPannel::quitGameSig, this, &GAViewGame::close);
+
     this->show();
+}
+
+void GAGame::quitGame()
+{
+    this->close();
+    GAMainMenu *gaMainMenu = new GAMainMenu();
 }
