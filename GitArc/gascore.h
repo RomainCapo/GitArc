@@ -12,13 +12,15 @@ class GAScore
 public:
     static GAScore* get();
     void saveScore(int);
-    int readBestScore();
+    int getBestScore();
 
 private:
     GAScore();
     static GAScore *singleton;
     int bestScore;
     QFile *file;
+
+    int readBestScore();
 };
 
 #endif // GASCORE_H

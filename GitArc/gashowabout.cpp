@@ -20,7 +20,7 @@ GAShowAbout::GAShowAbout(QWidget *parent) : QDialog(parent)
                           "\t\t License : Creative Common \n"
                           "\t\t Lien : https://freesound.org/s/411749/ \n";
 
-    QLabel *label = new QLabel(description, this);
-    label->setFont(QFont(FONT, FONT_SIZE));
+    QLabel *lblDesc = new QLabel(description, this);
+    lblDesc->setFont(QFont(FONT, FONT_SIZE));
 
 }

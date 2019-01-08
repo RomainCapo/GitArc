@@ -20,13 +20,13 @@ class GAMainMenu : public QWidget
 
 public:
     GAMainMenu(QWidget *parent = 0);
-    void showAbout();
-    void showOption();
+
     ~GAMainMenu();
 
 public slots:
     void onBtnPlayClicked();
-
+    void showAbout();
+    void showOptions();
 };
 
 #endif // GAVIEWMAINMENU_H

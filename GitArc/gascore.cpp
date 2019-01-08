@@ -35,6 +35,11 @@ void GAScore::saveScore(int score)
     }
 }
 
+int GAScore::getBestScore()
+{
+    return this->bestScore;
+}
+
 int GAScore::readBestScore()
 {
     if (!this->file->open(QIODevice::ReadWrite))
@@ -48,8 +53,6 @@ int GAScore::readBestScore()
         QByteArray line = this->file->readLine().trimmed();
         bestScore = line.toInt();
     }
-
-    this->file->close();
 
     return bestScore;
 }
