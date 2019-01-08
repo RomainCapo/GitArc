@@ -49,5 +49,7 @@ int GAScore::readBestScore()
         bestScore = line.toInt();
     }
 
+    this->file->close();
+
     return bestScore;
 }

@@ -53,6 +53,8 @@ void GANoteReader::generatePartition()
         }
     }
 
+    file.close();
+
 }
 
 void GANoteReader::readCSVNote()
@@ -70,4 +72,6 @@ void GANoteReader::readCSVNote()
         QByteArray line = file.readLine().trimmed();
         this->partition.append(line.split(';').join());
     }
+
+    file.close();
 }
