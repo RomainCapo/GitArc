@@ -1,6 +1,7 @@
 #include "gamainmenu.h"
 #include "gagame.h"
 #include "gashowabout.h"
+#include "gashowoptions.h"
 #include "constants.h"
 #include <QPushButton>
 #include <QLabel>
@@ -23,9 +24,9 @@ GAMainMenu::GAMainMenu(QWidget *parent): QWidget(parent)
     btnPlay->setFont(QFont(FONT, FONT_SIZE));
     btnPlay->setFixedSize(BUTTON_WIDTH, BUTTON_HEIGHT);
 
-    QPushButton *btnOption = new QPushButton(tr("&Option"), this);
-    btnOption->setFont(QFont(FONT, FONT_SIZE));
-    btnOption->setFixedSize(BUTTON_WIDTH, BUTTON_HEIGHT);
+    QPushButton *btnOptions = new QPushButton(tr("&Options"), this);
+    btnOptions->setFont(QFont(FONT, FONT_SIZE));
+    btnOptions->setFixedSize(BUTTON_WIDTH, BUTTON_HEIGHT);
 
     QPushButton *btnAbout = new QPushButton(tr("&About"), this);
     btnAbout->setFont(QFont(FONT, FONT_SIZE));
@@ -41,7 +42,7 @@ GAMainMenu::GAMainMenu(QWidget *parent): QWidget(parent)
     QVBoxLayout *vboxLayout = new QVBoxLayout(this);
     vboxLayout->addWidget(lbImg);
     vboxLayout->addWidget(btnPlay);
-    vboxLayout->addWidget(btnOption);
+    vboxLayout->addWidget(btnOptions);
     vboxLayout->addWidget(btnAbout);
     vboxLayout->addWidget(btnQuit);
     vboxLayout->addWidget(lbInfo);
@@ -52,6 +53,7 @@ GAMainMenu::GAMainMenu(QWidget *parent): QWidget(parent)
     this->connect(btnPlay, &QPushButton::clicked, this, &GAMainMenu::onBtnPlayClicked);
     this->connect(btnQuit, &QPushButton::clicked, this, &QApplication::quit);
     this->connect(btnAbout, &QPushButton::clicked, this, &GAMainMenu::showAbout);
+    this->connect(btnOptions, &QPushButton::clicked, this, &GAMainMenu::showOptions);
 }
 
 void GAMainMenu::onBtnPlayClicked()
@@ -62,10 +64,14 @@ void GAMainMenu::onBtnPlayClicked()
 
 void GAMainMenu::showAbout()
 {
-    QString description = "test";
-    //QMessageBox::information(this, "About GitArc", description);
     GAShowAbout *aboutDialog = new GAShowAbout();
     aboutDialog->show();
+}
+
+void GAMainMenu::showOptions()
+{
+    GAShowOptions *optionsDialog = new GAShowOptions();
+    optionsDialog->show();
 }
 
 GAMainMenu::~GAMainMenu()
