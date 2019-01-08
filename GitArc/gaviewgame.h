@@ -55,6 +55,8 @@ private:
     QTimer *gameTimer;
     GAScore *scoreSaver;
     int score;
+    int totalCorrectNotes;
+    int totalNotes;
     QPushButton *quit;
     QPushButton *backToMenu;
 

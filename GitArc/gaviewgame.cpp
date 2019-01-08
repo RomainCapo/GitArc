@@ -19,6 +19,9 @@ GAViewGame::GAViewGame(QSize layoutSize, QWidget * _left, QWidget * _right, QGra
 {
     this->scoreSaver = GAScore::get();
 
+    this->totalCorrectNotes = 0;
+    this->totalNotes = 0;
+
     //create list that contains notes
     this->strips = new QList<QList<GANote*>*>(); //contain the 4 note strip list
     strips->append(new QList<GANote*>());
@@ -75,8 +78,6 @@ GAViewGame::~GAViewGame()
 
 void GAViewGame::keyPressEvent(QKeyEvent *event)
 {
-    static int totalCorrectNote = 0;
-
     int chordId = this->getChordId(event->key());
     if(chordId != -1)
        {
@@ -111,8 +112,8 @@ void GAViewGame::keyPressEvent(QKeyEvent *event)
 
                     this->right->setScore(score);
                     strips->at(chordId)->removeFirst();
-                    totalCorrectNote++;
-                    this->right->setTotalCorrectNote(totalCorrectNote);
+                    totalCorrectNotes++;
+                    this->right->setTotalCorrectNote(totalCorrectNotes);
                 }
                 else
                 {
@@ -156,8 +157,6 @@ int GAViewGame::getChordId(int eventKey)
 
 void GAViewGame::drawNoteLine(QByteArray notesLine)
 {
-    static int totalNotes = 0;
-
     float stripWidth = this->sceneRect().width() / NUM_NOTES;
     float leftStripMargin = LEFTMARGIN_PERCENTAGE * stripWidth;
     for(int i = 0; i <= NUM_NOTES; i++)
@@ -174,7 +173,7 @@ void GAViewGame::drawNoteLine(QByteArray notesLine)
                 isFirst = false;
             }
 
-            totalNotes++;
+            this->totalNotes++;
         }
     }
 
