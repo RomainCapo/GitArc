@@ -13,10 +13,13 @@
 #include <QHBoxLayout>
 #include <QtMath>
 #include <QMessageBox>
+#include <QGraphicsTextItem>
 
 GAViewGame::GAViewGame(QSize layoutSize, QWidget * _left, QWidget * _right, QGraphicsView *_parent) : QGraphicsView(_parent)
 {
     this->scoreSaver = GAScore::get();
+
+    this->setStyleSheet("QGraphicsView {background-color : white;}");
 
     //create list that contains notes
     this->strips = new QList<QList<GANote*>*>(); //contain the 4 note strip list
@@ -207,17 +210,68 @@ void GAViewGame::timerGame()
 
         this->verticalNotes->hide();
         this->horizontalNotes->hide();
-        //this->right->hide();
-        //this->left->hide();
-        this->setStyleSheet("QGraphicsView { background-color : grey }");
+        this->right->hide();
+        this->left->hide();
 
-        QLabel *lbl = new QLabel(this);
-        lbl->setText("END !");
+        this->setStyleSheet("QGraphicsView { background-color : rgb(79, 195, 247); }");
 
-        this->scene->addWidget(lbl);
-        this->setScene(scene);
+
+        endGame = new QGraphicsTextItem("End of the game !");
+        scoreUser = new QGraphicsTextItem(QString("Your score : %1").arg(this->score));
+        bestScoreEver = new QGraphicsTextItem(QString("Best score : %1").arg(this->scoreSaver->readBestScore()));
+
+        endGame->setDefaultTextColor(QColor(250, 250, 250));
+        scoreUser->setDefaultTextColor(QColor(250, 250, 250));
+        bestScoreEver->setDefaultTextColor(QColor(250, 250, 250));
+
+        endGame->setY(300);
+        scoreUser->setY(450);
+        bestScoreEver->setY(550);
+
+        endGame->setFont(QFont("Times", 60, QFont::Bold));
+        scoreUser->setFont(QFont("Times", 40, QFont::Bold));
+        bestScoreEver->setFont(QFont("Times", 30, QFont::Bold));
+
+        btnQuit = new QPushButton("Quit game");
+        btnQuit->move(QPoint(0,700));
+        this->connect(btnQuit, &QPushButton::clicked, this, &GAViewGame::closeGame);
+
+        btnQuit->resize(QSize(250,60));
+        btnQuit->setStyleSheet("QPushButton { background-color: transparent; border-radius: 15; border: 2 solid rgb(2, 119, 189); color: rgb(250, 250, 250); font-size: 25px; font-weight: bold;}"
+                               "QPushButton:hover { background-color: rgb(129, 212, 250);}");
+
+        btnBackToMenu = new QPushButton("Menu");
+        btnBackToMenu->move(QPoint(300,700));
+        this->connect(btnBackToMenu, &QPushButton::clicked, this, &GAViewGame::toMenu);
+
+        btnBackToMenu->resize(QSize(250,60));
+        btnBackToMenu->setStyleSheet("QPushButton { background-color: transparent; border-radius: 15; border: 2 solid rgb(2, 119, 189); color: rgb(250, 250, 250); font-size: 25px; font-weight: bold;}"
+                               "QPushButton:hover { background-color: rgb(129, 212, 250);}");
+
+        endText = new QGraphicsTextItem(tr("Game designed by : Capocasale Romain, Freiburghaus Jonas and Moulin Vincent - Projet P2 GitArc"));
+        endText->setY(800);
+        endText->setFont(QFont("Times", 15, QFont::Normal));
+        endText->setDefaultTextColor(QColor(250, 250, 250));
+
+
+        this->scene->addItem(endGame);
+        this->scene->addItem(scoreUser);
+        this->scene->addItem(bestScoreEver);
+        this->scene->addWidget(btnQuit);
+        this->scene->addWidget(btnBackToMenu);
+        this->scene->addItem(endText);
 
         this->scoreSaver->saveScore(this->score);
     }
+}
+
+void GAViewGame::closeGame()
+{
+    emit quitGameSig();
+}
+
+void GAViewGame::toMenu()
+{
+    emit backToMenuSig();
 }
 

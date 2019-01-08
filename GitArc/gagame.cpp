@@ -14,6 +14,8 @@ GAGame::GAGame(QWidget *parent) : QWidget(parent)
     this->activateWindow();
     this->showFullScreen();
 
+    this->setStyleSheet("QWidget {background-color : rgb(79, 195, 247);}");
+
     QSound::play("..\\GitArc\\res\\sound\\NewLevel.wav");
 
 
@@ -40,6 +42,8 @@ GAGame::GAGame(QWidget *parent) : QWidget(parent)
     this->setLayout(hLayout);
 
     this->connect(rightPannel, &GAGameRightPannel::quitGameSig, this, &GAViewGame::close);
+    this->connect(gameView, &GAViewGame::quitGameSig, this, &GAGame::close);
+    this->connect(gameView, &GAViewGame::backToMenuSig, this, &GAGame::quitGame);
 
     this->show();
 }

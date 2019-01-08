@@ -23,6 +23,7 @@ class GANote;
 class QTimer;
 class QPushButton;
 class QHBoxLayout;
+class QGraphicsTextItem;
 
 class GAViewGame : public QGraphicsView
 {
@@ -35,9 +36,13 @@ public:
 public slots:
     void drawNoteLine(QByteArray notesLine);
     void timerGame();
+    void closeGame();
+    void toMenu();
 
 signals:
     void wrongNotePlayed(int);
+    void quitGameSig();
+    void backToMenuSig();
 
 protected:
     void keyPressEvent(QKeyEvent *event);
@@ -53,11 +58,18 @@ private:
     QTimer *gameTimer;
     GAScore *scoreSaver;
     int score;
+    QPushButton *btnQuit;
+    QPushButton *btnBackToMenu;
 
     bool isFirst = true;
 
     int getChordId(int);
     qreal result;
+
+    QGraphicsTextItem *endGame;
+    QGraphicsTextItem *scoreUser;
+    QGraphicsTextItem *bestScoreEver;
+    QGraphicsTextItem *endText;
 };
 
 #endif // GAVIEWGAME_H

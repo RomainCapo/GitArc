@@ -8,7 +8,7 @@
 #define CONSTANTS_H
 
 // FONT
-#define FONT "SansSerif"
+#define FONT "Times"
 #define FONT_SIZE 12
 
 // BUTTONS DIMENSION
