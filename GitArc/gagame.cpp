@@ -19,7 +19,7 @@ GAGame::GAGame(QWidget *parent) : QWidget(parent)
 
     GAGameRightPannel *rightPannel = new GAGameRightPannel(this);
 
-    QMovie *gif = new QMovie("C:\\DEV\\gitarc\\GitArc\\res\\img\\SnoopDogg.gif");
+    QMovie *gif = new QMovie("..\\GitArc\\res\\img\\SnoopDogg.gif");
     QLabel *processLabel = new QLabel(this);
     processLabel->setMovie(gif);
     gif->start();

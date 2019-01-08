@@ -13,6 +13,7 @@
 #include <QHBoxLayout>
 #include <QtMath>
 #include <QMessageBox>
+#include <QGraphicsTextItem>
 
 GAViewGame::GAViewGame(QSize layoutSize, QWidget * _left, QWidget * _right, QGraphicsView *_parent) : QGraphicsView(_parent)
 {
@@ -207,17 +208,48 @@ void GAViewGame::timerGame()
 
         this->verticalNotes->hide();
         this->horizontalNotes->hide();
-        //this->right->hide();
-        //this->left->hide();
-        this->setStyleSheet("QGraphicsView { background-color : grey }");
+        this->right->hide();
+        this->left->hide();
+        this->setStyleSheet("QGraphicsView { background-color : rgb(79, 195, 247) }");
 
-        QLabel *lbl = new QLabel(this);
-        lbl->setText("END !");
+        endGame = new QGraphicsTextItem("End of the game !");
+        scoreUser = new QGraphicsTextItem(QString("Your score : %1").arg(this->score));
+        bestScoreEver = new QGraphicsTextItem(QString("Best score : %1").arg(this->scoreSaver->readBestScore()));
 
-        this->scene->addWidget(lbl);
-        this->setScene(scene);
+        endGame->setDefaultTextColor(QColor(250, 250, 250));
+        scoreUser->setDefaultTextColor(QColor(250, 250, 250));
+        bestScoreEver->setDefaultTextColor(QColor(250, 250, 250));
+
+        endGame->setY(300);
+        scoreUser->setY(450);
+        bestScoreEver->setY(550);
+
+        endGame->setFont(QFont("Times", 60, QFont::Bold));
+        scoreUser->setFont(QFont("Times", 40, QFont::Bold));
+        bestScoreEver->setFont(QFont("Times", 30, QFont::Bold));
+
+        quit = new QPushButton("Quit Game");
+        quit->move(QPoint(0,700));
+        this->connect(quit, &QPushButton::clicked, this, &GAViewGame::closeGame);
+
+        backToMenu = new QPushButton("Menu");
+        backToMenu->move(QPoint(150,700));
+        //this->connect(backToMenu, &QPushButton::clicked, this, &GAViewGame::toMenu);
+
+
+
+        this->scene->addItem(endGame);
+        this->scene->addItem(scoreUser);
+        this->scene->addItem(bestScoreEver);
+        this->scene->addWidget(quit);
+        this->scene->addWidget(backToMenu);
 
         this->scoreSaver->saveScore(this->score);
     }
+}
+
+void GAViewGame::closeGame()
+{
+    this->close();
 }
 
