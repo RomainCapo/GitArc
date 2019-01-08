@@ -37,9 +37,12 @@ public slots:
     void drawNoteLine(QByteArray notesLine);
     void timerGame();
     void closeGame();
+    void toMenu();
 
 signals:
     void wrongNotePlayed(int);
+    void quitGameSig();
+    void backToMenuSig();
 
 protected:
     void keyPressEvent(QKeyEvent *event);
@@ -55,8 +58,8 @@ private:
     QTimer *gameTimer;
     GAScore *scoreSaver;
     int score;
-    QPushButton *quit;
-    QPushButton *backToMenu;
+    QPushButton *btnQuit;
+    QPushButton *btnBackToMenu;
 
     bool isFirst = true;
 
@@ -66,6 +69,7 @@ private:
     QGraphicsTextItem *endGame;
     QGraphicsTextItem *scoreUser;
     QGraphicsTextItem *bestScoreEver;
+    QGraphicsTextItem *endText;
 };
 
 #endif // GAVIEWGAME_H

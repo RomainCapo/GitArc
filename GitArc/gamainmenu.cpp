@@ -12,8 +12,9 @@ GAMainMenu::GAMainMenu(QWidget *parent): QWidget(parent)
 {
     this->setWindowTitle(tr("GitArc Menu"));
     this->showFullScreen();
-    this->setStyleSheet("QPushButton {background-color: transparent; border-radius: 25; border: 5 solid black}"
-                        "QPushButton:hover { background-color: white;}");
+    this->setStyleSheet("QWidget {background-color:rgb(79, 195, 247);}"
+                "QPushButton {background-color: transparent; border-radius: 15; border: 4 solid rgb(2, 119, 189); color: rgb(250, 250, 250); font-size: 25px; font-weight: bold;}"
+            "QPushButton:hover { background-color: rgb(129, 212, 250);}");
 
     QLabel *lbImg = new QLabel(this);
     lbImg->setPixmap(QPixmap(":res/img/GitArc.PNG"));
@@ -37,6 +38,7 @@ GAMainMenu::GAMainMenu(QWidget *parent): QWidget(parent)
 
     QLabel *lbInfo = new QLabel(tr("Game designed by : Capocasale Romain, Freiburghaus Jonas and Moulin Vincent"), this);
     lbInfo->setFont(QFont(FONT, FONT_SIZE));
+    lbInfo->setStyleSheet("QLabel {color: rgb(250, 250, 250);}");
 
     QVBoxLayout *vboxLayout = new QVBoxLayout(this);
     vboxLayout->addWidget(lbImg);
