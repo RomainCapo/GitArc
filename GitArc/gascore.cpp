@@ -14,7 +14,7 @@ GAScore::GAScore()
 
     this->file = new QFile(path + "\\score.txt");
 
-    this->bestScore = this->readBestScore();
+    this->readBestScore();
 }
 
 GAScore* GAScore::get()
@@ -28,10 +28,11 @@ void GAScore::saveScore(int score)
 {
     if(score > this->bestScore)
     {
+        this->bestScore = score;
         this->file->resize(0);
 
         QTextStream stream(this->file);
-        stream << score;
+        stream << this->bestScore;
     }
 }
 
@@ -40,7 +41,7 @@ int GAScore::getBestScore()
     return this->bestScore;
 }
 
-int GAScore::readBestScore()
+void GAScore::readBestScore()
 {
     if (!this->file->open(QIODevice::ReadWrite))
     {
@@ -51,8 +52,6 @@ int GAScore::readBestScore()
     {
         // FIXME : Check line is readable
         QByteArray line = this->file->readLine().trimmed();
-        bestScore = line.toInt();
+        this->bestScore = line.toInt();
     }
-
-    return bestScore;
 }

@@ -44,7 +44,7 @@ void GANoteReader::generatePartition()
             for(int j = 0; j < NUM_NOTES; j++)
             {
                 stream << QString::number(QRandomGenerator::global()->generate() % 2);
-                if(!(j == NUM_NOTES - 1))
+                if(j != NUM_NOTES - 1)
                 {
                     stream << ";";
                 }

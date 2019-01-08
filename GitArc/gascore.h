@@ -20,7 +20,7 @@ private:
     int bestScore;
     QFile *file;
 
-    int readBestScore();
+    void readBestScore();
 };
 
 #endif // GASCORE_H
