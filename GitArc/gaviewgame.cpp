@@ -18,6 +18,9 @@ GAViewGame::GAViewGame(QSize layoutSize, QWidget * _left, QWidget * _right, QGra
 {
     this->scoreSaver = GAScore::get();
 
+    this->isFirst = true;
+    this->isGamePaused = false;
+
     this->totalCorrectNotes = 0;
     this->totalNotes = 0;
     this->setStyleSheet("QGraphicsView {background-color : white;}");
@@ -134,6 +137,7 @@ void GAViewGame::keyReleaseEvent(QKeyEvent *event)
 
 void GAViewGame::pauseGame()
 {
+    this->isGamePaused = true;
     this->noteReader->pauseLecture();
     for(int i = 0; i < this->strips->count(); i++)
     {
@@ -148,6 +152,7 @@ void GAViewGame::pauseGame()
 
 void GAViewGame::resumeGame()
 {
+    this->isGamePaused = false;
     this->noteReader->resumeLecture();
     for(int i = 0; i < this->strips->count(); i++)
     {
@@ -186,6 +191,8 @@ int GAViewGame::getChordId(int eventKey)
         default:
             break;
     }
+    // If the game is paused ignore pressed game keys
+    keyPressed = this->isGamePaused ? -1 : keyPressed;
     return keyPressed;
 }
 

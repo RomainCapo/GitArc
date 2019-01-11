@@ -65,7 +65,9 @@ private:
     QPushButton *btnBackToMenu;
     GANoteReader *noteReader;
 
-    bool isFirst = true;
+    // TODO Move
+    bool isFirst;
+    bool isGamePaused;
 
     void pauseGame();
     void resumeGame();
