@@ -28,12 +28,15 @@ void GANote::setColor(QBrush color)
 
 void GANote::pauseAnimation()
 {
-    this->animation->pause();
+    if(this->animation->state() == QAbstractAnimation::Running)
+        this->animation->pause();
 }
 
 void GANote::resumeAnimation()
 {
-    this->animation->resume();
+    if(this->animation->state() == QAbstractAnimation::Paused)
+        this->animation->resume();
+
 }
 
 void GANote::animateDropTranslation()
