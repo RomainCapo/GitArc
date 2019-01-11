@@ -26,6 +26,16 @@ void GANote::setColor(QBrush color)
     this->note->setBrush(color);
 }
 
+void GANote::pauseAnimation()
+{
+    this->animation->pause();
+}
+
+void GANote::resumeAnimation()
+{
+    this->animation->resume();
+}
+
 void GANote::animateDropTranslation()
 {
     QPoint endPosition = QPoint(this->startPosition.x(), this->sceneHeight + NOTE_RADIUS);

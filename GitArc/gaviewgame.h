@@ -11,6 +11,7 @@
 #include <QMap>
 #include "constants.h"
 #include "gagamerightpannel.h"
+#include "ganotereader.h"
 #include "gascore.h"
 
 class GAVerticalNotes;
@@ -62,9 +63,12 @@ private:
     int totalNotes;
     QPushButton *btnQuit;
     QPushButton *btnBackToMenu;
+    GANoteReader *noteReader;
 
     bool isFirst = true;
 
+    void pauseGame();
+    void resumeGame();
     int getChordId(int);
     qreal result;
 

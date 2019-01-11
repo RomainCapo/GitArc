@@ -20,6 +20,8 @@ class GANote : public QGraphicsWidget
 public:
     GANote(const QPointF startPosition, const float sceneHeight);
     void setColor(QBrush color);
+    void pauseAnimation();
+    void resumeAnimation();
 
 protected:
     QRectF boundingRect() const;

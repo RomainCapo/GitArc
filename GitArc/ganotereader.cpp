@@ -32,6 +32,16 @@ void GANoteReader::readPartition()
     noteTimer->start();
 }
 
+void GANoteReader::pauseLecture()
+{
+    this->noteTimer->stop();
+}
+
+void GANoteReader::resumeLecture()
+{
+    this->noteTimer->start();
+}
+
 void GANoteReader::generatePartition()
 {
     QFile::remove("..\\GitArc\\res\\partitions\\randomPartition.csv");

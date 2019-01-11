@@ -2,7 +2,6 @@
 #include "gaverticalnotes.h"
 #include "gahorizontalnotesbar.h"
 #include "ganote.h"
-#include "ganotereader.h"
 #include "constants.h"
 
 #include <QGraphicsWidget>
@@ -53,10 +52,10 @@ GAViewGame::GAViewGame(QSize layoutSize, QWidget * _left, QWidget * _right, QGra
 
     //allow to read the note csv file note
     //GANoteReader *noteReader = new GANoteReader(":res/partitions/fes.csv");
-    GANoteReader *noteReader = new GANoteReader("..\\GitArc\\res\\partitions\\randomPartition.csv");
-    noteReader->generatePartition();
-    noteReader->readPartition();
-    this->connect(noteReader, &GANoteReader::nextNotesLine, this, &GAViewGame::drawNoteLine);
+    this->noteReader = new GANoteReader("..\\GitArc\\res\\partitions\\randomPartition.csv");
+    this->noteReader->generatePartition();
+    this->noteReader->readPartition();
+    this->connect(this->noteReader, &GANoteReader::nextNotesLine, this, &GAViewGame::drawNoteLine);
 
     gameTimer = new QTimer(this);
     gameTimer->setInterval(1000);
@@ -130,7 +129,35 @@ void GAViewGame::keyReleaseEvent(QKeyEvent *event)
 {
     int chordId = this->getChordId(event->key());
     if(chordId != -1)
-            horizontalNotes->toBasicFret(chordId);
+        horizontalNotes->toBasicFret(chordId);
+}
+
+void GAViewGame::pauseGame()
+{
+    this->noteReader->pauseLecture();
+    for(int i = 0; i < this->strips->count(); i++)
+    {
+        QList<GANote*>* noteLine = this->strips->at(i);
+        for(int j = 0; j < noteLine->count(); j++)
+        {
+            GANote* note = noteLine->at(j);
+            note->pauseAnimation();
+        }
+    }
+}
+
+void GAViewGame::resumeGame()
+{
+    this->noteReader->resumeLecture();
+    for(int i = 0; i < this->strips->count(); i++)
+    {
+        QList<GANote*>* noteLine = this->strips->at(i);
+        for(int j = 0; j < noteLine->count(); j++)
+        {
+            GANote* note = noteLine->at(j);
+            note->resumeAnimation();
+        }
+    }
 }
 
 int GAViewGame::getChordId(int eventKey)
@@ -149,6 +176,12 @@ int GAViewGame::getChordId(int eventKey)
             break;
         case Qt::Key_F:
             keyPressed = 3;
+            break;
+        case Qt::Key_J:
+            this->pauseGame();
+            break;
+        case Qt::Key_K:
+            this->resumeGame();
             break;
         default:
             break;
