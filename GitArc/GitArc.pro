@@ -36,7 +36,8 @@ SOURCES += \
     gamainmenu.cpp \
     gashowabout.cpp \
     gascore.cpp \
-    gashowoptions.cpp
+    gashowoptions.cpp \
+    gasettings.cpp
 
 HEADERS += \
     gaviewgame.h \
@@ -50,7 +51,8 @@ HEADERS += \
     gamainmenu.h \
     gashowabout.h \
     gascore.h \
-    gashowoptions.h
+    gashowoptions.h \
+    gasettings.h
 
 RESOURCES += \
     rsc.qrc

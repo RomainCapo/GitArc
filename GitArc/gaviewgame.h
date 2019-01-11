@@ -25,13 +25,14 @@ class QTimer;
 class QPushButton;
 class QHBoxLayout;
 class QGraphicsTextItem;
+class QMediaPlayer;
 
 class GAViewGame : public QGraphicsView
 {
     Q_OBJECT
 
 public:
-    GAViewGame(QSize layoutSize,QWidget * _left, QWidget * _right, QGraphicsView *_parent = nullptr);
+    GAViewGame(QSize layoutSize,QWidget * _left, QWidget * _right, QMediaPlayer *_mainMusic, QGraphicsView *_parent = nullptr);
     ~GAViewGame();
 
 public slots:
@@ -64,6 +65,7 @@ private:
     QPushButton *btnQuit;
     QPushButton *btnBackToMenu;
     GANoteReader *noteReader;
+    QMediaPlayer *mainMusic;
 
     // TODO Move
     bool isFirst;

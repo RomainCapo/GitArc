@@ -2,11 +2,11 @@
 #include "gaviewgame.h"
 #include "gahorizontalnotesbar.h"
 #include "gagamerightpannel.h"
+#include "gasettings.h"
 #include <QHBoxLayout>
 #include <QLabel>
-#include <QSound>
 #include <QMovie>
-
+#include <QMediaPlayer>
 
 GAGame::GAGame(QWidget *parent) : QWidget(parent)
 {
@@ -16,8 +16,9 @@ GAGame::GAGame(QWidget *parent) : QWidget(parent)
 
     this->setStyleSheet("QWidget {background-color : rgb(79, 195, 247);}");
 
-    QSound::play("..\\GitArc\\res\\sound\\NewLevel.wav");
-
+    QMediaPlayer *mainMusic = new QMediaPlayer();
+    mainMusic->setMedia(QUrl::fromLocalFile("..\\GitArc\\res\\sound\\music" + QString::number(GASettings::musicId) + ".wav"));
+    mainMusic->play();
 
     GAGameRightPannel *rightPannel = new GAGameRightPannel(this);
 
@@ -27,7 +28,7 @@ GAGame::GAGame(QWidget *parent) : QWidget(parent)
     gif->start();
 
     QSize viewSize(this->width() * 3 / 5, this->height());//Part of the layout occupied by the view
-    GAViewGame *gameView = new GAViewGame(viewSize, processLabel, rightPannel);
+    GAViewGame *gameView = new GAViewGame(viewSize, processLabel, rightPannel, mainMusic);
 
     QHBoxLayout *hLayout = new QHBoxLayout(this);
     hLayout->addWidget(processLabel);

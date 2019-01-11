@@ -13,10 +13,13 @@
 #include <QtMath>
 #include <QMessageBox>
 #include <QGraphicsTextItem>
+#include <QMediaPlayer>
 
-GAViewGame::GAViewGame(QSize layoutSize, QWidget * _left, QWidget * _right, QGraphicsView *_parent) : QGraphicsView(_parent)
+GAViewGame::GAViewGame(QSize layoutSize, QWidget * _left, QWidget * _right, QMediaPlayer *_mainMusic, QGraphicsView *_parent) : QGraphicsView(_parent)
 {
     this->scoreSaver = GAScore::get();
+
+    this->mainMusic = _mainMusic;
 
     this->isFirst = true;
     this->isGamePaused = false;
@@ -137,6 +140,7 @@ void GAViewGame::keyReleaseEvent(QKeyEvent *event)
 
 void GAViewGame::pauseGame()
 {
+    this->mainMusic->pause();
     this->isGamePaused = true;
     this->noteReader->pauseLecture();
     for(int i = 0; i < this->strips->count(); i++)
@@ -152,6 +156,7 @@ void GAViewGame::pauseGame()
 
 void GAViewGame::resumeGame()
 {
+    this->mainMusic->play();
     this->isGamePaused = false;
     this->noteReader->resumeLecture();
     for(int i = 0; i < this->strips->count(); i++)
@@ -246,6 +251,8 @@ void GAViewGame::timerGame()
     {
         gameTimer->stop();
         this->scoreSaver->saveScore(this->score);
+
+        this->mainMusic->stop();
 
         this->verticalNotes->hide();
         this->horizontalNotes->hide();
