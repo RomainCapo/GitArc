@@ -9,9 +9,10 @@ GAShowOptions::GAShowOptions(QWidget *parent) : QDialog(parent)
 {
     this->setWindowTitle(tr("Options"));
     this->setFixedSize(1000, 500);
-    this->setStyleSheet("QPushButton {background-color: transparent; border-radius: 25; border: 5 solid black;}"
-                        "QPushButton:hover { background-color: white;}"
-                        "QComboBox { border-radius: 25px; border: 3 solid black;}");
+    this->setStyleSheet("QWidget {background-color:#0277BD; color:white;}"
+                        "QPushButton {background-color: transparent; border-radius: 15; border: 4 solid #E1F5FE; color: rgb(250, 250, 250); font-size: 25px; font-weight: bold;}"
+                        "QPushButton:hover { background-color: rgb(129, 212, 250);}"
+                        "QComboBox {background-color:white; color:black;}");
 
     QVBoxLayout *mainLayout = new QVBoxLayout(this);
 
