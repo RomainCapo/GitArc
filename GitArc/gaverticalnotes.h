@@ -13,7 +13,7 @@
 class GAVerticalNotes : public QGraphicsWidget
 {
 public:
-    explicit GAVerticalNotes(const float sceneWidth, const float sceneHeight);
+    GAVerticalNotes(const float sceneWidth, const float sceneHeight);
 };
 
 #endif // GAVERTICALNOTES_H

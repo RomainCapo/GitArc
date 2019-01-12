@@ -1,3 +1,10 @@
+/**
+* This class display about information in a modal window
+*
+* @author	Capocasale Romain, Freiburghaus Jonas, Moulin Vincent
+*/
+
+
 #ifndef GASHOWABOUT_H
 #define GASHOWABOUT_H
 
@@ -7,11 +14,7 @@ class GAShowAbout : public QDialog
 {
     Q_OBJECT
 public:
-    explicit GAShowAbout(QWidget *parent = nullptr);
-
-signals:
-
-public slots:
+    GAShowAbout(QWidget *parent = nullptr);
 };
 
 #endif // GASHOWABOUT_H

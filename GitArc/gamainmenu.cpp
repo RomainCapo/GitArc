@@ -2,13 +2,19 @@
 #include "gagame.h"
 #include "gashowabout.h"
 #include "gashowoptions.h"
+#include "gashowrules.h"
 #include "constants.h"
 #include <QPushButton>
 #include <QLabel>
 #include <QVBoxLayout>
 #include <QMessageBox>
 
-
+/**
+* GAMainMenu
+* GAMainMenu constructor
+*
+* @param QGraphicsItem* parent : The QGraphicsItem used as parent
+*/
 GAMainMenu::GAMainMenu(QWidget *parent): QWidget(parent)
 {
     this->setWindowTitle(tr("GitArc Menu"));
@@ -29,6 +35,10 @@ GAMainMenu::GAMainMenu(QWidget *parent): QWidget(parent)
     btnOptions->setFont(QFont(FONT, FONT_SIZE));
     btnOptions->setFixedSize(BUTTON_WIDTH, BUTTON_HEIGHT);
 
+    QPushButton *btnRules = new QPushButton(tr("&Rules"), this);
+    btnRules->setFont(QFont(FONT, FONT_SIZE));
+    btnRules->setFixedSize(BUTTON_WIDTH, BUTTON_HEIGHT);
+
     QPushButton *btnAbout = new QPushButton(tr("&About"), this);
     btnAbout->setFont(QFont(FONT, FONT_SIZE));
     btnAbout->setFixedSize(BUTTON_WIDTH, BUTTON_HEIGHT);
@@ -41,41 +51,66 @@ GAMainMenu::GAMainMenu(QWidget *parent): QWidget(parent)
     lbInfo->setFont(QFont(FONT, FONT_SIZE));
     lbInfo->setStyleSheet("QLabel {color: rgb(250, 250, 250);}");
 
+    //add widget to the layout
     QVBoxLayout *vboxLayout = new QVBoxLayout(this);
     vboxLayout->addWidget(lbImg);
     vboxLayout->addWidget(btnPlay);
     vboxLayout->addWidget(btnOptions);
+    vboxLayout->addWidget(btnRules);
     vboxLayout->addWidget(btnAbout);
     vboxLayout->addWidget(btnQuit);
     vboxLayout->addWidget(lbInfo);
     vboxLayout->setAlignment(Qt::AlignCenter);
-    vboxLayout->setSpacing(50);
+    vboxLayout->setSpacing(30);
     this->setLayout(vboxLayout);
 
-    this->connect(btnPlay, &QPushButton::clicked, this, &GAMainMenu::onBtnPlayClicked);
+    this->connect(btnPlay, &QPushButton::clicked, this, &GAMainMenu::showGame);
     this->connect(btnQuit, &QPushButton::clicked, this, &QApplication::quit);
     this->connect(btnAbout, &QPushButton::clicked, this, &GAMainMenu::showAbout);
     this->connect(btnOptions, &QPushButton::clicked, this, &GAMainMenu::showOptions);
+    this->connect(btnRules, &QPushButton::clicked, this, &GAMainMenu::showRules);
 }
-
-void GAMainMenu::onBtnPlayClicked()
+/**
+* GAMainMenu
+*
+* display the game window
+*/
+void GAMainMenu::showGame()
 {
     this->close();
     GAGame *game = new GAGame();
+    Q_UNUSED(game);//use the macro to disable warning
 }
 
+/**
+* GAMainMenu
+*
+* display the about modal window
+*/
 void GAMainMenu::showAbout()
 {
     GAShowAbout *aboutDialog = new GAShowAbout();
     aboutDialog->show();
 }
 
+/**
+* GAMainMenu
+*
+* display the options modal window
+*/
 void GAMainMenu::showOptions()
 {
     GAShowOptions *optionsDialog = new GAShowOptions();
     optionsDialog->show();
 }
 
-GAMainMenu::~GAMainMenu()
+/**
+* GAMainMenu
+*
+* display the rules modal window
+*/
+void GAMainMenu::showRules()
 {
+    GAShowRules *rulesDialog = new GAShowRules();
+    rulesDialog->show();
 }

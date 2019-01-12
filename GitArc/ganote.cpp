@@ -1,5 +1,6 @@
 #include "ganote.h"
 #include "constants.h"
+#include "gasettings.h"
 #include <QPropertyAnimation>
 #include <QDebug>
 
@@ -44,7 +45,7 @@ void GANote::animateDropTranslation()
     QPoint endPosition = QPoint(this->startPosition.x(), this->sceneHeight + NOTE_RADIUS);
     this->animation = new QPropertyAnimation(this, "pos");
     this->animation->setStartValue(this->startPosition);
-    this->animation->setDuration(ANIMATION_DURATION);
+    this->animation->setDuration(ANIMATION_DURATION - (GASettings::difficulty * 1000));
     this->animation->setEndValue(endPosition);
     this->animation->start(QPropertyAnimation::DeleteWhenStopped);
 }

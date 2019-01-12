@@ -57,5 +57,6 @@ void GAGameRightPannel::setTotalCorrectNote(int totalCorrectNotes)
 void GAGameRightPannel::quitGame()
 {
     GAMainMenu *gaMainMenu = new GAMainMenu();
+    Q_UNUSED(gaMainMenu);
     emit quitGameSig();
 }

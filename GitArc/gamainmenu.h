@@ -21,12 +21,11 @@ class GAMainMenu : public QWidget
 public:
     GAMainMenu(QWidget *parent = 0);
 
-    ~GAMainMenu();
-
 public slots:
-    void onBtnPlayClicked();
+    void showGame();
     void showAbout();
     void showOptions();
+    void showRules();
 };
 
 #endif // GAVIEWMAINMENU_H

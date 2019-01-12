@@ -1,3 +1,9 @@
+/**
+* This class display the options of the game in a modal window
+*
+* @author	Capocasale Romain, Freiburghaus Jonas, Moulin Vincent
+*/
+
 #ifndef GASHOWOPTIONS_H
 #define GASHOWOPTIONS_H
 
@@ -9,12 +15,11 @@ class GAShowOptions : public QDialog
 {
     Q_OBJECT
 public:
-    explicit GAShowOptions(QWidget *parent = nullptr);
+    GAShowOptions(QWidget *parent = nullptr);
 
 private :
     QComboBox * cbxMusic;
     QComboBox * cbxDifficulty;
-signals:
 
 public slots:
     void quitOptions();

@@ -8,30 +8,38 @@
 #include <QMovie>
 #include <QMediaPlayer>
 
+/**
+* GAGame
+* GAGame Constructor
+*
+* @param QGraphicsItem* parent : The QGraphicsItem used as parent
+*/
 GAGame::GAGame(QWidget *parent) : QWidget(parent)
 {
-    this->raise();
+    this->raise();//place this widget to the top of the parent widget's stack.
     this->activateWindow();
     this->showFullScreen();
 
     this->setStyleSheet("QWidget {background-color : rgb(79, 195, 247);}");
 
     QMediaPlayer *mainMusic = new QMediaPlayer();
-    mainMusic->setMedia(QUrl::fromLocalFile("..\\GitArc\\res\\sound\\music" + QString::number(GASettings::musicId) + ".wav"));
+    mainMusic->setMedia(QUrl::fromLocalFile("..\\GitArc\\res\\sound\\music" + QString::number(GASettings::musicId) + ".wav"));//get music id with GASettings class
     mainMusic->play();
 
     GAGameRightPannel *rightPannel = new GAGameRightPannel(this);
 
+    //run the gif on the right panel, we use label and property setMovie() to display the gif
     QMovie *gif = new QMovie("..\\GitArc\\res\\img\\SnoopDogg.gif");
-    QLabel *processLabel = new QLabel(this);
-    processLabel->setMovie(gif);
+    QLabel *leftPanel = new QLabel(this);
+    leftPanel->setMovie(gif);
     gif->start();
 
     QSize viewSize(this->width() * 3 / 5, this->height());//Part of the layout occupied by the view
-    GAViewGame *gameView = new GAViewGame(viewSize, processLabel, rightPannel, mainMusic);
+    GAViewGame *gameView = new GAViewGame(viewSize, leftPanel, rightPannel, mainMusic);
 
+    //use de property setStretch to allow 1/5 to each panel and 3/5 to the game window
     QHBoxLayout *hLayout = new QHBoxLayout(this);
-    hLayout->addWidget(processLabel);
+    hLayout->addWidget(leftPanel);
     hLayout->setStretch(0, 1);
     hLayout->addWidget(gameView);
     hLayout->setStretch(1, 3);
@@ -49,8 +57,13 @@ GAGame::GAGame(QWidget *parent) : QWidget(parent)
     this->show();
 }
 
+/**
+* GAGame
+* quit the game and redirect to the menu
+*/
 void GAGame::quitGame()
 {
     this->close();
     GAMainMenu *gaMainMenu = new GAMainMenu();
+    Q_UNUSED(gaMainMenu);//use the macro to disable warning
 }

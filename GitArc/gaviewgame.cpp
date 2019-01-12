@@ -57,7 +57,6 @@ GAViewGame::GAViewGame(QSize layoutSize, QWidget * _left, QWidget * _right, QMed
     this->connect(this, &GAViewGame::wrongNotePlayed, this->horizontalNotes, &GAHorizontalNotesBar::wrongNotePlayed);
 
     //allow to read the note csv file note
-    //GANoteReader *noteReader = new GANoteReader(":res/partitions/fes.csv");
     this->noteReader = new GANoteReader("..\\GitArc\\res\\partitions\\randomPartition.csv");
     this->noteReader->generatePartition();
     this->noteReader->readPartition();
@@ -89,19 +88,6 @@ void GAViewGame::keyPressEvent(QKeyEvent *event)
        {
             horizontalNotes->highlightFret(chordId);
 
-            //delete all the note outside the screen
-            /*for(int i = 0; i < strips->size(); i++)
-            {
-                for(int j = 0; j < strips->at(i)->size(); j++)
-                {
-                    if(strips->at(i)->at(j)->y() >= horizontalNotes->noteBurner[0]->rect().y() + HEIGHT_NOTES_STRIP)
-                    {
-                        strips->at(i)->removeAt(j);
-                    }
-                }
-            }*/
-
-
             if(!strips->at(chordId)->empty())
             {
                 qreal rectTop = horizontalNotes->noteBurner[chordId]->rect().y();
@@ -112,19 +98,32 @@ void GAViewGame::keyPressEvent(QKeyEvent *event)
                 {
                     strips->at(chordId)->first()->setColor(QColor(76, 175, 80)); //set the note in green
 
-                    result = (100 - qFabs((HEIGHT_NOTES_STRIP / 2) - (noteY - rectTop)));
-
-                    score += result;
-
+                    score += 100;
                     this->right->setScore(score);
                     strips->at(chordId)->removeFirst();
                     totalCorrectNotes++;
                     this->right->setTotalCorrectNote(totalCorrectNotes);
                 }
-                else
+                else if(noteY + NOTE_RADIUS >= rectTop && noteY - NOTE_RADIUS <= rectTop)//detect if the note is on the horizontal note bar top edge
+                {
+                    strips->at(chordId)->first()->setColor(QColor(230, 126, 34));//set the note in orange
+
+                    result = (100 - qFabs((HEIGHT_NOTES_STRIP / 2) - ((noteY + NOTE_RADIUS)  - rectTop)));
+                    score += result;
+                    this->right->setScore(score);
+
+                    strips->at(chordId)->removeFirst();
+
+                    totalCorrectNotes++;
+                    this->right->setTotalCorrectNote(totalCorrectNotes);
+                }
+                else //detect if the note is note inside the horizontal note bar
                 {
                     score -= 50;
                     this->right->setScore(score);
+
+                    QSound::play("..\\GitArc\\res\\sound\\error.wav");
+
                     emit this->wrongNotePlayed(chordId);
                 }
             }
@@ -237,7 +236,11 @@ void GAViewGame::timerGame()
             if(strips->at(i)->at(j)->y() >= horizontalNotes->noteBurner[0]->rect().y() + HEIGHT_NOTES_STRIP)
             {
                 strips->at(i)->removeAt(j);
-                //this->score -= 50;
+
+                QSound::play("..\\GitArc\\res\\sound\\error.wav");
+
+                this->score -= 20;
+                this->right->setScore(score);
             }
 
             if(!strips->at(i)->isEmpty())
