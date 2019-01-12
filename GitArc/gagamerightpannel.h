@@ -3,18 +3,16 @@
 
 #include "gascore.h"
 #include "gagame.h"
-
 #include <QWidget>
-#include <QLabel>
-#include <QVBoxLayout>
-#include <QPushButton>
+
+class QLabel;
 
 class GAGameRightPannel : public QWidget
 {
     Q_OBJECT
 
 public:
-    explicit GAGameRightPannel(QWidget *parent = nullptr);
+    GAGameRightPannel(QWidget *parent = nullptr);
     void setBestScore(int);
     void setScore(int);
     void setTotalNote(int);

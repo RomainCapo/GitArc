@@ -4,7 +4,6 @@
 * @author	Capocasale Romain, Freiburghaus Jonas, Moulin Vincent
 */
 
-
 #ifndef GASHOWABOUT_H
 #define GASHOWABOUT_H
 

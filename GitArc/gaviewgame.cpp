@@ -3,6 +3,9 @@
 #include "gahorizontalnotesbar.h"
 #include "ganote.h"
 #include "constants.h"
+#include "gagamerightpannel.h"
+#include "ganotereader.h"
+#include "gascore.h"
 
 #include <QGraphicsWidget>
 #include <QDebug>
@@ -15,38 +18,46 @@
 #include <QGraphicsTextItem>
 #include <QMediaPlayer>
 
+/**
+* GAViewGame
+* GAViewGame Constructor
+*
+* @param Qsize layoutSize : size occupied by the view in the layout
+* @param QWidget * _left : use to access to left informations panel
+* @param QWidget * _left : use to access to right informations panel
+* @param QMediaPlayer *_mainMusic : use to pause and play the main music of the game
+* @param QGraphicsItem* _parent : The QGraphicsItem used as parent
+*/
 GAViewGame::GAViewGame(QSize layoutSize, QWidget * _left, QWidget * _right, QMediaPlayer *_mainMusic, QGraphicsView *_parent) : QGraphicsView(_parent)
 {
     this->scoreSaver = GAScore::get();
-
     this->mainMusic = _mainMusic;
-
     this->isFirst = true;
     this->isGamePaused = false;
-
     this->totalCorrectNotes = 0;
     this->totalNotes = 0;
+    this->score = 0;
+
+    //get right and left widget
+    this->left = (QLabel*)_left;
+    this->right = (GAGameRightPannel*)_right;
+
     this->setStyleSheet("QGraphicsView {background-color : white;}");
 
-    //create list that contains notes
+    //create list that contains each strip notes
     this->strips = new QList<QList<GANote*>*>(); //contain the 4 note strip list
     strips->append(new QList<GANote*>());
     strips->append(new QList<GANote*>());
     strips->append(new QList<GANote*>());
     strips->append(new QList<GANote*>());
 
-    this->score = 0;
-
     this->scene = new QGraphicsScene(this);
     this->setScene(this->scene);
     this->setSceneRect(0, 0, layoutSize.width(), layoutSize.height());
 
+    //delete scroll bar
     this->setHorizontalScrollBarPolicy( Qt::ScrollBarAlwaysOff );
     this->setVerticalScrollBarPolicy( Qt::ScrollBarAlwaysOff );
-
-    //get right and left widget
-    this->left = (QLabel*)_left;
-    this->right = (GAGameRightPannel*)_right;
 
     //create horizonatal and vertical note bar
     this->verticalNotes = new GAVerticalNotes(sceneRect().width(), sceneRect().height());
@@ -54,17 +65,18 @@ GAViewGame::GAViewGame(QSize layoutSize, QWidget * _left, QWidget * _right, QMed
 
     this->horizontalNotes = new GAHorizontalNotesBar(sceneRect().width(), sceneRect().height());
     this->scene->addItem(this->horizontalNotes);
-    this->connect(this, &GAViewGame::wrongNotePlayed, this->horizontalNotes, &GAHorizontalNotesBar::wrongNotePlayed);
 
-    //allow to read the note csv file note
+    //create a random partitions with generatePartition() and read them with readPartition()
     this->noteReader = new GANoteReader("..\\GitArc\\res\\partitions\\randomPartition.csv");
     this->noteReader->generatePartition();
     this->noteReader->readPartition();
-    this->connect(this->noteReader, &GANoteReader::nextNotesLine, this, &GAViewGame::drawNoteLine);
 
     gameTimer = new QTimer(this);
     gameTimer->setInterval(1000);
+
     this->connect(gameTimer, &QTimer::timeout, this, &GAViewGame::timerGame);
+    this->connect(this, &GAViewGame::wrongNotePlayed, this->horizontalNotes, &GAHorizontalNotesBar::wrongNotePlayed);
+    this->connect(this->noteReader, &GANoteReader::nextNotesLine, this, &GAViewGame::drawNoteLine);
 
     this->show();
 }
@@ -81,55 +93,73 @@ GAViewGame::~GAViewGame()
     delete this->strips;
 }
 
+/**
+* GAViewGame
+* GAViewGame keyPressEvent method
+*
+* @param QKeyEvent *event : key event of the view
+*/
 void GAViewGame::keyPressEvent(QKeyEvent *event)
 {
     int chordId = this->getChordId(event->key());
+
+    //an id with -1 value mean that any key is pressed
     if(chordId != -1)
        {
             horizontalNotes->highlightFret(chordId);
 
+            //check if the strip contains notes
             if(!strips->at(chordId)->empty())
             {
-                qreal rectTop = horizontalNotes->noteBurner[chordId]->rect().y();
-                qreal noteY = strips->at(chordId)->first()->y();
+                qreal rectTop = horizontalNotes->noteBurner[chordId]->rect().y();//y top coordinate of the horizontal note bar
+                qreal noteY = strips->at(chordId)->first()->y();//y coordinate of the center of the note
 
-                //detect if the note is inside the horizontal note bar
+                //detect if the note is inside the horizontal note bar when key is pressed
                 if(noteY >= rectTop && noteY <= rectTop + HEIGHT_NOTES_STRIP)
                 {
-                    strips->at(chordId)->first()->setColor(QColor(76, 175, 80)); //set the note in green
+                    strips->at(chordId)->first()->setColor(QColor(76, 175, 80)); //set the note in green                   
+                    strips->at(chordId)->removeFirst();//remove the burned note from the list
 
+                    //update informations panel
                     score += 100;
                     this->right->setScore(score);
-                    strips->at(chordId)->removeFirst();
+
                     totalCorrectNotes++;
                     this->right->setTotalCorrectNote(totalCorrectNotes);
                 }
-                else if(noteY + NOTE_RADIUS >= rectTop && noteY - NOTE_RADIUS <= rectTop)//detect if the note is on the horizontal note bar top edge
+                else if(noteY + NOTE_RADIUS >= rectTop && noteY - NOTE_RADIUS <= rectTop)//detect if the note is on the horizontal note bar top edge when key is pressed
                 {
                     strips->at(chordId)->first()->setColor(QColor(230, 126, 34));//set the note in orange
+                    strips->at(chordId)->removeFirst();//remove the burned note from the list
 
+                    //update informations panel
                     result = (100 - qFabs((HEIGHT_NOTES_STRIP / 2) - ((noteY + NOTE_RADIUS)  - rectTop)));
                     score += result;
                     this->right->setScore(score);
 
-                    strips->at(chordId)->removeFirst();
-
                     totalCorrectNotes++;
                     this->right->setTotalCorrectNote(totalCorrectNotes);
                 }
-                else //detect if the note is note inside the horizontal note bar
+                else //detect if the note is not inside the horizontal note bar when key is pressed
                 {
+                    //update score
                     score -= 50;
                     this->right->setScore(score);
 
-                    QSound::play("..\\GitArc\\res\\sound\\error.wav");
+                    QSound::play("..\\GitArc\\res\\sound\\error.wav");//emit error sound
 
-                    emit this->wrongNotePlayed(chordId);
+                    emit this->wrongNotePlayed(chordId);//TODO je ne sais pas a quoi ca sert
                 }
             }
        }
 }
 
+/**
+* GAViewGame
+* GAViewGame keyReleaseEvent method, put the fret of the horizontal notes bar to basic color when the key is released
+*
+* @param QKeyEvent *event : key event of the view
+*/
 void GAViewGame::keyReleaseEvent(QKeyEvent *event)
 {
     int chordId = this->getChordId(event->key());
@@ -169,6 +199,12 @@ void GAViewGame::resumeGame()
     }
 }
 
+/**
+* GAViewGame
+*
+* @param int eventKey : Qt id of the pressed key
+* @return id of the pressed key
+*/
 int GAViewGame::getChordId(int eventKey)
 {
     int keyPressed = -1;
@@ -228,17 +264,18 @@ void GAViewGame::drawNoteLine(QByteArray notesLine)
 void GAViewGame::timerGame()
 {
     bool isEmptyList = true;
-
     for(int i = 0; i < strips->size(); i++)
     {
         for(int j = 0; j < strips->at(i)->size(); j++)
         {
+            //when the note is below the horizontal note bar
             if(strips->at(i)->at(j)->y() >= horizontalNotes->noteBurner[0]->rect().y() + HEIGHT_NOTES_STRIP)
             {
-                strips->at(i)->removeAt(j);
+                strips->at(i)->removeAt(j);//remove the note from the list
 
-                QSound::play("..\\GitArc\\res\\sound\\error.wav");
+                QSound::play("..\\GitArc\\res\\sound\\error.wav");//play error
 
+                //update score
                 this->score -= 20;
                 this->right->setScore(score);
             }
@@ -250,13 +287,15 @@ void GAViewGame::timerGame()
         }
     }
 
+    //correspond to the end of the game
     if(isEmptyList)
     {
         gameTimer->stop();
+
         this->scoreSaver->saveScore(this->score);
 
+        //stop thge music and hide de widget
         this->mainMusic->stop();
-
         this->verticalNotes->hide();
         this->horizontalNotes->hide();
         this->right->hide();

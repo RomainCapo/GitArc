@@ -8,7 +8,6 @@
 #define GAVERTICALNOTES_H
 
 #include <QGraphicsWidget>
-#include <QPen>
 
 class GAVerticalNotes : public QGraphicsWidget
 {

@@ -5,11 +5,7 @@
 */
 #ifndef GAGAME_H
 #define GAGAME_H
-#include "gamainmenu.h"
 #include <QWidget>
-
-class QHBoxLayout;
-class QLabel;
 
 class GAGame : public QWidget
 {

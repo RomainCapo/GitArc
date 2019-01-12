@@ -1,4 +1,5 @@
 #include "gagame.h"
+#include "gamainmenu.h"
 #include "gaviewgame.h"
 #include "gahorizontalnotesbar.h"
 #include "gagamerightpannel.h"

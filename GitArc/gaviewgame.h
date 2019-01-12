@@ -8,11 +8,6 @@
 #define GAVIEWGAME_H
 
 #include <QGraphicsView>
-#include <QMap>
-#include "constants.h"
-#include "gagamerightpannel.h"
-#include "ganotereader.h"
-#include "gascore.h"
 
 class GAVerticalNotes;
 class GAHorizontalNotesBar;
@@ -26,6 +21,9 @@ class QPushButton;
 class QHBoxLayout;
 class QGraphicsTextItem;
 class QMediaPlayer;
+class GAGameRightPannel;
+class GAScore;
+class GANoteReader;
 
 class GAViewGame : public QGraphicsView
 {

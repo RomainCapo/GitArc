@@ -1,4 +1,8 @@
 #include "gagamerightpannel.h"
+#include "gamainmenu.h"
+#include <QLabel>
+#include <QPushButton>
+#include <QVBoxLayout>
 
 GAGameRightPannel::GAGameRightPannel(QWidget *parent) : QWidget(parent)
 {
