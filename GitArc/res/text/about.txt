@@ -1,24 +1,24 @@
 Informations :
-École : He-Arc 
-Cours : Projet P2 
-Professeurs : David Grunenwald, Stéphane Beuret 
-Étudiants : Capocasale Romain, Freiburghaus Jonas and Moulin Vincent
-Annee scolaire : 2018 - 2019
+	École : He-Arc 
+	Cours : Projet P2 
+	Professeurs : David Grunenwald, Stéphane Beuret 
+	Étudiants : Capocasale Romain, Freiburghaus Jonas and Moulin Vincent
+	Annee scolaire : 2018 - 2019
 Ressources : 
-A$ap Ferg - New Level : 
-License : Music Rights Management, Sony ATV Publishing, UMPG Publishing, EMI 
-Lien : https://www.youtube.com/watch?v=Srns7NiO278
-Desiigner - Panda : 
-License : Music Rights Management, CMRRA, Kobalt Music Publishing, AMRA, EMI  
-Lien : https://www.youtube.com/watch?v=4NJlUribp3c 
-50 Cent - P.I.M.P : 
-License : Management, Kobalt Music Publishing, EMI Music Publishing, CMRRA, UBEM,   
-Lien : https://www.youtube.com/watch?v=UDApZhXTpH8 
-Snoop Dogg GIF : 
-Lien : https://i.giphy.com/media/ZW1efT4aKTKg/giphy.webp 
-ding.wav : 
-License : Creative Common 
-Lien : https://freesound.org/s/411749/ ;
-error.wav : 
-License : Creative Common 
-Lien : https://freesound.org/people/Autistic%20Lucario/sounds/142608/
+	A$ap Ferg - New Level : 
+	License : Music Rights Management, Sony ATV Publishing, UMPG Publishing, EMI 
+	Lien : https://www.youtube.com/watch?v=Srns7NiO278
+	Desiigner - Panda : 
+	License : Music Rights Management, CMRRA, Kobalt Music Publishing, AMRA, EMI  
+	Lien : https://www.youtube.com/watch?v=4NJlUribp3c 
+	50 Cent - P.I.M.P : 
+	License : Management, Kobalt Music Publishing, EMI Music Publishing, CMRRA, UBEM,   
+	Lien : https://www.youtube.com/watch?v=UDApZhXTpH8 
+	Snoop Dogg GIF : 
+	Lien : https://i.giphy.com/media/ZW1efT4aKTKg/giphy.webp 
+	ding.wav : 
+	License : Creative Common 
+	Lien : https://freesound.org/s/411749/ ;
+	error.wav : 
+	License : Creative Common 
+	Lien : https://freesound.org/people/Autistic%20Lucario/sounds/142608/
