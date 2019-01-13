@@ -41,6 +41,11 @@ int GAScore::getBestScore()
     return this->bestScore;
 }
 
+GAScore::~GAScore()
+{
+    delete this->file;
+}
+
 void GAScore::readBestScore()
 {
     if (!this->file->open(QIODevice::ReadWrite))
@@ -50,7 +55,6 @@ void GAScore::readBestScore()
 
     while (!this->file->atEnd())
     {
-        // FIXME : Check line is readable
         QByteArray line = this->file->readLine().trimmed();
         this->bestScore = line.toInt();
     }

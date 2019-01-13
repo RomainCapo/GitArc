@@ -26,8 +26,7 @@ void GANoteReader::readPartition()
     this->readCSVNote();
 
     this->noteTimer = new QTimer(this);
-    // FIXME : fréquence d'échantillonage pas en magique
-    noteTimer->setInterval(1000);
+    noteTimer->setInterval(READ_TIME_INTERVAL);
     this->connect(noteTimer, &QTimer::timeout, this, &GANoteReader::getNotes);
     noteTimer->start();
 }
@@ -78,7 +77,6 @@ void GANoteReader::readCSVNote()
     this->partition.clear();
     while (!file.atEnd())
     {
-        // FIXME : Check line is readable
         QByteArray line = file.readLine().trimmed();
         this->partition.append(line.split(';').join());
     }

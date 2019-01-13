@@ -13,6 +13,7 @@ public:
     static GAScore* get();
     void saveScore(int);
     int getBestScore();
+    ~GAScore();
 
 private:
     GAScore();

@@ -60,24 +60,23 @@ private:
     int score;
     int totalCorrectNotes;
     int totalNotes;
+    bool isFirst;
+    bool isGamePaused;
+    qreal result;
     QPushButton *btnQuit;
     QPushButton *btnBackToMenu;
+    QGraphicsTextItem *endGame;
+    QGraphicsTextItem *scoreUser;
+    QGraphicsTextItem *bestScore;
+    QGraphicsTextItem *endText;
     GANoteReader *noteReader;
     QMediaPlayer *mainMusic;
 
-    // TODO Move
-    bool isFirst;
-    bool isGamePaused;
 
     void pauseGame();
     void resumeGame();
     int getChordId(int);
-    qreal result;
-
-    QGraphicsTextItem *endGame;
-    QGraphicsTextItem *scoreUser;
-    QGraphicsTextItem *bestScoreEver;
-    QGraphicsTextItem *endText;
+    void displayEndGameMenu();
 };
 
 #endif // GAVIEWGAME_H

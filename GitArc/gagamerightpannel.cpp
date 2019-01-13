@@ -40,22 +40,22 @@ GAGameRightPannel::GAGameRightPannel(QWidget *parent) : QWidget(parent)
 
 void GAGameRightPannel::setBestScore(int bestScore)
 {
-    this->lbBestScore->setText(QString("Best score : %1").arg(bestScore));
+    this->lbBestScore->setText(QString(tr("Best score : %1")).arg(bestScore));
 }
 
 void GAGameRightPannel::setScore(int score)
 {
-    this->lbScore->setText(QString("Score : %1").arg(score));
+    this->lbScore->setText(QString(tr("Score : %1")).arg(score));
 }
 
 void GAGameRightPannel::setTotalNote(int totalNotes)
 {
-    this->lbTotalNote->setText(QString("Total notes : %1").arg(totalNotes));
+    this->lbTotalNote->setText(QString(tr("Total notes : %1")).arg(totalNotes));
 }
 
 void GAGameRightPannel::setTotalCorrectNote(int totalCorrectNotes)
 {
-    this->lbTotalCorrectNote->setText(QString("Total correct notes : %1").arg(totalCorrectNotes));
+    this->lbTotalCorrectNote->setText(QString(tr("Total correct notes : %1")).arg(totalCorrectNotes));
 }
 
 void GAGameRightPannel::quitGame()

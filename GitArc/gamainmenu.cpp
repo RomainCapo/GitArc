@@ -1,8 +1,5 @@
 #include "gamainmenu.h"
 #include "gagame.h"
-#include "gashowabout.h"
-#include "gashowoptions.h"
-#include "gashowrules.h"
 #include "constants.h"
 #include <QPushButton>
 #include <QLabel>
@@ -17,6 +14,10 @@
 */
 GAMainMenu::GAMainMenu(QWidget *parent): QWidget(parent)
 {
+    this->aboutDialog = nullptr;
+    this->rulesDialog = nullptr;
+    this->optionsDialog = nullptr;
+
     this->setWindowTitle(tr("GitArc Menu"));
     this->showFullScreen();
     this->setStyleSheet("QWidget {background-color:rgb(79, 195, 247);}"
@@ -70,6 +71,14 @@ GAMainMenu::GAMainMenu(QWidget *parent): QWidget(parent)
     this->connect(btnOptions, &QPushButton::clicked, this, &GAMainMenu::showOptions);
     this->connect(btnRules, &QPushButton::clicked, this, &GAMainMenu::showRules);
 }
+
+GAMainMenu::~GAMainMenu()
+{
+    delete this->aboutDialog;
+    delete this->optionsDialog;
+    delete this->rulesDialog;
+}
+
 /**
 * GAMainMenu
 *
@@ -89,8 +98,8 @@ void GAMainMenu::showGame()
 */
 void GAMainMenu::showAbout()
 {
-    GAShowAbout *aboutDialog = new GAShowAbout();
-    aboutDialog->show();
+    this->aboutDialog = new GAShowAbout();
+    this->aboutDialog->show();
 }
 
 /**
@@ -100,8 +109,8 @@ void GAMainMenu::showAbout()
 */
 void GAMainMenu::showOptions()
 {
-    GAShowOptions *optionsDialog = new GAShowOptions();
-    optionsDialog->show();
+    this->optionsDialog = new GAShowOptions();
+    this->optionsDialog->show();
 }
 
 /**
@@ -111,6 +120,6 @@ void GAMainMenu::showOptions()
 */
 void GAMainMenu::showRules()
 {
-    GAShowRules *rulesDialog = new GAShowRules();
-    rulesDialog->show();
+    this->rulesDialog = new GAShowRules();
+    this->rulesDialog->show();
 }

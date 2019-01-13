@@ -26,7 +26,7 @@ GAShowOptions::GAShowOptions(QWidget *parent) : QDialog(parent)
 
     QVBoxLayout *mainLayout = new QVBoxLayout(this);
 
-    QLabel *lblMusic = new QLabel("Change game music : ", this);
+    QLabel *lblMusic = new QLabel(tr("Change game music : "), this);
     lblMusic->setFont(QFont(FONT, FONT_SIZE));
 
     cbxMusic = new QComboBox(this);

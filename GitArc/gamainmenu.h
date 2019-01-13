@@ -7,6 +7,10 @@
 #ifndef GAVIEWMAINMENU_H
 #define GAVIEWMAINMENU_H
 
+#include "gashowabout.h"
+#include "gashowoptions.h"
+#include "gashowrules.h"
+
 #include <QApplication>
 #include <QWidget>
 
@@ -20,12 +24,19 @@ class GAMainMenu : public QWidget
 
 public:
     GAMainMenu(QWidget *parent = 0);
+    ~GAMainMenu();
 
 public slots:
     void showGame();
     void showAbout();
     void showOptions();
     void showRules();
+
+private:
+    GAShowAbout* aboutDialog;
+    GAShowOptions* optionsDialog;
+    GAShowRules* rulesDialog;
+
 };
 
 #endif // GAVIEWMAINMENU_H
