@@ -11,7 +11,7 @@
 */
 GAShowAbout::GAShowAbout(QWidget *parent) : QDialog(parent)
 {
-    this->setFixedSize(1000, 600);
+    this->setFixedSize(1000, 625);
     this->setModal(true);
     this->setStyleSheet("QWidget {background-color:#0277BD; color:white;}");
 
