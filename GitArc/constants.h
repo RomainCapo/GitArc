@@ -19,7 +19,7 @@
 #define PEN_WIDTH 3
 
 // NOTES
-#define NB_NOTES 80
+#define NB_NOTES 40
 #define NUM_NOTES 4
 #define NOTE_RADIUS 60
 #define LEFTMARGIN_PERCENTAGE 0.25

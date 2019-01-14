@@ -423,6 +423,18 @@ void GAViewGame::resumeGame()
     this->right->show();
     this->left->show();
 
-    gameTimer->start();
+    this->mainMusic->play();
+    this->gameTimer->start();
+    this->noteReader->resumeLecture();
+    for(int i = 0; i < this->strips->count(); i++)
+    {
+        QList<GANote*>* noteLine = this->strips->at(i);
+        for(int j = 0; j < noteLine->count(); j++)
+        {
+            GANote* note = noteLine->at(j);
+            note->resumeAnimation();
+        }
+    }
+
     isPaused = false;
 }

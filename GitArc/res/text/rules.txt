@@ -1,5 +1,6 @@
 Rules : 
 	Press the keys A, S, D and F to burn the note.
+	Press the key esc to pause the game.
 	Multiple keys can be pressed simultaneously. 
 	Click on the appopriate key when the note is in the the rectangle at the bottom of the window.
 	You can see your score and some other informations on the right panel";
