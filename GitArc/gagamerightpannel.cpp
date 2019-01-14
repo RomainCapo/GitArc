@@ -20,22 +20,15 @@ GAGameRightPannel::GAGameRightPannel(QWidget *parent) : QWidget(parent)
     this->lbTotalCorrectNote = new QLabel(this);
     this->setTotalCorrectNote(0);
 
-    QPushButton* btnQuit = new QPushButton("Quit", this);
-    btnQuit->setFont(QFont(FONT, FONT_SIZE));
-    btnQuit->setStyleSheet("QPushButton { background-color: transparent; border-radius: 15; border: 2 solid rgb(2, 119, 189); color: rgb(250, 250, 250); font-size: 25px; font-weight: bold; padding: 10px 0 10px 0;}"
-                           "QPushButton:hover { background-color: rgb(129, 212, 250);}");
-
     QVBoxLayout *vLayout = new QVBoxLayout(this);
     vLayout->addWidget(lbBestScore);
     vLayout->addWidget(lbScore);
     vLayout->addWidget(lbTotalNote);
     vLayout->addWidget(lbTotalCorrectNote);
-    vLayout->addWidget(btnQuit);
     vLayout->setAlignment(Qt::AlignVCenter | Qt::AlignHCenter);
     vLayout->setSpacing(50);
     this->setLayout(vLayout);
 
-    this->connect(btnQuit, &QPushButton::clicked, this, &GAGameRightPannel::quitGame);
 }
 
 void GAGameRightPannel::setBestScore(int bestScore)
@@ -56,11 +49,4 @@ void GAGameRightPannel::setTotalNote(int totalNotes)
 void GAGameRightPannel::setTotalCorrectNote(int totalCorrectNotes)
 {
     this->lbTotalCorrectNote->setText(QString(tr("Total correct notes : %1")).arg(totalCorrectNotes));
-}
-
-void GAGameRightPannel::quitGame()
-{
-    GAMainMenu *gaMainMenu = new GAMainMenu();
-    Q_UNUSED(gaMainMenu);
-    emit quitGameSig();
 }

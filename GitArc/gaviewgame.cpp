@@ -200,6 +200,7 @@ void GAViewGame::pauseGame()
         {
             GANote* note = noteLine->at(j);
             note->pauseAnimation();
+            note->hide();
         }
     }
 
@@ -275,6 +276,7 @@ int GAViewGame::getChordId(int eventKey)
         default:
             break;
     }
+    keyPressed = this->isPaused ? -1 : keyPressed;
     return keyPressed;
 }
 
@@ -305,6 +307,7 @@ void GAViewGame::drawNoteLine(QByteArray notesLine)
 
 void GAViewGame::displayEndGameMenu()
 {
+    this->isPaused = true;
     this->verticalNotes->hide();
     this->horizontalNotes->hide();
     this->right->hide();
@@ -433,6 +436,7 @@ void GAViewGame::resumeGame()
         {
             GANote* note = noteLine->at(j);
             note->resumeAnimation();
+            note->show();
         }
     }
 

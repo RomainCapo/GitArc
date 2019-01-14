@@ -18,12 +18,6 @@ public:
     void setTotalNote(int);
     void setTotalCorrectNote(int);
 
-public slots:
-    void quitGame();
-
-signals:
-    void quitGameSig();
-
 private:
     QLabel *lbBestScore;
     QLabel *lbScore;
