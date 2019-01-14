@@ -33,10 +33,10 @@ GAViewGame::GAViewGame(QSize layoutSize, QWidget * _left, QWidget * _right, QMed
     this->scoreSaver = GAScore::get();
     this->mainMusic = _mainMusic;
     this->isFirst = true;
-    this->isGamePaused = false;
     this->totalCorrectNotes = 0;
     this->totalNotes = 0;
     this->score = 0;
+    this->isPaused = false;
 
     //get right and left widget
     this->left = (QLabel*)_left;
@@ -67,7 +67,7 @@ GAViewGame::GAViewGame(QSize layoutSize, QWidget * _left, QWidget * _right, QMed
     this->scene->addItem(this->horizontalNotes);
 
     //create a random partitions with generatePartition() and read them with readPartition()
-    this->noteReader = new GANoteReader("..\\GitArc\\res\\partitions\\randomPartition.csv");
+    this->noteReader = new GANoteReader("..\\GitArc\\res\\partitions\\fes.csv");
     this->noteReader->generatePartition();
     this->noteReader->readPartition();
 
@@ -77,6 +77,8 @@ GAViewGame::GAViewGame(QSize layoutSize, QWidget * _left, QWidget * _right, QMed
     this->connect(gameTimer, &QTimer::timeout, this, &GAViewGame::timerGame);
     this->connect(this, &GAViewGame::wrongNotePlayed, this->horizontalNotes, &GAHorizontalNotesBar::wrongNotePlayed);
     this->connect(this->noteReader, &GANoteReader::nextNotesLine, this, &GAViewGame::drawNoteLine);
+
+    this->connect(this, &GAViewGame::pauseGameSig, this, &GAViewGame::pauseGame);
 
     this->show();
 }
@@ -114,6 +116,12 @@ GAViewGame::~GAViewGame()
 */
 void GAViewGame::keyPressEvent(QKeyEvent *event)
 {
+    if(event->key() == Qt::Key_Escape && !isPaused)
+    {
+        emit pauseGameSig();
+        isPaused = true;
+    }
+
     int chordId = this->getChordId(event->key());
 
     //an id with -1 value mean that any key is pressed
@@ -184,7 +192,6 @@ void GAViewGame::pauseGame()
 {
     this->mainMusic->pause();
     this->gameTimer->stop();
-    this->isGamePaused = true;
     this->noteReader->pauseLecture();
     for(int i = 0; i < this->strips->count(); i++)
     {
@@ -195,23 +202,51 @@ void GAViewGame::pauseGame()
             note->pauseAnimation();
         }
     }
-}
 
-void GAViewGame::resumeGame()
-{
-    this->mainMusic->play();
-    this->gameTimer->start();
-    this->isGamePaused = false;
-    this->noteReader->resumeLecture();
-    for(int i = 0; i < this->strips->count(); i++)
-    {
-        QList<GANote*>* noteLine = this->strips->at(i);
-        for(int j = 0; j < noteLine->count(); j++)
-        {
-            GANote* note = noteLine->at(j);
-            note->resumeAnimation();
-        }
-    }
+    this->verticalNotes->hide();
+    this->horizontalNotes->hide();
+    this->right->hide();
+    this->left->hide();
+    this->setStyleSheet("QGraphicsView { background-color : rgb(79, 195, 247); }");
+
+    pauseGameText = new QGraphicsTextItem("Paused !");
+    currentScore = new QGraphicsTextItem(QString("Your current score : %1").arg(this->score));
+
+    pauseGameText->setDefaultTextColor(QColor(250, 250, 250));
+    currentScore->setDefaultTextColor(QColor(250, 250, 250));
+
+    pauseGameText->setY(300);
+    currentScore->setY(450);
+
+    pauseGameText->setFont(QFont("Times", 60, QFont::Bold));
+    currentScore->setFont(QFont("Times", 40, QFont::Bold));
+
+    btnBackToGame = new QPushButton("Resume game");
+    btnBackToGame->move(QPoint(0,700));
+    this->connect(btnBackToGame, &QPushButton::clicked, this, &GAViewGame::resumeGame);
+
+    btnBackToGame->resize(QSize(250,60));
+    btnBackToGame->setStyleSheet("QPushButton { background-color: transparent; border-radius: 15; border: 2 solid rgb(2, 119, 189); color: rgb(250, 250, 250); font-size: 25px; font-weight: bold;}"
+                           "QPushButton:hover { background-color: rgb(129, 212, 250);}");
+
+    btnBackMenuInPause = new QPushButton("Menu");
+    btnBackMenuInPause->move(QPoint(300,700));
+    this->connect(btnBackMenuInPause, &QPushButton::clicked, this, &GAViewGame::toMenu);
+
+    btnBackMenuInPause->resize(QSize(250,60));
+    btnBackMenuInPause->setStyleSheet("QPushButton { background-color: transparent; border-radius: 15; border: 2 solid rgb(2, 119, 189); color: rgb(250, 250, 250); font-size: 25px; font-weight: bold;}"
+                           "QPushButton:hover { background-color: rgb(129, 212, 250);}");
+
+    endTextPause = new QGraphicsTextItem(tr("Game designed by : Capocasale Romain, Freiburghaus Jonas and Moulin Vincent - Projet P2 GitArc"));
+    endTextPause->setY(800);
+    endTextPause->setFont(QFont("Times", 15, QFont::Normal));
+    endTextPause->setDefaultTextColor(QColor(250, 250, 250));
+
+    this->scene->addItem(pauseGameText);
+    this->scene->addItem(currentScore);
+    this->scene->addWidget(btnBackToGame);
+    this->scene->addWidget(btnBackMenuInPause);
+    this->scene->addItem(endTextPause);
 }
 
 /**
@@ -237,17 +272,9 @@ int GAViewGame::getChordId(int eventKey)
         case Qt::Key_F:
             keyPressed = 3;
             break;
-        case Qt::Key_P:
-            this->pauseGame();
-            break;
-        case Qt::Key_Escape:
-            this->resumeGame();
-            break;
         default:
             break;
     }
-    // If the game is paused ignore pressed game keys
-    keyPressed = this->isGamePaused ? -1 : keyPressed;
     return keyPressed;
 }
 
@@ -382,3 +409,20 @@ void GAViewGame::toMenu()
     emit backToMenuSig();
 }
 
+void GAViewGame::resumeGame()
+{
+    this->scene->removeItem(pauseGameText);
+    this->scene->removeItem(currentScore);
+    this->scene->removeItem(endTextPause);
+    this->btnBackMenuInPause->hide();
+    this->btnBackToGame->hide();
+    this->setStyleSheet("QGraphicsView { background-color : white; }");
+
+    this->verticalNotes->show();
+    this->horizontalNotes->show();
+    this->right->show();
+    this->left->show();
+
+    gameTimer->start();
+    isPaused = false;
+}

@@ -38,11 +38,14 @@ public slots:
     void timerGame();
     void closeGame();
     void toMenu();
+    void pauseGame();
+    void resumeGame();
 
 signals:
     void wrongNotePlayed(int);
     void quitGameSig();
     void backToMenuSig();
+    void pauseGameSig();
 
 protected:
     void keyPressEvent(QKeyEvent *event);
@@ -61,20 +64,23 @@ private:
     int totalCorrectNotes;
     int totalNotes;
     bool isFirst;
-    bool isGamePaused;
     qreal result;
     QPushButton *btnQuit;
     QPushButton *btnBackToMenu;
+    QPushButton *btnBackToGame;
+    QPushButton *btnBackMenuInPause;
     QGraphicsTextItem *endGame;
     QGraphicsTextItem *scoreUser;
     QGraphicsTextItem *bestScore;
     QGraphicsTextItem *endText;
+    QGraphicsTextItem *pauseGameText;
+    QGraphicsTextItem *currentScore;
+    QGraphicsTextItem *endTextPause;
     GANoteReader *noteReader;
     QMediaPlayer *mainMusic;
 
+    bool isPaused;
 
-    void pauseGame();
-    void resumeGame();
     int getChordId(int);
     void displayEndGameMenu();
 };
