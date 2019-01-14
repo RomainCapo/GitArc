@@ -56,7 +56,7 @@ GAGame::GAGame(QWidget *parent) : QWidget(parent)
 
     this->show();
 
-    QTimer::singleShot(1000, this, &GAGame::setMyFocus);
+    QTimer::singleShot(10, this, &GAGame::setMyFocus);
 }
 
 /**
@@ -73,5 +73,5 @@ void GAGame::quitGame()
 void GAGame::setMyFocus()
 {
     this->activateWindow();
-    this->gameView->setFocus(Qt::OtherFocusReason);
+    this->gameView->setFocus();
 }
