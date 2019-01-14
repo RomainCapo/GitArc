@@ -19,7 +19,7 @@
 #define PEN_WIDTH 3
 
 // NOTES
-#define NB_NOTES 40
+#define NB_NOTES 80
 #define NUM_NOTES 4
 #define NOTE_RADIUS 60
 #define LEFTMARGIN_PERCENTAGE 0.25
@@ -31,8 +31,5 @@
 
 // HORIZONTAL NOTES
 #define HEIGHT_NOTES_STRIP 100.0
-
-// SCORE FILE
-#define BEST_SCORE_PATH "..\\GitArc\\res\\score"
 
 #endif // CONSTANTS_H

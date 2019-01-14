@@ -6,7 +6,7 @@ GAScore::GAScore()
 {
     this->bestScore = 0;
 
-    QString path = BEST_SCORE_PATH;
+    QString path = "..\\GitArc\\res\\score";
     QDir dir;
 
     if (!dir.exists(path))

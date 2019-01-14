@@ -1,7 +1,6 @@
 #ifndef GASCORE_H
 #define GASCORE_H
 
-#include "constants.h"
 #include <QFile>
 #include <QString>
 #include <QDebug>

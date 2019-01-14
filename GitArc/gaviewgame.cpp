@@ -67,7 +67,7 @@ GAViewGame::GAViewGame(QSize layoutSize, QWidget * _left, QWidget * _right, QMed
     this->scene->addItem(this->horizontalNotes);
 
     //create a random partitions with generatePartition() and read them with readPartition()
-    this->noteReader = new GANoteReader("..\\GitArc\\res\\partitions\\fes.csv");
+    this->noteReader = new GANoteReader("..\\GitArc\\res\\partitions\\randomPartition.csv");
     this->noteReader->generatePartition();
     this->noteReader->readPartition();
 
