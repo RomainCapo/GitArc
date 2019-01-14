@@ -183,6 +183,7 @@ void GAViewGame::keyReleaseEvent(QKeyEvent *event)
 void GAViewGame::pauseGame()
 {
     this->mainMusic->pause();
+    this->gameTimer->stop();
     this->isGamePaused = true;
     this->noteReader->pauseLecture();
     for(int i = 0; i < this->strips->count(); i++)
@@ -199,6 +200,7 @@ void GAViewGame::pauseGame()
 void GAViewGame::resumeGame()
 {
     this->mainMusic->play();
+    this->gameTimer->start();
     this->isGamePaused = false;
     this->noteReader->resumeLecture();
     for(int i = 0; i < this->strips->count(); i++)
@@ -235,10 +237,10 @@ int GAViewGame::getChordId(int eventKey)
         case Qt::Key_F:
             keyPressed = 3;
             break;
-        case Qt::Key_J:
+        case Qt::Key_P:
             this->pauseGame();
             break;
-        case Qt::Key_K:
+        case Qt::Key_Escape:
             this->resumeGame();
             break;
         default:

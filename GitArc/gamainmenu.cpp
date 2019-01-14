@@ -87,7 +87,7 @@ GAMainMenu::~GAMainMenu()
 void GAMainMenu::showGame()
 {
     this->close();
-    GAGame *game = new GAGame();
+    GAGame *game = new GAGame();  
     Q_UNUSED(game);//use the macro to disable warning
 }
 

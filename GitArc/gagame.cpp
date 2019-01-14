@@ -56,6 +56,8 @@ GAGame::GAGame(QWidget *parent) : QWidget(parent)
     this->connect(gameView, &GAViewGame::backToMenuSig, this, &GAGame::quitGame);
 
     this->show();
+
+    QTimer::singleShot(1000, gameView, SLOT(setFocus()));
 }
 
 /**
