@@ -44,7 +44,6 @@ HEADERS += \
     gaviewgame.h \
     gaverticalnotes.h \
     gahorizontalnotesbar.h \
-    constants.h \
     gagame.h \
     ganotereader.h \
     ganote.h \
@@ -54,7 +53,8 @@ HEADERS += \
     gascore.h \
     gashowoptions.h \
     gasettings.h \
-    gashowrules.h
+    gashowrules.h \
+    gaconstants.h
 
 RESOURCES += \
     rsc.qrc

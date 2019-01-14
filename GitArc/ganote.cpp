@@ -1,5 +1,5 @@
 #include "ganote.h"
-#include "constants.h"
+#include "gaconstants.h"
 #include "gasettings.h"
 #include <QPropertyAnimation>
 #include <QDebug>

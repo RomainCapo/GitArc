@@ -1,5 +1,5 @@
 #include "gashowabout.h"
-#include "constants.h"
+#include "gaconstants.h"
 #include <QLabel>
 #include <QFile>
 

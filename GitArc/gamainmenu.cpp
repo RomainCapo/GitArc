@@ -1,6 +1,6 @@
 #include "gamainmenu.h"
 #include "gagame.h"
-#include "constants.h"
+#include "gaconstants.h"
 #include <QPushButton>
 #include <QLabel>
 #include <QVBoxLayout>

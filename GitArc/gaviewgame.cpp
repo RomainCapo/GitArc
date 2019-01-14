@@ -2,7 +2,7 @@
 #include "gaverticalnotes.h"
 #include "gahorizontalnotesbar.h"
 #include "ganote.h"
-#include "constants.h"
+#include "gaconstants.h"
 #include "gagamerightpannel.h"
 #include "ganotereader.h"
 #include "gascore.h"

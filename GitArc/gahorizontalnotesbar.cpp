@@ -1,5 +1,5 @@
 #include "gahorizontalnotesbar.h"
-#include "constants.h"
+#include "gaconstants.h"
 #include "ganote.h"
 #include <QDebug>
 #include <QSound>
