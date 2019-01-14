@@ -210,8 +210,8 @@ void GAViewGame::pauseGame()
     this->left->hide();
     this->setStyleSheet("QGraphicsView { background-color : rgb(79, 195, 247); }");
 
-    pauseGameText = new QGraphicsTextItem("Paused !");
-    currentScore = new QGraphicsTextItem(QString("Your current score : %1").arg(this->score));
+    pauseGameText = new QGraphicsTextItem(tr("Paused !"));
+    currentScore = new QGraphicsTextItem(QString(tr("Your current score : %1")).arg(this->score));
 
     pauseGameText->setDefaultTextColor(QColor(250, 250, 250));
     currentScore->setDefaultTextColor(QColor(250, 250, 250));
@@ -222,7 +222,7 @@ void GAViewGame::pauseGame()
     pauseGameText->setFont(QFont("Times", 60, QFont::Bold));
     currentScore->setFont(QFont("Times", 40, QFont::Bold));
 
-    btnBackToGame = new QPushButton("Resume game");
+    btnBackToGame = new QPushButton(tr("&Resume game"));
     btnBackToGame->move(QPoint(0,700));
     this->connect(btnBackToGame, &QPushButton::clicked, this, &GAViewGame::resumeGame);
 
@@ -230,7 +230,7 @@ void GAViewGame::pauseGame()
     btnBackToGame->setStyleSheet("QPushButton { background-color: transparent; border-radius: 15; border: 2 solid rgb(2, 119, 189); color: rgb(250, 250, 250); font-size: 25px; font-weight: bold;}"
                            "QPushButton:hover { background-color: rgb(129, 212, 250);}");
 
-    btnBackMenuInPause = new QPushButton("Menu");
+    btnBackMenuInPause = new QPushButton(tr("&Menu"));
     btnBackMenuInPause->move(QPoint(300,700));
     this->connect(btnBackMenuInPause, &QPushButton::clicked, this, &GAViewGame::toMenu);
 
@@ -332,7 +332,7 @@ void GAViewGame::displayEndGameMenu()
     scoreUser->setFont(QFont("Times", 40, QFont::Bold));
     bestScore->setFont(QFont("Times", 30, QFont::Bold));
 
-    btnQuit = new QPushButton(tr("Quit game"));
+    btnQuit = new QPushButton(tr("&Quit game"));
     btnQuit->move(QPoint(0,700));
     this->connect(btnQuit, &QPushButton::clicked, this, &GAViewGame::closeGame);
 
@@ -340,7 +340,7 @@ void GAViewGame::displayEndGameMenu()
     btnQuit->setStyleSheet("QPushButton { background-color: transparent; border-radius: 15; border: 2 solid rgb(2, 119, 189); color: rgb(250, 250, 250); font-size: 25px; font-weight: bold;}"
                            "QPushButton:hover { background-color: rgb(129, 212, 250);}");
 
-    btnBackToMenu = new QPushButton(tr("Menu"));
+    btnBackToMenu = new QPushButton(tr("&Menu"));
     btnBackToMenu->move(QPoint(300,700));
     this->connect(btnBackToMenu, &QPushButton::clicked, this, &GAViewGame::toMenu);
 
