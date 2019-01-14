@@ -1,5 +1,5 @@
 #include "gashowoptions.h"
-#include "constants.h"
+#include "gaconstants.h"
 #include "gasettings.h"
 #include <QLabel>
 #include <QVBoxLayout>

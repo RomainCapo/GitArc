@@ -1,5 +1,5 @@
 #include "ganotereader.h"
-#include "constants.h"
+#include "gaconstants.h"
 #include "gasettings.h"
 #include <QFile>
 #include <QList>

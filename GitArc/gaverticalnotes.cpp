@@ -1,5 +1,5 @@
 #include "gaverticalnotes.h"
-#include "constants.h"
+#include "gaconstants.h"
 #include <QPen>
 
 /**
