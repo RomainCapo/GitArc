@@ -133,10 +133,10 @@ void GAViewGame::keyPressEvent(QKeyEvent *event)
             if(!strips->at(chordId)->empty())
             {
                 qreal rectTop = horizontalNotes->noteBurner[chordId]->rect().y();//y top coordinate of the horizontal note bar
-                qreal noteY = strips->at(chordId)->first()->y();//y coordinate of the center of the note
+                qreal noteY = strips->at(chordId)->first()->y();//y coordinate of the top of the note
 
                 //detect if the note is inside the horizontal note bar when key is pressed
-                if(noteY >= rectTop && noteY <= rectTop + HEIGHT_NOTES_STRIP)
+                if(noteY >= rectTop && noteY + NOTE_RADIUS <= rectTop + HEIGHT_NOTES_STRIP)
                 {
                     strips->at(chordId)->first()->setColor(QColor(76, 175, 80)); //set the note in green                   
                     strips->at(chordId)->removeFirst();//remove the burned note from the list
@@ -148,7 +148,7 @@ void GAViewGame::keyPressEvent(QKeyEvent *event)
                     totalCorrectNotes++;
                     this->right->setTotalCorrectNote(totalCorrectNotes);
                 }
-                else if(noteY + NOTE_RADIUS >= rectTop && noteY - NOTE_RADIUS <= rectTop)//detect if the note is on the horizontal note bar top edge when key is pressed
+                else if(noteY + NOTE_RADIUS >= rectTop && noteY <= rectTop)//detect if the note is on the horizontal note bar top edge when key is pressed
                 {
                     strips->at(chordId)->first()->setColor(QColor(230, 126, 34));//set the note in orange
                     strips->at(chordId)->removeFirst();//remove the burned note from the list

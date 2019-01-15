@@ -27,7 +27,7 @@ void GANoteReader::readPartition()
     this->readCSVNote();
 
     this->noteTimer = new QTimer(this);
-    noteTimer->setInterval(READ_TIME_INTERVAL - (GASettings::difficulty * 500));
+    noteTimer->setInterval(READ_TIME_INTERVAL - (GASettings::difficulty * 500));//set note speed compared to difficulty
     qDebug() << READ_TIME_INTERVAL - (GASettings::difficulty * 500);
     this->connect(noteTimer, &QTimer::timeout, this, &GANoteReader::getNotes);
     noteTimer->start();

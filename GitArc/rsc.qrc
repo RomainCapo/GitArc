@@ -1,8 +1,6 @@
 <RCC>
     <qresource prefix="/">
-        <file>res/img/guitare.png</file>
         <file>res/img/GitArc.PNG</file>
-        <file>res/partitions/fes.csv</file>
         <file>res/text/about.txt</file>
         <file>res/text/rules.txt</file>
     </qresource>
