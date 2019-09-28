@@ -1,9 +1,7 @@
 # GitArc :guitar:
 
-Un projet qui va énerver vos voisins ! :boom:
+## Team
 
-Une variante de Guitar Hero avec vos musiques favorites.
-
-
-# Auteurs
-Romain Capocasalee, Vincent Moulin, Jonas Freiburghaus
+* Jonas Freiburghaus [@JonasFreibs23](https://github.com/JonasFreibs23)
+* Romain Capocasale [@RomainCapo](https://github.com/RomainCapo)
+* Vincent Moulin [@dicksor](https://github.com/dicksor)
